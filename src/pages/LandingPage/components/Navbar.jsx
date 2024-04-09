@@ -16,16 +16,14 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { pages } from '../../../data/pages.constants';
 import { navItems } from '../../../data/navItems.constants';
+import SignInButton from '../../SignIn/SignInButton';
+import SignUpButton from '../../SignUp/SignUpButton';
 
 const drawerWidth = 240;
 
 function NavBar(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -89,37 +87,14 @@ function NavBar(props) {
           >
             <Button>Use Class</Button>
             {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ color: 'black', display: 'block' }}
-              >
+              <Button key={page} sx={{ color: 'black', display: 'block' }}>
                 {page}
               </Button>
             ))}
           </Box>
           <Box sx={{ display: { xs: 'none', sm: 'block', flexGrowGrow: 0 } }}>
-            {navItems.map((item) =>
-              item === 'Sign Up' ? (
-                <Button
-                  key={item}
-                  variant='contained'
-                  sx={{
-                    width: '100px',
-                    height: '50px',
-                    marginLeft: '18px',
-                    borderRadius: 0,
-                    background: '#000',
-                  }}
-                >
-                  {item}
-                </Button>
-              ) : (
-                <Button key={item} sx={{ color: '#000' }}>
-                  {item}
-                </Button>
-              )
-            )}
+            <SignInButton />
+            <SignUpButton />
           </Box>
         </Toolbar>
       </AppBar>

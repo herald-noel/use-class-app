@@ -1,0 +1,11 @@
+import { combineReducers } from "@reduxjs/toolkit"
+import signInFormDialogSlice from "../pages/SignIn/signInFormDialogSlice"
+import signUpFromDialogSlice from "../pages/SignUp/signUpFromDialogSlice"
+import userSlice from "./user/userSlice"
+
+
+export const rootReducer = combineReducers({
+  signInFormDialog: signInFormDialogSlice,
+  signUpFormDialog: signUpFromDialogSlice,
+  user: userSlice
+})

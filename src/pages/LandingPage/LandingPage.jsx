@@ -2,8 +2,11 @@ import { Box, Typography, Button } from '@mui/material';
 import Mainlayout from '../../layouts/Mainlayout';
 import heroImg from '../../assets/hero-img.svg';
 import { useMediaQuery } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { openSignUp } from '../SignUp/signUpFromDialogSlice';
 
 const LandingPage = () => {
+  const dispatch = useDispatch();
   return (
     <Mainlayout>
       <Box
@@ -44,7 +47,9 @@ const LandingPage = () => {
             Simplify your design process and bridge the gap between user needs
             and software architecture.
           </Typography>
-          <Button variant='contained'>Get Started</Button>
+          <Button variant='contained' onClick={() => dispatch(openSignUp())}>
+            Get Started
+          </Button>
         </Box>
         <img
           src={heroImg}
