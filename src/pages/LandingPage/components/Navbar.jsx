@@ -14,7 +14,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import { pages, navItems } from '../../../data/pages.constants';
+import { pages } from '../../../data/pages.constants';
+import { navItems } from '../../../data/navItems.constants';
 
 const drawerWidth = 240;
 
