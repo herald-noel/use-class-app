@@ -49,7 +49,7 @@ const LandingPage = () => {
         <img
           src={heroImg}
           style={{
-            width: '500px',
+            width: '350px',
             order: useMediaQuery((theme) => theme.breakpoints.down('md'))
               ? 1
               : 2,
