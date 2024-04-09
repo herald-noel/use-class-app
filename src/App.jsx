@@ -1,8 +1,9 @@
-import { useState } from 'react';
-import './App.css';
-import parseUseCaseDiagram from './utils/parseUseCase';
+import { useState } from "react";
+import "./App.css";
+import parseUseCaseDiagram from "./utils/parseUseCase";
 
 function App() {
+  const [title, setTitle] = useState("");
   const [actors, setActors] = useState([]);
   const [useCases, setUseCases] = useState([]);
   const [relationships, setRelationships] = useState([]);
@@ -11,7 +12,7 @@ function App() {
 left to right direction
 actor Customer as C
 actor Administrator as A
-rectangle "Online Bookstore" {
+rectangle "Inventory Management System" {
   usecase "Place Order" as UC1
   usecase "Update Inventory" as UC2
   usecase "Manage Accounts" as UC3
@@ -26,24 +27,27 @@ rectangle "Online Bookstore" {
     event.preventDefault();
     const res = parseUseCaseDiagram(value);
     console.log(res);
+    setTitle(res.title);
     setActors(res.actors);
     setUseCases(res.useCases);
     setRelationships(res.relationships);
   };
   return (
     <>
-      <main style={{ display: 'flex' }}>
+      <main style={{ display: "flex" }}>
         <form onSubmit={handleSubmit}>
           <textarea
-            id='w3review'
-            name='w3review'
-            rows='50'
-            cols='50'
+            id="w3review"
+            name="w3review"
+            rows="50"
+            cols="50"
             value={value}
           />
-          <button type='submit'>Submit</button>
+          <button type="submit">Submit</button>
         </form>
         <div>
+          <h1>Title</h1>
+          <p>{title}</p>
           <h1>Actor</h1>
           {actors.map((actor, index) => (
             <div key={index}>
@@ -66,7 +70,7 @@ rectangle "Online Bookstore" {
           {relationships.map((relationship, index) => (
             <div key={index}>
               <p>
-                {relationship.source} --{'>'} {relationship.target}
+                {relationship.source} --{">"} {relationship.target}
               </p>
             </div>
           ))}
