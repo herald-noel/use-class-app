@@ -11,6 +11,7 @@ import {
 import { openSignUp } from '../signUpFromDialogSlice';
 import useSignUp from '../hooks/useSignUp';
 import { useDispatch, useSelector } from 'react-redux';
+import { BRAND_NAME } from '../../../data/config.constants';
 
 const SignUpFormDialog = () => {
   const dispatch = useDispatch();
@@ -36,7 +37,7 @@ const SignUpFormDialog = () => {
 
   return (
     <Dialog open={isOpen} onClose={() => dispatch(openSignUp())}>
-      <DialogTitle textAlign={'center'}>Join Insights.</DialogTitle>
+      <DialogTitle textAlign={'center'}>Join {BRAND_NAME}.</DialogTitle>
       <form onSubmit={handleSubmit}>
         <DialogContent>
           <Box sx={{ display: 'flex', gap: '10px' }}>
