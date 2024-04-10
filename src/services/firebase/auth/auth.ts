@@ -14,6 +14,7 @@ export interface SignUpData {
 export const doCreateUserWithEmailAndPassword = async (
   signUpData: SignUpData
 ) => {
+  console.log(signUpData.email, signUpData.password);
   try {
     const userCredential = await createUserWithEmailAndPassword(
       auth,
@@ -24,7 +25,7 @@ export const doCreateUserWithEmailAndPassword = async (
     await addUserInfo(signUpData, userId);
     return userCredential;
   } catch (error) {
-    return error;
+    throw new Error(error.code);
   }
 };
 

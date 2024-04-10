@@ -71,17 +71,47 @@ const useSignUp = () => {
     };
     try {
       const userCredential = await doCreateUserWithEmailAndPassword(signUpData);
+
       dispatch(loginSuccess(userCredential.user));
 
       setEmailError(false);
       setEmailErrorMsg('');
+      setPasswordError(false);
+      setPasswordErrorMsg('');
+
       dispatch(openSignUp());
+
       navigate('/home');
     } catch (error) {
-      setEmailError(true);
-      setEmailErrorMsg('Email already exist.');
+      handleError(error);
     }
   };
+
+  function handleError(error) {
+    const errorCode = error.message;
+    let errorMessage = 'An error occurred during signup.';
+
+    switch (errorCode) {
+      case 'auth/weak-password':
+        errorMessage =
+          'Your password is too weak. Please choose a stronger password.';
+        setPasswordError(true);
+        setPasswordErrorMsg(errorMessage);
+        break;
+      case 'auth/email-already-in-use':
+        errorMessage = 'This email address is already in use.';
+        setEmailError(true);
+        setEmailErrorMsg(errorMessage);
+        break;
+      case 'auth/invalid-email':
+        errorMessage = 'Please enter a valid email address.';
+        setEmailError(true);
+        setEmailErrorMsg(errorMessage);
+        break;
+      default:
+        alert('Unexpected error:');
+    }
+  }
 
   return {
     firstName,
