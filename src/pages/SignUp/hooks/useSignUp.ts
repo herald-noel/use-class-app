@@ -1,13 +1,13 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import { openSignUp } from '../signUpFromDialogSlice'
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { openSignUp } from '../signUpFromDialogSlice';
 import { openSignIn } from '../../SignIn/signInFormDialogSlice';
-import {doCreateUserWithEmailAndPassword} from '../../../services/firebase/auth'
+import { doCreateUserWithEmailAndPassword } from '../../../services/firebase/auth/auth';
 import { loginSuccess } from '../../../reducer/user/userSlice';
 
 const useSignUp = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -42,9 +42,9 @@ const useSignUp = () => {
   };
 
   const handleLinkSignIn = () => {
-    dispatch(openSignUp())
-    dispatch(openSignIn())
-  }
+    dispatch(openSignUp());
+    dispatch(openSignIn());
+  };
 
   const validatePassword = () => {
     if (password !== confirmPassword) {
@@ -70,8 +70,8 @@ const useSignUp = () => {
       password: password,
     };
     try {
-      const userCredential = await doCreateUserWithEmailAndPassword(email, password)
-      dispatch(loginSuccess(userCredential.user)) 
+      const userCredential = await doCreateUserWithEmailAndPassword(signUpData);
+      dispatch(loginSuccess(userCredential.user));
 
       setEmailError(false);
       setEmailErrorMsg('');

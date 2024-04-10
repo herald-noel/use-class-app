@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { openSignIn } from '../signInFormDialogSlice';
-import { doSignInWithEmailAndPassword } from '../../../services/firebase/auth';
+import { doSignInWithEmailAndPassword } from '../../../services/firebase/auth/auth';
 import { loginSuccess } from '../../../reducer/user/userSlice';
 
 const useSignIn = () => {
