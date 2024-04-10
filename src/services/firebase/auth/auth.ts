@@ -28,11 +28,20 @@ export const doCreateUserWithEmailAndPassword = async (
   }
 };
 
-export const doSignInWithEmailAndPassword = (
+export const doSignInWithEmailAndPassword = async (
   email: string,
   password: string
 ) => {
-  return signInWithEmailAndPassword(auth, email, password);
+  try {
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    return userCredential;
+  } catch (error) {
+    throw new Error(error.code);
+  }
 };
 
 export const doSignOut = () => {

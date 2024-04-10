@@ -16,7 +16,11 @@ const SignInFormDialog = () => {
   const dispatch = useDispatch();
   const {
     email,
+    emailError,
+    emailErrorMsg,
     password,
+    passwordError,
+    passwordErrorMsg,
     handleEmailChange,
     handlePasswordChange,
     handleSubmit,
@@ -32,7 +36,9 @@ const SignInFormDialog = () => {
           label='Email Address'
           type='email'
           fullWidth
+          error={emailError}
           value={email}
+          helperText={emailErrorMsg}
           onChange={handleEmailChange}
         />
         <TextField
@@ -40,7 +46,9 @@ const SignInFormDialog = () => {
           label='Password'
           type='password'
           fullWidth
+          error={passwordError}
           value={password}
+          helperText={passwordErrorMsg}
           onChange={handlePasswordChange}
           sx={{ marginBottom: '10px' }}
         />
