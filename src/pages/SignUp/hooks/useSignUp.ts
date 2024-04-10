@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { openSignUp } from '../signUpFromDialogSlice'
 import { openSignIn } from '../../SignIn/signInFormDialogSlice';
+import {doCreateUserWithEmailAndPassword} from '../../../services/firebase/auth'
+import { loginSuccess } from '../../../reducer/user/userSlice';
 
 const useSignUp = () => {
   const dispatch = useDispatch()
@@ -58,7 +60,7 @@ const useSignUp = () => {
     return false;
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (validatePassword()) return;
     const signUpData = {
@@ -68,7 +70,9 @@ const useSignUp = () => {
       password: password,
     };
     try {
-      // await register(signUpData);
+      const userCredential = await doCreateUserWithEmailAndPassword(email, password)
+      dispatch(loginSuccess(userCredential.user)) 
+
       setEmailError(false);
       setEmailErrorMsg('');
       dispatch(openSignUp());
