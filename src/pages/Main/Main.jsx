@@ -6,7 +6,8 @@ const Main = () => {
   const [actors, setActors] = useState([]);
   const [useCases, setUseCases] = useState([]);
   const [relationships, setRelationships] = useState([]);
-  const value = `
+  const [value, setValue] = useState("");
+  const test = `
 @startuml
 left to right direction
 actor Customer as C
@@ -31,6 +32,11 @@ rectangle "Online Bookstore" {
     setUseCases(res.useCases);
     setRelationships(res.relationships);
   };
+
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  };
+
   return (
     <>
       <main style={{ display: "flex" }}>
@@ -38,9 +44,10 @@ rectangle "Online Bookstore" {
           <textarea
             id="w3review"
             name="w3review"
-            rows="50"
+            rows="30"
             cols="50"
             value={value}
+            onChange={handleChange}
           />
           <button type="submit">Submit</button>
         </form>
@@ -69,7 +76,8 @@ rectangle "Online Bookstore" {
           {relationships.map((relationship, index) => (
             <div key={index}>
               <p>
-                {relationship.source} --{">"} {relationship.target}
+                {relationship.left} {relationship.arrow}
+                {relationship.right} {relationship.label}
               </p>
             </div>
           ))}
