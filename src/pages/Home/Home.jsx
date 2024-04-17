@@ -2,23 +2,16 @@ import { styled, useTheme } from '@mui/material/styles';
 import {
   Box,
   Toolbar,
-  List,
   CssBaseline,
   Typography,
   Divider,
   IconButton,
-  ListItemButton,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Button,
+  Stack,
 } from '@mui/material';
 import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar from '@mui/material/AppBar';
 
 import MenuIcon from '@mui/icons-material/Menu';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
@@ -26,7 +19,7 @@ import { BRAND_NAME } from '../../data/config.constants';
 import NavItemsBelow from './components/NavItemsBelow';
 import { useDispatch, useSelector } from 'react-redux';
 import { clickSideNav } from './homePageSlice';
-import Container from './components/Container';
+import Form from './components/Form';
 import ConvertButton from './components/ConvertButton';
 
 const drawerWidth = 240;
@@ -142,7 +135,7 @@ export default function MiniDrawer() {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <List>
+        {/* <List>
           {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
             <ListItem key={text} disablePadding sx={{ display: 'block' }}>
               <ListItemButton
@@ -165,27 +158,48 @@ export default function MiniDrawer() {
               </ListItemButton>
             </ListItem>
           ))}
-        </List>
+        </List> */}
         <Divider />
         <NavItemsBelow />
       </Drawer>
       <Box component='main' sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-        <Container>
-          {/* CONTENT --------------------------------------------- */}
-          <textarea
-            style={{
-              height: '100%',
-              fontSize: '1rem',
-              resize: 'none',
-              padding: '5px',
+        <Stack direction={'row'}>
+          <Form component={'form'}>
+            {/* CONTENT --------------------------------------------- */}
+            <Stack
+              direction={'column'}
+              sx={{
+                width: '100%',
+                height: '100%',
+              }}
+            >
+              <textarea
+                style={{
+                  height: '100%',
+                  fontSize: '1rem',
+                  resize: 'none',
+                  padding: '5px',
+                }}
+                cols={30}
+                placeholder='Enter PlantUML Use Case Diagram'
+              />
+              <ConvertButton />
+            </Stack>
+            {/* END OF CONTENT --------------------------------------------- */}
+          </Form>
+          <Box
+            sx={{
+              height: 'inherit',
+              width: '100%',
+              display: 'flex',
+              justifyContent: 'center', // Center horizontally
+              alignItems: 'center', // Center vertically
             }}
-            cols={30}
-            placeholder='Enter PlantUML Use Case Diagram'
-          />
-          <ConvertButton />
-          {/* END OF CONTENT --------------------------------------------- */}
-        </Container>
+          >
+            <img src='mermaid.png' height={'500px'} />
+          </Box>
+        </Stack>
       </Box>
     </Box>
   );

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { Box } from '@mui/material';
 import { useEffect, useState } from 'react';
 
-const Container = (props) => {
+const Form = (props) => {
   const { children } = props;
 
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
@@ -13,13 +13,13 @@ const Container = (props) => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const adjustedHeight = windowHeight - 112; // Subtract header height
+  const adjustedHeight = windowHeight - (112 + 30.5); // Subtract header height
 
   return <Box sx={{ height: `${adjustedHeight}px` }}>{children}</Box>;
 };
 
-export default Container;
+export default Form;
 
-Container.propTypes = {
+Form.propTypes = {
   children: PropTypes.object.isRequired,
 };
