@@ -29,7 +29,7 @@ const SignInFormDialog = () => {
   return (
     <Dialog open={isOpen} onClose={() => dispatch(openSignIn())}>
       <DialogTitle textAlign={"center"}>Welcome back.</DialogTitle>
-      <form onClick={handleSubmit}>
+      <form>
         <DialogContent>
           <TextField
             autoFocus
@@ -59,7 +59,7 @@ const SignInFormDialog = () => {
         </DialogContent>
         <DialogActions>
           <Button onClick={() => dispatch(openSignIn())}>Cancel</Button>
-          <Button variant="contained" type="submit">
+          <Button onClick={handleSubmit} variant="contained" type="submit">
             Submit
           </Button>
         </DialogActions>
