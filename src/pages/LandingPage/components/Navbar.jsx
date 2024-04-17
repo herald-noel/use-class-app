@@ -85,6 +85,7 @@ function NavBar(props) {
               },
             }}
           >
+            <img src='brand_icon.svg' />
             <Button>Use Class</Button>
             {pages.map((page) => (
               <Button key={page} sx={{ color: 'black', display: 'block' }}>
