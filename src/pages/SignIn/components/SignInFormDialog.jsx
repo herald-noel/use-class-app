@@ -6,6 +6,7 @@ import {
   TextField,
   Button,
   Link,
+  Typography,
 } from "@mui/material";
 import { openSignIn } from "../signInFormDialogSlice";
 import { useSelector, useDispatch } from "react-redux";
@@ -21,6 +22,7 @@ const SignInFormDialog = () => {
     password,
     passwordError,
     passwordErrorMsg,
+    handleLinkSignUp,
     handleEmailChange,
     handlePasswordChange,
     handleSubmit,
@@ -64,6 +66,16 @@ const SignInFormDialog = () => {
           </Button>
         </DialogActions>
       </form>
+      <DialogContent
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <Typography variant="body4">
+          No account yet? <Button onClick={handleLinkSignUp} underline="none">Sign Up</Button>
+        </Typography>
+      </DialogContent>
     </Dialog>
   );
 };
