@@ -11,6 +11,7 @@ import {
 import { openSignIn } from "../signInFormDialogSlice";
 import { useSelector, useDispatch } from "react-redux";
 import useSignIn from "../hooks/useSignIn";
+import AuthLoginViewModel from "../../../viewModels/AuthLoginViewModel";
 
 const SignInFormDialog = () => {
   const isOpen = useSelector((state) => state.signInFormDialog.isOpen);
@@ -26,7 +27,7 @@ const SignInFormDialog = () => {
     handleEmailChange,
     handlePasswordChange,
     handleSubmit,
-  } = useSignIn();
+  } = useSignIn(AuthLoginViewModel.login);
 
   return (
     <Dialog open={isOpen} onClose={() => dispatch(openSignIn())}>
@@ -35,9 +36,9 @@ const SignInFormDialog = () => {
         <DialogContent>
           <TextField
             autoFocus
-            margin="dense"
-            label="Email Address"
-            type="email"
+            margin='dense'
+            label='Email Address'
+            type='email'
             fullWidth
             error={emailError}
             value={email}
@@ -45,9 +46,9 @@ const SignInFormDialog = () => {
             onChange={handleEmailChange}
           />
           <TextField
-            margin="dense"
-            label="Password"
-            type="password"
+            margin='dense'
+            label='Password'
+            type='password'
             fullWidth
             error={passwordError}
             value={password}
@@ -55,13 +56,13 @@ const SignInFormDialog = () => {
             onChange={handlePasswordChange}
             sx={{ marginBottom: "10px" }}
           />
-          <Link href="#" underline="none">
+          <Link href='#' underline='none'>
             Forgot Password?
           </Link>
         </DialogContent>
         <DialogActions>
           <Button onClick={() => dispatch(openSignIn())}>Cancel</Button>
-          <Button onClick={handleSubmit} variant="contained" type="submit">
+          <Button onClick={handleSubmit} variant='contained' type='submit'>
             Submit
           </Button>
         </DialogActions>
@@ -72,8 +73,11 @@ const SignInFormDialog = () => {
           justifyContent: "center",
         }}
       >
-        <Typography variant="body4">
-          No account yet? <Button onClick={handleLinkSignUp} underline="none">Sign Up</Button>
+        <Typography variant='body4'>
+          No account yet?{" "}
+          <Button onClick={handleLinkSignUp} underline='none'>
+            Sign Up
+          </Button>
         </Typography>
       </DialogContent>
     </Dialog>

@@ -1,3 +1,5 @@
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../../services/firebase/firebase";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
@@ -6,7 +8,7 @@ import { openSignUp } from "../../SignUp/signUpFromDialogSlice";
 import { doSignInWithEmailAndPassword } from "../../../services/firebase/auth/auth";
 import { loginSuccess } from "../../../reducer/user/userSlice";
 
-const useSignIn = () => {
+const useSignIn = (loginMethod) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -34,12 +36,14 @@ const useSignIn = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    const credentials = {
+      email,
+      password,
+    };
+
     try {
-      const userCredential = await doSignInWithEmailAndPassword(
-        email,
-        password
-      );
-      dispatch(loginSuccess(userCredential.user));
+      const response = await loginMethod(credentials);
+      dispatch(loginSuccess(response.user));
 
       setEmailError(false);
       setEmailErrorMsg("");

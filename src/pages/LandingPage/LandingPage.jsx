@@ -1,9 +1,9 @@
-import { Box, Typography, Button } from '@mui/material';
-import Mainlayout from '../../layouts/Mainlayout';
-import heroImg from '../../assets/hero-img.svg';
-import { useMediaQuery } from '@mui/material';
-import { useDispatch } from 'react-redux';
-import { openSignUp } from '../SignUp/signUpFromDialogSlice';
+import { Box, Typography, Button } from "@mui/material";
+import Mainlayout from "../../layouts/Mainlayout";
+import heroImg from "../../assets/hero-img.svg";
+import { useMediaQuery } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { openSignUp } from "../SignUp/signUpFromDialogSlice";
 
 const LandingPage = () => {
   const dispatch = useDispatch();
@@ -11,35 +11,35 @@ const LandingPage = () => {
     <Mainlayout>
       <Box
         sx={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-around',
-          height: '100vh',
-          width: '100vw',
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-around",
+          height: "100vh",
+          width: "100vw",
           padding: {
-            xs: '100px 50px', // Add padding for smaller screens
-            md: '100px', // Adjust padding for medium screens
-            xl: '300px',
+            xs: "100px 50px", // Add padding for smaller screens
+            md: "100px", // Adjust padding for medium screens
+            xl: "300px",
           },
           gap: {
-            xs: '20px', // Adjust gap for smaller screens
-            md: '200px', // Maintain gap for medium screens
+            xs: "20px", // Adjust gap for smaller screens
+            md: "200px", // Maintain gap for medium screens
           },
-          flexDirection: useMediaQuery((theme) => theme.breakpoints.down('md'))
-            ? 'column'
-            : 'row', // Change to column layout on small screens
+          flexDirection: useMediaQuery((theme) => theme.breakpoints.down("md"))
+            ? "column"
+            : "row", // Change to column layout on small screens
         }}
       >
         <Box
           sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'flex-start',
-            gap: '20px',
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-start",
+            gap: "20px",
             flex: 2,
           }}
         >
-          <Typography variant='h3' fontWeight={'bold'}>
+          <Typography variant='h3' fontWeight={"bold"}>
             From User Stories to Object-Oriented Design
           </Typography>
           <Typography variant='subtitle1'>
@@ -54,13 +54,13 @@ const LandingPage = () => {
         <img
           src={heroImg}
           style={{
-            width: '350px',
-            order: useMediaQuery((theme) => theme.breakpoints.down('md'))
+            width: "350px",
+            order: useMediaQuery((theme) => theme.breakpoints.down("md"))
               ? 1
               : 2,
-            display: useMediaQuery((theme) => theme.breakpoints.down('xl'))
-              ? 'none'
-              : 'block',
+            display: useMediaQuery((theme) => theme.breakpoints.down("xl"))
+              ? "none"
+              : "block",
           }}
         />
         {/* Move image above content on small screens */}

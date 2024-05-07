@@ -35,7 +35,7 @@ function NavBar(props) {
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
-      <Typography variant="h6" sx={{ my: 2 }}>
+      <Typography variant='h6' sx={{ my: 2 }}>
         UseClass
       </Typography>
       <Divider />
@@ -74,16 +74,16 @@ function NavBar(props) {
     <Box>
       <CssBaseline />
       <AppBar
-        color="default"
-        component="nav"
+        color='default'
+        component='nav'
         elevation={0}
         style={{ background: "transparent" }}
       >
         <Toolbar>
           <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
+            color='inherit'
+            aria-label='open drawer'
+            edge='start'
             onClick={handleDrawerToggle}
             sx={{ mr: 2, display: { sm: "none" } }}
           >
@@ -98,7 +98,7 @@ function NavBar(props) {
               },
             }}
           >
-            <img src="brand_icon.svg" />
+            <img src='brand_icon.svg' />
             <Button>UseClass</Button>
             {pages.map((page) => (
               <Button key={page} sx={{ color: "black", display: "block" }}>
@@ -115,7 +115,7 @@ function NavBar(props) {
       <nav>
         <Drawer
           container={container}
-          variant="temporary"
+          variant='temporary'
           open={mobileOpen}
           onClose={handleDrawerToggle}
           ModalProps={{
