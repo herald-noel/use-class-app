@@ -14,20 +14,33 @@ import { observer } from "mobx-react";
 
 const SignInFormDialog = observer(({ isModalOpen }) => {
   const {
+    isLoading,
+    handleSubmit,
     email,
+    setEmail,
     emailError,
     emailErrorMsg,
     password,
+    setPassword,
     passwordError,
     passwordErrorMsg,
-    handleLinkSignUp,
-    handleEmailChange,
-    handlePasswordChange,
-    handleSubmit,
-  } = useSignIn(AuthLoginViewModel.login);
+    isFormValid,
+  } = useSignIn();
 
   const handleClose = () => {
     AuthLoginViewModel.toggleSignInModal();
+  };
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const handleLinkSignUp = () => {
+    console.log("hello");
   };
 
   return (
@@ -63,7 +76,12 @@ const SignInFormDialog = observer(({ isModalOpen }) => {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleSubmit} variant='contained' type='submit'>
+          <Button
+            onClick={handleSubmit}
+            variant='contained'
+            type='submit'
+            disabled={!isFormValid || isLoading}
+          >
             Submit
           </Button>
         </DialogActions>

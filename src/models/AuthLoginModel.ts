@@ -3,15 +3,28 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../services/firebase/firebase";
 
 class AuthLoginModel {
-  isLoggedIn = false;
-  loginError = null;
+  user = null;
   isSignInModalOpen = false;
+  email = "";
+  emailError = false;
+  emailErrorMsg = "";
+  password = "";
+  passwordError = false;
+  passwordErrorMsg = "";
 
   constructor() {
     makeObservable(this, {
-      isLoggedIn: observable,
+      // Modal
+      user: observable,
       isSignInModalOpen: observable,
-      loginError: observable,
+      // String
+      email: observable,
+      emailError: observable,
+      emailErrorMsg: observable,
+      password: observable,
+      passwordError: observable,
+      passwordErrorMsg: observable,
+      // Function
       login: action,
       logout: action,
       toggleSignInModal: action,
@@ -36,8 +49,7 @@ class AuthLoginModel {
   };
 
   logout = () => {
-    this.isLoggedIn = false;
-    this.loginError = null;
+    this.user = null;
   };
 }
 

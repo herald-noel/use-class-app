@@ -1,10 +1,11 @@
-import { useSelector } from 'react-redux';
-import { Outlet, Navigate } from 'react-router-dom';
+import { observer } from "mobx-react";
+import { useSelector } from "react-redux";
+import { Outlet, Navigate } from "react-router-dom";
+import AuthLoginViewModel from "../../viewModels/AuthLoginViewModel";
 
-const PrivateUserRoutes = () => {
-  const role = localStorage.getItem('role');
-  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
-  return isAuthenticated === true ? <Outlet /> : <Navigate to='/' replace />;
-};
+const PrivateUserRoutes = observer(() => {
+  const isAuthenticated = AuthLoginViewModel.user !== null;
+  return isAuthenticated ? <Outlet /> : <Navigate to='/' replace />;
+});
 
 export default PrivateUserRoutes;

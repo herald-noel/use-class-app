@@ -1,31 +1,89 @@
-import AuthModel from "../models/AuthLoginModel";
+import AuthLoginModel from "../models/AuthLoginModel";
+import { action, computed } from "mobx";
 
 class AuthLoginViewModel {
-  get isLoggedIn() {
-    return AuthModel.isLoggedIn;
+  get user() {
+    return AuthLoginModel.user;
   }
 
-  get loginError() {
-    return AuthModel.loginError;
-  }
+  setUser = action((value) => {
+    AuthLoginModel.user = value;
+  });
 
   get isSignInModalOpen() {
-    return AuthModel.isSignInModalOpen;
+    return AuthLoginModel.isSignInModalOpen;
   }
 
+  get email() {
+    return AuthLoginModel.email;
+  }
+
+  setEmail = action((value) => {
+    AuthLoginModel.email = value;
+  });
+
+  get emailError() {
+    return AuthLoginModel.emailError;
+  }
+
+  setEmailError = action((value: boolean) => {
+    AuthLoginModel.emailError = value;
+  });
+
+  get emailErrorMsg() {
+    return AuthLoginModel.emailErrorMsg;
+  }
+
+  setEmailErrorMsg = action((value: string) => {
+    AuthLoginModel.emailErrorMsg = value;
+  });
+
+  get password() {
+    return AuthLoginModel.password;
+  }
+
+  setPassword = action((value: string) => {
+    AuthLoginModel.password = value;
+  });
+
+  get passwordError() {
+    return AuthLoginModel.passwordError;
+  }
+
+  setPasswordError = action((value: boolean) => {
+    AuthLoginModel.passwordError = value;
+  });
+
+  get passwordErrorMsg() {
+    return AuthLoginModel.passwordErrorMsg;
+  }
+
+  setPasswordErrorMsg = action((value: string) => {
+    AuthLoginModel.passwordErrorMsg = value;
+  });
+
   toggleSignInModal = () => {
-    const state = AuthModel.isSignInModalOpen;
-    AuthModel.toggleSignInModal(!state);
+    const state = AuthLoginModel.isSignInModalOpen;
+    AuthLoginModel.toggleSignInModal(!state);
   };
 
   login = async (credentials) => {
-    return await AuthModel.login(credentials);
+    return await AuthLoginModel.login(credentials);
   };
 
   logout = async () => {
     // TODO
-    AuthModel.logout();
+    AuthLoginModel.logout();
   };
+
+  get isFormValid() {
+    return (
+      !this.emailError &&
+      !this.passwordError &&
+      this.email.trim() !== "" &&
+      this.password.trim() !== ""
+    );
+  }
 }
 
 export default new AuthLoginViewModel();

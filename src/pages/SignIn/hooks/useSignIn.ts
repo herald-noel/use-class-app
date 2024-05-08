@@ -1,57 +1,26 @@
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../../services/firebase/firebase";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { useState } from "react";
-import { openSignIn } from "../signInFormDialogSlice";
-import { openSignUp } from "../../SignUp/signUpFromDialogSlice";
-import { doSignInWithEmailAndPassword } from "../../../services/firebase/auth/auth";
-import { loginSuccess } from "../../../reducer/user/userSlice";
+import AuthLoginViewModel from "../../../viewModels/AuthLoginViewModel";
 
-const useSignIn = (loginMethod) => {
-  const dispatch = useDispatch();
+const useSignIn = () => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const [emailError, setEmailError] = useState(false);
-  const [emailErrorMsg, setEmailErrorMsg] = useState("");
-
-  const [passwordError, setPasswordError] = useState(false);
-  const [passwordErrorMsg, setPasswordErrorMsg] = useState("");
-
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-  };
-
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
-
-  const handleLinkSignUp = () => {
-    dispatch(openSignIn());
-    dispatch(openSignUp());
-  };
-
+  const [isLoading, setIsLoading] = useState(false);
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setIsLoading(true);
 
     const credentials = {
-      email,
-      password,
+      email: AuthLoginViewModel.email,
+      password: AuthLoginViewModel.password,
     };
 
     try {
-      const response = await loginMethod(credentials);
-      dispatch(loginSuccess(response.user));
-
-      setEmailError(false);
-      setEmailErrorMsg("");
-      setPasswordError(false);
-      setPasswordErrorMsg("");
-
-      dispatch(openSignIn());
-
+      const response = await AuthLoginViewModel.login(credentials);
+      AuthLoginViewModel.setUser(response.user);
+      AuthLoginViewModel.setEmailError(false);
+      AuthLoginViewModel.setEmailErrorMsg("");
+      AuthLoginViewModel.setPasswordError(false);
+      AuthLoginViewModel.setPasswordErrorMsg("");
       navigate("/home");
     } catch (error) {
       handleError(error);
@@ -66,24 +35,24 @@ const useSignIn = (loginMethod) => {
     switch (errorCode) {
       case "auth/invalid-credential":
         errorMessage = "Incorrect email or password.";
-        setEmailError(true);
-        setPasswordError(true);
+        AuthLoginViewModel.setEmailError(true);
+        AuthLoginViewModel.setPasswordError(true);
         alert(errorMessage);
         break;
       case "auth/wrong-password":
         errorMessage = "Incorrect password.";
-        setPasswordError(true);
-        setPasswordErrorMsg(errorMessage);
+        AuthLoginViewModel.setPasswordError(true);
+        AuthLoginViewModel.setPasswordErrorMsg(errorMessage);
         break;
       case "auth/user-not-found":
         errorMessage = "This email is not associated with an account.";
-        setEmailError(true);
-        setEmailErrorMsg(errorMessage);
+        AuthLoginViewModel.setEmailError(true);
+        AuthLoginViewModel.setEmailErrorMsg(errorMessage);
         break;
       case "auth/invalid-email":
         errorMessage = "Please enter a valid email address.";
-        setEmailError(true);
-        setEmailErrorMsg(errorMessage);
+        AuthLoginViewModel.setEmailError(true);
+        AuthLoginViewModel.setEmailErrorMsg(errorMessage);
         break;
       case "auth/too-many-requests":
         errorMessage = "Too many login attempts. Please try again later.";
@@ -92,8 +61,8 @@ const useSignIn = (loginMethod) => {
       case "auth/weak-password":
         errorMessage =
           "Your password is too weak. Please choose a stronger password.";
-        setPasswordError(true);
-        setPasswordErrorMsg(errorMessage);
+        AuthLoginViewModel.setPasswordError(true);
+        AuthLoginViewModel.setPasswordErrorMsg(errorMessage);
         break;
       default:
         // For unknown errors, log details for debugging
@@ -102,18 +71,17 @@ const useSignIn = (loginMethod) => {
   }
 
   return {
-    email,
-    setEmail,
-    password,
-    setPassword,
-    emailError,
-    emailErrorMsg,
-    passwordError,
-    passwordErrorMsg,
-    handleLinkSignUp,
-    handleEmailChange,
-    handlePasswordChange,
     handleSubmit,
+    isLoading,
+    email: AuthLoginViewModel.email,
+    setEmail: AuthLoginViewModel.setEmail,
+    password: AuthLoginViewModel.password,
+    setPassword: AuthLoginViewModel.setPassword,
+    emailError: AuthLoginViewModel.emailError,
+    emailErrorMsg: AuthLoginViewModel.emailErrorMsg,
+    passwordError: AuthLoginViewModel.passwordError,
+    passwordErrorMsg: AuthLoginViewModel.passwordErrorMsg,
+    isFormValid: AuthLoginViewModel.isFormValid,
   };
 };
 
