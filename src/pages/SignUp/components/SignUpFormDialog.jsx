@@ -52,7 +52,6 @@ const SignUpFormDialog = observer(({ isModalOpen }) => {
               required
             />
             <TextField
-              autoFocus
               margin='dense'
               label='Last Name'
               fullWidth
