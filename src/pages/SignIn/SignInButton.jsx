@@ -1,7 +1,7 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
 import SignInFormDialog from "./components/SignInFormDialog";
-import AuthLoginViewModel from "../../viewModels/AuthViewModel";
+import AuthLoginViewModel from "../../viewModels/AuthLoginViewModel";
 import { observer } from "mobx-react";
 
 const SignInButton = observer(() => {

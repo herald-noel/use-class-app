@@ -11,7 +11,7 @@ import {
 import useSignUp from "../hooks/useSignUp";
 import { BRAND_NAME } from "../../../data/config.constants";
 import { observer } from "mobx-react";
-import AuthViewModel from "../../../viewModels/AuthViewModel";
+import AuthRegisterViewModel from "../../../viewModels/AuthRegisterViewModel";
 
 const SignUpFormDialog = observer(({ isModalOpen }) => {
   const {
@@ -34,7 +34,7 @@ const SignUpFormDialog = observer(({ isModalOpen }) => {
   } = useSignUp();
 
   const handleClose = () => {
-    AuthViewModel.toggleSignUpModal();
+    AuthRegisterViewModel.toggleSignUpModal();
   };
   return (
     <Dialog open={isModalOpen} onClose={handleClose}>

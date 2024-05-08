@@ -6,27 +6,20 @@ class AuthLoginModel {
   isLoggedIn = false;
   loginError = null;
   isSignInModalOpen = false;
-  isSignUpModalOpen = false;
 
   constructor() {
     makeObservable(this, {
       isLoggedIn: observable,
       isSignInModalOpen: observable,
-      isSignUpModalOpen: observable,
       loginError: observable,
       login: action,
       logout: action,
       toggleSignInModal: action,
-      toggleSignUpModal: action,
     });
   }
 
   toggleSignInModal = (value: boolean) => {
     this.isSignInModalOpen = value;
-  };
-
-  toggleSignUpModal = (value: boolean) => {
-    this.isSignUpModalOpen = value;
   };
 
   login = async (credentials) => {

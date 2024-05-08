@@ -1,6 +1,6 @@
-import AuthModel from "../models/AuthModel";
+import AuthModel from "../models/AuthLoginModel";
 
-class AuthViewModel {
+class AuthLoginViewModel {
   get isLoggedIn() {
     return AuthModel.isLoggedIn;
   }
@@ -13,18 +13,9 @@ class AuthViewModel {
     return AuthModel.isSignInModalOpen;
   }
 
-  get isSignUpModalOpen() {
-    return AuthModel.isSignUpModalOpen;
-  }
-
   toggleSignInModal = () => {
     const state = AuthModel.isSignInModalOpen;
     AuthModel.toggleSignInModal(!state);
-  };
-
-  toggleSignUpModal = () => {
-    const state = AuthModel.isSignUpModalOpen;
-    AuthModel.toggleSignUpModal(!state);
   };
 
   login = async (credentials) => {
@@ -37,4 +28,4 @@ class AuthViewModel {
   };
 }
 
-export default new AuthViewModel();
+export default new AuthLoginViewModel();

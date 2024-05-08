@@ -2,14 +2,14 @@ import { Button } from "@mui/material";
 import SignUpFormDialog from "./components/SignUpFormDialog";
 import { useDispatch } from "react-redux";
 import { openSignUp } from "./signUpFromDialogSlice";
-import AuthViewModel from "../../viewModels/AuthViewModel";
+import AuthRegisterViewModel from "../../viewModels/AuthRegisterViewModel";
 import { observer } from "mobx-react";
 
 const SignUpButton = observer(() => {
   const dispatch = useDispatch();
 
   const handleButtonClick = () => {
-    AuthViewModel.toggleSignUpModal();
+    AuthRegisterViewModel.toggleSignUpModal();
   };
 
   return (
@@ -27,7 +27,7 @@ const SignUpButton = observer(() => {
       >
         Sign Up
       </Button>
-      <SignUpFormDialog isModalOpen={AuthViewModel.isSignUpModalOpen} />
+      <SignUpFormDialog isModalOpen={AuthRegisterViewModel.isSignUpModalOpen} />
     </>
   );
 });
