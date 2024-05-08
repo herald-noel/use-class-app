@@ -1,19 +1,23 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import { useDispatch } from 'react-redux';
-import { openSignIn } from './signInFormDialogSlice';
-import SignInFormDialog from './components/SignInFormDialog';
+import * as React from "react";
+import Button from "@mui/material/Button";
+import SignInFormDialog from "./components/SignInFormDialog";
+import AuthLoginViewModel from "../../viewModels/AuthLoginViewModel";
+import { observer } from "mobx-react";
 
-export default function SignInButton() {
-  const dispatch = useDispatch();
+const SignInButton = observer(() => {
+  const handleClick = () => {
+    AuthLoginViewModel.toggleModal();
+  };
 
   return (
     <React.Fragment>
-      <Button sx={{ color: '#000' }} onClick={() => dispatch(openSignIn())}>
+      <Button sx={{ color: "#000" }} onClick={handleClick}>
         Log In
       </Button>
 
-      <SignInFormDialog />
+      <SignInFormDialog isModalOpen={AuthLoginViewModel.isModalOpen} />
     </React.Fragment>
   );
-}
+});
+
+export default SignInButton;

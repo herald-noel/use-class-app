@@ -9,6 +9,15 @@ class AuthViewModel {
     return AuthModel.loginError;
   }
 
+  get isModalOpen() {
+    return AuthModel.isModalOpen;
+  }
+
+  toggleModal = () => {
+    const state = AuthModel.isModalOpen;
+    AuthModel.toggleModal(!state);
+  };
+
   login = async (credentials) => {
     return await AuthModel.login(credentials);
   };

@@ -8,14 +8,11 @@ import {
   Link,
   Typography,
 } from "@mui/material";
-import { openSignIn } from "../signInFormDialogSlice";
-import { useSelector, useDispatch } from "react-redux";
 import useSignIn from "../hooks/useSignIn";
 import AuthLoginViewModel from "../../../viewModels/AuthLoginViewModel";
+import { observer } from "mobx-react";
 
-const SignInFormDialog = () => {
-  const isOpen = useSelector((state) => state.signInFormDialog.isOpen);
-  const dispatch = useDispatch();
+const SignInFormDialog = observer(({ isModalOpen }) => {
   const {
     email,
     emailError,
@@ -29,8 +26,12 @@ const SignInFormDialog = () => {
     handleSubmit,
   } = useSignIn(AuthLoginViewModel.login);
 
+  const handleClose = () => {
+    AuthLoginViewModel.toggleModal();
+  };
+
   return (
-    <Dialog open={isOpen} onClose={() => dispatch(openSignIn())}>
+    <Dialog open={isModalOpen} onClose={handleClose}>
       <DialogTitle textAlign={"center"}>Welcome back.</DialogTitle>
       <form>
         <DialogContent>
@@ -61,7 +62,7 @@ const SignInFormDialog = () => {
           </Link>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => dispatch(openSignIn())}>Cancel</Button>
+          <Button onClick={handleClose}>Cancel</Button>
           <Button onClick={handleSubmit} variant='contained' type='submit'>
             Submit
           </Button>
@@ -82,6 +83,6 @@ const SignInFormDialog = () => {
       </DialogContent>
     </Dialog>
   );
-};
+});
 
 export default SignInFormDialog;

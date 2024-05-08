@@ -5,15 +5,22 @@ import { auth } from "../services/firebase/firebase";
 class AuthLoginModel {
   isLoggedIn = false;
   loginError = null;
+  isModalOpen = false;
 
   constructor() {
     makeObservable(this, {
       isLoggedIn: observable,
+      isModalOpen: observable,
       loginError: observable,
       login: action,
       logout: action,
+      toggleModal: action,
     });
   }
+
+  toggleModal = (value: boolean) => {
+    this.isModalOpen = value;
+  };
 
   login = async (credentials) => {
     try {
