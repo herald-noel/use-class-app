@@ -48,8 +48,13 @@ class AuthLoginModel {
     }
   };
 
-  logout = () => {
-    this.user = null;
+  logout = async () => {
+    try {
+      await auth.signOut();
+      this.user = null;
+    } catch (error) {
+      console.error("Error logging out:", error);
+    }
   };
 }
 

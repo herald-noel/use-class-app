@@ -16,20 +16,20 @@ import AuthRegisterViewModel from "../../../viewModels/AuthRegisterViewModel";
 const SignUpFormDialog = observer(({ isModalOpen }) => {
   const {
     firstName,
+    setFirstName,
     lastName,
+    setLastName,
     email,
+    setEmail,
     password,
+    setPassword,
     confirmPassword,
+    setConfirmPassword,
     emailError,
     emailErrorMsg,
     passwordError,
     passwordErrorMsg,
     handleLinkSignIn,
-    handleFirstNameChange,
-    handleLastNameChange,
-    handleEmailChange,
-    handlePasswordChange,
-    handleConfirmPasswordChange,
     handleSubmit,
   } = useSignUp();
 
@@ -48,7 +48,7 @@ const SignUpFormDialog = observer(({ isModalOpen }) => {
               label='First Name'
               fullWidth
               value={firstName}
-              onChange={handleFirstNameChange}
+              onChange={(e) => setFirstName(e.target.value)}
               required
             />
             <TextField
@@ -56,7 +56,7 @@ const SignUpFormDialog = observer(({ isModalOpen }) => {
               label='Last Name'
               fullWidth
               value={lastName}
-              onChange={handleLastNameChange}
+              onChange={(e) => setLastName(e.target.value)}
               required
             />
           </Box>
@@ -66,7 +66,7 @@ const SignUpFormDialog = observer(({ isModalOpen }) => {
             type='email'
             fullWidth
             value={email}
-            onChange={handleEmailChange}
+            onChange={(e) => setEmail(e.target.value)}
             error={emailError}
             helperText={emailError ? emailErrorMsg : ""}
             required
@@ -77,7 +77,7 @@ const SignUpFormDialog = observer(({ isModalOpen }) => {
             type='password'
             fullWidth
             value={password}
-            onChange={handlePasswordChange}
+            onChange={(e) => setPassword(e.target.value)}
             error={passwordError}
             required
           />
@@ -87,7 +87,7 @@ const SignUpFormDialog = observer(({ isModalOpen }) => {
             type='password'
             fullWidth
             value={confirmPassword}
-            onChange={handleConfirmPasswordChange}
+            onChange={(e) => setConfirmPassword(e.target.value)}
             error={passwordError}
             helperText={passwordError ? passwordErrorMsg : ""}
             required

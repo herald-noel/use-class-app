@@ -72,8 +72,7 @@ class AuthLoginViewModel {
   };
 
   logout = async () => {
-    // TODO
-    AuthLoginModel.logout();
+    await AuthLoginModel.logout();
   };
 
   get isFormValid() {
