@@ -9,7 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import useSignIn from "../hooks/useSignIn";
-import AuthLoginViewModel from "../../../viewModels/AuthLoginViewModel";
+import AuthLoginViewModel from "../../../viewModels/AuthViewModel";
 import { observer } from "mobx-react";
 
 const SignInFormDialog = observer(({ isModalOpen }) => {
@@ -27,7 +27,7 @@ const SignInFormDialog = observer(({ isModalOpen }) => {
   } = useSignIn(AuthLoginViewModel.login);
 
   const handleClose = () => {
-    AuthLoginViewModel.toggleModal();
+    AuthLoginViewModel.toggleSignInModal();
   };
 
   return (

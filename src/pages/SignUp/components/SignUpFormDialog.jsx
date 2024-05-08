@@ -7,15 +7,13 @@ import {
   Button,
   Box,
   Typography,
-} from '@mui/material';
-import { openSignUp } from '../signUpFromDialogSlice';
-import useSignUp from '../hooks/useSignUp';
-import { useDispatch, useSelector } from 'react-redux';
-import { BRAND_NAME } from '../../../data/config.constants';
+} from "@mui/material";
+import useSignUp from "../hooks/useSignUp";
+import { BRAND_NAME } from "../../../data/config.constants";
+import { observer } from "mobx-react";
+import AuthViewModel from "../../../viewModels/AuthViewModel";
 
-const SignUpFormDialog = () => {
-  const dispatch = useDispatch();
-  const isOpen = useSelector((state) => state.signUpFormDialog.isOpen);
+const SignUpFormDialog = observer(({ isModalOpen }) => {
   const {
     firstName,
     lastName,
@@ -35,12 +33,15 @@ const SignUpFormDialog = () => {
     handleSubmit,
   } = useSignUp();
 
+  const handleClose = () => {
+    AuthViewModel.toggleSignUpModal();
+  };
   return (
-    <Dialog open={isOpen} onClose={() => dispatch(openSignUp())}>
-      <DialogTitle textAlign={'center'}>Join {BRAND_NAME}.</DialogTitle>
+    <Dialog open={isModalOpen} onClose={handleClose}>
+      <DialogTitle textAlign={"center"}>Join {BRAND_NAME}.</DialogTitle>
       <form onSubmit={handleSubmit}>
         <DialogContent>
-          <Box sx={{ display: 'flex', gap: '10px' }}>
+          <Box sx={{ display: "flex", gap: "10px" }}>
             <TextField
               autoFocus
               margin='dense'
@@ -68,7 +69,7 @@ const SignUpFormDialog = () => {
             value={email}
             onChange={handleEmailChange}
             error={emailError}
-            helperText={emailError ? emailErrorMsg : ''}
+            helperText={emailError ? emailErrorMsg : ""}
             required
           />
           <TextField
@@ -89,16 +90,16 @@ const SignUpFormDialog = () => {
             value={confirmPassword}
             onChange={handleConfirmPasswordChange}
             error={passwordError}
-            helperText={passwordError ? passwordErrorMsg : ''}
+            helperText={passwordError ? passwordErrorMsg : ""}
             required
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => dispatch(openSignUp())}>Cancel</Button>
+          <Button onClick={handleClose}>Cancel</Button>
           <Button
             variant='contained'
             type='submit'
-            sx={{ marginRight: '24px' }}
+            sx={{ marginRight: "24px" }}
           >
             Sign Up
           </Button>
@@ -106,12 +107,12 @@ const SignUpFormDialog = () => {
       </form>
       <DialogContent
         sx={{
-          display: 'flex',
-          justifyContent: 'center',
+          display: "flex",
+          justifyContent: "center",
         }}
       >
         <Typography variant='body4'>
-          Already have an account?{' '}
+          Already have an account?{" "}
           <Button onClick={handleLinkSignIn} underline='none'>
             Sign In
           </Button>
@@ -119,6 +120,6 @@ const SignUpFormDialog = () => {
       </DialogContent>
     </Dialog>
   );
-};
+});
 
 export default SignUpFormDialog;

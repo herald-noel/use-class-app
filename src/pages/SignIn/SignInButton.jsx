@@ -1,12 +1,12 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
 import SignInFormDialog from "./components/SignInFormDialog";
-import AuthLoginViewModel from "../../viewModels/AuthLoginViewModel";
+import AuthLoginViewModel from "../../viewModels/AuthViewModel";
 import { observer } from "mobx-react";
 
 const SignInButton = observer(() => {
   const handleClick = () => {
-    AuthLoginViewModel.toggleModal();
+    AuthLoginViewModel.toggleSignInModal();
   };
 
   return (
@@ -15,7 +15,7 @@ const SignInButton = observer(() => {
         Log In
       </Button>
 
-      <SignInFormDialog isModalOpen={AuthLoginViewModel.isModalOpen} />
+      <SignInFormDialog isModalOpen={AuthLoginViewModel.isSignInModalOpen} />
     </React.Fragment>
   );
 });
