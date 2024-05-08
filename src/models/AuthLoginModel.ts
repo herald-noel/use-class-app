@@ -28,6 +28,13 @@ class AuthLoginModel {
       login: action,
       logout: action,
       toggleSignInModal: action,
+
+      setEmail: action,
+      setEmailError: action,
+      setEmailErrorMsg: action,
+      setPassword: action,
+      setPasswordError: action,
+      setPasswordErrorMsg: action,
     });
   }
 
@@ -54,6 +61,73 @@ class AuthLoginModel {
       this.user = null;
     } catch (error) {
       console.error("Error logging out:", error);
+    }
+  };
+
+  setEmail = (value: string) => {
+    this.email = value;
+  };
+
+  setEmailError = (value: boolean) => {
+    this.emailError = value;
+  };
+
+  setEmailErrorMsg = (value: string) => {
+    this.emailErrorMsg = value;
+  };
+
+  setPassword = (value: string) => {
+    this.password = value;
+  };
+
+  setPasswordError = (value: boolean) => {
+    this.passwordError = value;
+  };
+
+  setPasswordErrorMsg = (value: string) => {
+    this.passwordErrorMsg = value;
+  };
+
+  handleError = (error) => {
+    const errorCode = error.message;
+    let errorMessage = "An error occurred during login.";
+    console.log(errorCode);
+
+    switch (errorCode) {
+      case "auth/invalid-credential":
+        errorMessage = "Incorrect email or password.";
+        this.setEmailError(true);
+        this.setPasswordError(true);
+        alert(errorMessage);
+        break;
+      case "auth/wrong-password":
+        errorMessage = "Incorrect password.";
+        this.setPasswordError(true);
+        this.setPasswordErrorMsg(errorMessage);
+        break;
+      case "auth/user-not-found":
+        errorMessage = "This email is not associated with an account.";
+        this.setEmailError(true);
+        this.setEmailErrorMsg(errorMessage);
+        break;
+      case "auth/invalid-email":
+        errorMessage = "Please enter a valid email address.";
+        this.setEmailError(true);
+        this.setEmailErrorMsg(errorMessage);
+        break;
+      case "auth/too-many-requests":
+        errorMessage = "Too many login attempts. Please try again later.";
+        alert(errorMessage);
+        break;
+      case "auth/weak-password":
+        errorMessage =
+          "Your password is too weak. Please choose a stronger password.";
+        this.setPasswordError(true);
+        this.setPasswordErrorMsg(errorMessage);
+        break;
+      default:
+        // For unknown errors, log details for debugging
+        alert("Unexpected error");
     }
   };
 }

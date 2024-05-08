@@ -1,5 +1,5 @@
 import AuthLoginModel from "../models/AuthLoginModel";
-import { action, computed } from "mobx";
+import { action } from "mobx";
 
 class AuthLoginViewModel {
   get user() {
@@ -18,49 +18,49 @@ class AuthLoginViewModel {
     return AuthLoginModel.email;
   }
 
-  setEmail = action((value) => {
-    AuthLoginModel.email = value;
-  });
+  setEmail = (value: string) => {
+    AuthLoginModel.setEmail(value);
+  };
 
   get emailError() {
     return AuthLoginModel.emailError;
   }
 
-  setEmailError = action((value: boolean) => {
-    AuthLoginModel.emailError = value;
-  });
+  setEmailError = (value: boolean) => {
+    AuthLoginModel.setEmailError(value);
+  };
 
   get emailErrorMsg() {
     return AuthLoginModel.emailErrorMsg;
   }
 
-  setEmailErrorMsg = action((value: string) => {
-    AuthLoginModel.emailErrorMsg = value;
-  });
+  setEmailErrorMsg = (value: string) => {
+    AuthLoginModel.setEmailErrorMsg(value);
+  };
 
   get password() {
     return AuthLoginModel.password;
   }
 
-  setPassword = action((value: string) => {
-    AuthLoginModel.password = value;
-  });
+  setPassword = (value: string) => {
+    AuthLoginModel.setPassword(value);
+  };
 
   get passwordError() {
     return AuthLoginModel.passwordError;
   }
 
-  setPasswordError = action((value: boolean) => {
-    AuthLoginModel.passwordError = value;
-  });
+  setPasswordError = (value: boolean) => {
+    AuthLoginModel.setPasswordError(value);
+  };
 
   get passwordErrorMsg() {
     return AuthLoginModel.passwordErrorMsg;
   }
 
-  setPasswordErrorMsg = action((value: string) => {
-    AuthLoginModel.passwordErrorMsg = value;
-  });
+  setPasswordErrorMsg = (value: string) => {
+    AuthLoginModel.setPasswordErrorMsg(value);
+  };
 
   toggleSignInModal = () => {
     const state = AuthLoginModel.isSignInModalOpen;
@@ -75,14 +75,9 @@ class AuthLoginViewModel {
     await AuthLoginModel.logout();
   };
 
-  get isFormValid() {
-    return (
-      !this.emailError &&
-      !this.passwordError &&
-      this.email.trim() !== "" &&
-      this.password.trim() !== ""
-    );
-  }
+  handleError = (error) => {
+    AuthLoginModel.handleError(error);
+  };
 }
 
 export default new AuthLoginViewModel();
