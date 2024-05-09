@@ -9,7 +9,6 @@ import {
   Typography,
 } from "@mui/material";
 import useSignIn from "../hooks/useSignIn";
-import AuthLoginViewModel from "../../../viewModels/AuthLoginViewModel";
 import { observer } from "mobx-react";
 
 const SignInFormDialog = observer(({ isModalOpen }) => {
@@ -23,10 +22,11 @@ const SignInFormDialog = observer(({ isModalOpen }) => {
     setPassword,
     passwordError,
     passwordErrorMsg,
+    toggleSignInModal,
   } = useSignIn();
 
   const handleClose = () => {
-    AuthLoginViewModel.toggleSignInModal();
+    toggleSignInModal();
   };
 
   const handleEmailChange = (e) => {

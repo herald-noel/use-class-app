@@ -40,6 +40,7 @@ const useSignIn = () => {
     emailErrorMsg: AuthLoginViewModel.emailErrorMsg,
     passwordError: AuthLoginViewModel.passwordError,
     passwordErrorMsg: AuthLoginViewModel.passwordErrorMsg,
+    toggleSignInModal: AuthLoginViewModel.toggleSignInModal,
   };
 };
 
