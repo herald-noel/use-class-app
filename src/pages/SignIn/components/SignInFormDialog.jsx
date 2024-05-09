@@ -30,11 +30,11 @@ const SignInFormDialog = observer(({ isModalOpen }) => {
     toggleSignInModal();
   };
 
-  const handleEmailChange = (e) => {
+  const handleEmail = (e) => {
     setEmail(e.target.value);
   };
 
-  const handlePasswordChange = (e) => {
+  const handlePassword = (e) => {
     setPassword(e.target.value);
   };
 
@@ -57,7 +57,7 @@ const SignInFormDialog = observer(({ isModalOpen }) => {
             error={emailError}
             value={email}
             helperText={emailErrorMsg}
-            onChange={handleEmailChange}
+            onChange={handleEmail}
           />
           <TextField
             margin='dense'
@@ -67,7 +67,7 @@ const SignInFormDialog = observer(({ isModalOpen }) => {
             error={passwordError}
             value={password}
             helperText={passwordErrorMsg}
-            onChange={handlePasswordChange}
+            onChange={handlePassword}
             sx={{ marginBottom: "10px" }}
           />
           <Link href='#' underline='none'>

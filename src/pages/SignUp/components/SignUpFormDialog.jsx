@@ -36,6 +36,27 @@ const SignUpFormDialog = observer(({ isModalOpen }) => {
   const handleClose = () => {
     AuthRegisterViewModel.toggleSignUpModal();
   };
+
+  const handleFirstName = (e) => {
+    setFirstName(e.target.value);
+  };
+
+  const handleLastName = (e) => {
+    setLastName(e.target.value);
+  };
+
+  const handleEmail = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePassword = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const handleConfirmPassword = (e) => {
+    setConfirmPassword(e.target.value);
+  };
+
   return (
     <Dialog open={isModalOpen} onClose={handleClose}>
       <DialogTitle textAlign={"center"}>Join {BRAND_NAME}.</DialogTitle>
@@ -48,7 +69,7 @@ const SignUpFormDialog = observer(({ isModalOpen }) => {
               label='First Name'
               fullWidth
               value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              onChange={handleFirstName}
               required
             />
             <TextField
@@ -56,7 +77,7 @@ const SignUpFormDialog = observer(({ isModalOpen }) => {
               label='Last Name'
               fullWidth
               value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
+              onChange={handleLastName}
               required
             />
           </Box>
@@ -66,7 +87,7 @@ const SignUpFormDialog = observer(({ isModalOpen }) => {
             type='email'
             fullWidth
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={handleEmail}
             error={emailError}
             helperText={emailError ? emailErrorMsg : ""}
             required
@@ -77,7 +98,7 @@ const SignUpFormDialog = observer(({ isModalOpen }) => {
             type='password'
             fullWidth
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={handlePassword}
             error={passwordError}
             required
           />
@@ -87,7 +108,7 @@ const SignUpFormDialog = observer(({ isModalOpen }) => {
             type='password'
             fullWidth
             value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            onChange={handleConfirmPassword}
             error={passwordError}
             helperText={passwordError ? passwordErrorMsg : ""}
             required
