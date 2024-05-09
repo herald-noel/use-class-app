@@ -23,6 +23,7 @@ const SignInFormDialog = observer(({ isModalOpen }) => {
     passwordError,
     passwordErrorMsg,
     toggleSignInModal,
+    toggleSignUpModal,
   } = useSignIn();
 
   const handleClose = () => {
@@ -38,7 +39,8 @@ const SignInFormDialog = observer(({ isModalOpen }) => {
   };
 
   const handleLinkSignUp = () => {
-    console.log("hello");
+    toggleSignInModal();
+    toggleSignUpModal();
   };
 
   return (

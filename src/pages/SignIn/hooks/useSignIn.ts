@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import AuthLoginViewModel from "../../../viewModels/AuthLoginViewModel";
+import AuthRegisterViewModel from "../../../viewModels/AuthRegisterViewModel";
 
 const useSignIn = () => {
   const navigate = useNavigate();
@@ -41,6 +42,7 @@ const useSignIn = () => {
     passwordError: AuthLoginViewModel.passwordError,
     passwordErrorMsg: AuthLoginViewModel.passwordErrorMsg,
     toggleSignInModal: AuthLoginViewModel.toggleSignInModal,
+    toggleSignUpModal: AuthRegisterViewModel.toggleSignUpModal,
   };
 };
 
