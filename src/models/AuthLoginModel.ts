@@ -1,16 +1,21 @@
-import { makeObservable, observable, action } from "mobx";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../services/firebase/firebase";
+import { makeObservable, observable, action } from 'mobx';
+import {
+  browserLocalPersistence,
+  browserSessionPersistence,
+  setPersistence,
+  signInWithEmailAndPassword,
+} from 'firebase/auth';
+import { auth } from '../services/firebase/firebase';
 
 class AuthLoginModel {
   user = null;
   isSignInModalOpen = false;
-  email = "";
+  email = '';
   emailError = false;
-  emailErrorMsg = "";
-  password = "";
+  emailErrorMsg = '';
+  password = '';
   passwordError = false;
-  passwordErrorMsg = "";
+  passwordErrorMsg = '';
 
   constructor() {
     makeObservable(this, {
@@ -44,6 +49,7 @@ class AuthLoginModel {
 
   login = async (credentials) => {
     try {
+      await setPersistence(auth, browserLocalPersistence);
       const response = await signInWithEmailAndPassword(
         auth,
         credentials.email,
@@ -60,7 +66,7 @@ class AuthLoginModel {
       await auth.signOut();
       this.user = null;
     } catch (error) {
-      console.error("Error logging out:", error);
+      console.error('Error logging out:', error);
     }
   };
 
@@ -90,44 +96,44 @@ class AuthLoginModel {
 
   handleError = (error) => {
     const errorCode = error.message;
-    let errorMessage = "An error occurred during login.";
+    let errorMessage = 'An error occurred during login.';
     console.log(errorCode);
 
     switch (errorCode) {
-      case "auth/invalid-credential":
-        errorMessage = "Incorrect email or password.";
+      case 'auth/invalid-credential':
+        errorMessage = 'Incorrect email or password.';
         this.setEmailError(true);
         this.setPasswordError(true);
         alert(errorMessage);
         break;
-      case "auth/wrong-password":
-        errorMessage = "Incorrect password.";
+      case 'auth/wrong-password':
+        errorMessage = 'Incorrect password.';
         this.setPasswordError(true);
         this.setPasswordErrorMsg(errorMessage);
         break;
-      case "auth/user-not-found":
-        errorMessage = "This email is not associated with an account.";
+      case 'auth/user-not-found':
+        errorMessage = 'This email is not associated with an account.';
         this.setEmailError(true);
         this.setEmailErrorMsg(errorMessage);
         break;
-      case "auth/invalid-email":
-        errorMessage = "Please enter a valid email address.";
+      case 'auth/invalid-email':
+        errorMessage = 'Please enter a valid email address.';
         this.setEmailError(true);
         this.setEmailErrorMsg(errorMessage);
         break;
-      case "auth/too-many-requests":
-        errorMessage = "Too many login attempts. Please try again later.";
+      case 'auth/too-many-requests':
+        errorMessage = 'Too many login attempts. Please try again later.';
         alert(errorMessage);
         break;
-      case "auth/weak-password":
+      case 'auth/weak-password':
         errorMessage =
-          "Your password is too weak. Please choose a stronger password.";
+          'Your password is too weak. Please choose a stronger password.';
         this.setPasswordError(true);
         this.setPasswordErrorMsg(errorMessage);
         break;
       default:
         // For unknown errors, log details for debugging
-        alert("Unexpected error");
+        alert('Unexpected error');
     }
   };
 }
