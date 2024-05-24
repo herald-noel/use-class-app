@@ -1,8 +1,8 @@
-import * as React from "react";
-import Button from "@mui/material/Button";
-import SignInFormDialog from "./components/SignInFormDialog";
-import AuthLoginViewModel from "../../viewModels/AuthLoginViewModel";
-import { observer } from "mobx-react";
+import * as React from 'react';
+import Button from '@mui/material/Button';
+import SignInFormDialog from './components/SignInFormDialog';
+import AuthLoginViewModel from '../../viewModels/AuthLoginViewModel';
+import { observer } from 'mobx-react';
 
 const SignInButton = observer(() => {
   const handleClick = () => {
@@ -11,7 +11,7 @@ const SignInButton = observer(() => {
 
   return (
     <React.Fragment>
-      <Button sx={{ color: "#000" }} onClick={handleClick}>
+      <Button sx={{ color: '#000' }} onClick={handleClick}>
         Log In
       </Button>
 

@@ -1,10 +1,32 @@
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import AuthLoginViewModel from "../../../viewModels/AuthLoginViewModel";
-import AuthRegisterViewModel from "../../../viewModels/AuthRegisterViewModel";
+import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import AuthLoginViewModel from '../../../viewModels/AuthLoginViewModel';
+import AuthRegisterViewModel from '../../../viewModels/AuthRegisterViewModel';
 
 const useSignIn = () => {
   const navigate = useNavigate();
+
+  const [emailError, setEmailError] = useState(AuthLoginViewModel.emailError);
+  const [emailErrorMsg, setEmailErrorMsg] = useState(
+    AuthLoginViewModel.emailErrorMsg
+  );
+  const [passwordError, setPasswordError] = useState(
+    AuthLoginViewModel.passwordError
+  );
+  const [passwordErrorMsg, setPasswordErrorMsg] = useState(
+    AuthLoginViewModel.passwordErrorMsg
+  );
+
+  useEffect(() => {
+    setEmailErrorMsg(AuthLoginViewModel.emailErrorMsg);
+    setEmailError(AuthLoginViewModel.emailError);
+  }, [AuthLoginViewModel.emailError, AuthLoginViewModel.emailErrorMsg]);
+
+  useEffect(() => {
+    setPasswordError(AuthLoginViewModel.passwordError);
+    setPasswordErrorMsg(AuthLoginViewModel.passwordErrorMsg);
+  }, [AuthLoginViewModel.passwordError, AuthLoginViewModel.passwordErrorMsg]);
+
   const [isLoading, setIsLoading] = useState(false);
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -18,12 +40,14 @@ const useSignIn = () => {
     try {
       const response = await AuthLoginViewModel.login(credentials);
       if (response) {
+        AuthLoginViewModel.setEmail('');
+        AuthLoginViewModel.setPassword('');
         AuthLoginViewModel.setUser(response.user);
         AuthLoginViewModel.setEmailError(false);
-        AuthLoginViewModel.setEmailErrorMsg("");
+        AuthLoginViewModel.setEmailErrorMsg('');
         AuthLoginViewModel.setPasswordError(false);
-        AuthLoginViewModel.setPasswordErrorMsg("");
-        navigate("/home");
+        AuthLoginViewModel.setPasswordErrorMsg('');
+        navigate('/home');
       }
     } catch (error) {
       AuthLoginViewModel.handleError(error);
@@ -37,12 +61,12 @@ const useSignIn = () => {
     setEmail: AuthLoginViewModel.setEmail,
     password: AuthLoginViewModel.password,
     setPassword: AuthLoginViewModel.setPassword,
-    emailError: AuthLoginViewModel.emailError,
-    emailErrorMsg: AuthLoginViewModel.emailErrorMsg,
-    passwordError: AuthLoginViewModel.passwordError,
-    passwordErrorMsg: AuthLoginViewModel.passwordErrorMsg,
     toggleSignInModal: AuthLoginViewModel.toggleSignInModal,
     toggleSignUpModal: AuthRegisterViewModel.toggleSignUpModal,
+    emailError,
+    emailErrorMsg,
+    passwordError,
+    passwordErrorMsg,
   };
 };
 

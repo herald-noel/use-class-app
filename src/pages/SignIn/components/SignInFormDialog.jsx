@@ -7,9 +7,9 @@ import {
   Button,
   Link,
   Typography,
-} from "@mui/material";
-import useSignIn from "../hooks/useSignIn";
-import { observer } from "mobx-react";
+} from '@mui/material';
+import useSignIn from '../hooks/useSignIn';
+import { observer } from 'mobx-react';
 
 const SignInFormDialog = observer(({ isModalOpen }) => {
   const {
@@ -45,7 +45,7 @@ const SignInFormDialog = observer(({ isModalOpen }) => {
 
   return (
     <Dialog open={isModalOpen} onClose={handleClose}>
-      <DialogTitle textAlign={"center"}>Welcome back.</DialogTitle>
+      <DialogTitle textAlign={'center'}>Welcome back.</DialogTitle>
       <form>
         <DialogContent>
           <TextField
@@ -68,7 +68,7 @@ const SignInFormDialog = observer(({ isModalOpen }) => {
             value={password}
             helperText={passwordErrorMsg}
             onChange={handlePassword}
-            sx={{ marginBottom: "10px" }}
+            sx={{ marginBottom: '10px' }}
           />
           <Link href='#' underline='none'>
             Forgot Password?
@@ -83,12 +83,12 @@ const SignInFormDialog = observer(({ isModalOpen }) => {
       </form>
       <DialogContent
         sx={{
-          display: "flex",
-          justifyContent: "center",
+          display: 'flex',
+          justifyContent: 'center',
         }}
       >
         <Typography variant='body4'>
-          No account yet?{" "}
+          No account yet?
           <Button onClick={handleLinkSignUp} underline='none'>
             Sign Up
           </Button>
