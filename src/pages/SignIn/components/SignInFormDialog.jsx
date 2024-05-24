@@ -58,6 +58,7 @@ const SignInFormDialog = observer(({ isModalOpen }) => {
             value={email}
             helperText={emailErrorMsg}
             onChange={handleEmail}
+            autoComplete='username'
           />
           <TextField
             margin='dense'
@@ -69,6 +70,7 @@ const SignInFormDialog = observer(({ isModalOpen }) => {
             helperText={passwordErrorMsg}
             onChange={handlePassword}
             sx={{ marginBottom: '10px' }}
+            autoComplete='current-password'
           />
           <Link href='#' underline='none'>
             Forgot Password?

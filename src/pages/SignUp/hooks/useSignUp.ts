@@ -1,6 +1,6 @@
-import { useNavigate } from "react-router-dom";
-import AuthRegisterViewModel from "../../../viewModels/AuthRegisterViewModel";
-import AuthLoginViewModel from "../../../viewModels/AuthLoginViewModel";
+import { useNavigate } from 'react-router-dom';
+import AuthRegisterViewModel from '../../../viewModels/AuthRegisterViewModel';
+import AuthLoginViewModel from '../../../viewModels/AuthLoginViewModel';
 
 const useSignUp = () => {
   const navigate = useNavigate();
@@ -15,19 +15,27 @@ const useSignUp = () => {
     if (AuthRegisterViewModel.validatePassword()) return;
     try {
       const response = await AuthRegisterViewModel.signUp();
-
       if (response) {
         AuthLoginViewModel.setUser(response.user);
-        AuthRegisterViewModel.setEmailError(false);
-        AuthRegisterViewModel.setEmailErrorMsg("");
-        AuthRegisterViewModel.setPasswordError(false);
-        AuthRegisterViewModel.setPasswordErrorMsg("");
-        AuthRegisterViewModel.toggleSignUpModal();
-        navigate("/home");
+        resetFieldDefault();
+        navigate('/home');
       }
     } catch (error) {
       AuthRegisterViewModel.handleError(error);
     }
+  };
+
+  const resetFieldDefault = () => {
+    AuthRegisterViewModel.setFirstName('');
+    AuthRegisterViewModel.setLastName('');
+    AuthRegisterViewModel.setEmail('');
+    AuthRegisterViewModel.setPassword('');
+    AuthRegisterViewModel.setConfirmPassword('');
+    AuthRegisterViewModel.setEmailError(false);
+    AuthRegisterViewModel.setEmailErrorMsg('');
+    AuthRegisterViewModel.setPasswordError(false);
+    AuthRegisterViewModel.setPasswordErrorMsg('');
+    AuthRegisterViewModel.toggleSignUpModal();
   };
 
   return {

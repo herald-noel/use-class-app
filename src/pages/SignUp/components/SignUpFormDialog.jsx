@@ -7,11 +7,11 @@ import {
   Button,
   Box,
   Typography,
-} from "@mui/material";
-import useSignUp from "../hooks/useSignUp";
-import { BRAND_NAME } from "../../../data/config.constants";
-import { observer } from "mobx-react";
-import AuthRegisterViewModel from "../../../viewModels/AuthRegisterViewModel";
+} from '@mui/material';
+import useSignUp from '../hooks/useSignUp';
+import { BRAND_NAME } from '../../../data/config.constants';
+import { observer } from 'mobx-react';
+import AuthRegisterViewModel from '../../../viewModels/AuthRegisterViewModel';
 
 const SignUpFormDialog = observer(({ isModalOpen }) => {
   const {
@@ -59,10 +59,10 @@ const SignUpFormDialog = observer(({ isModalOpen }) => {
 
   return (
     <Dialog open={isModalOpen} onClose={handleClose}>
-      <DialogTitle textAlign={"center"}>Join {BRAND_NAME}.</DialogTitle>
+      <DialogTitle textAlign={'center'}>Join {BRAND_NAME}.</DialogTitle>
       <form onSubmit={handleSubmit}>
         <DialogContent>
-          <Box sx={{ display: "flex", gap: "10px" }}>
+          <Box sx={{ display: 'flex', gap: '10px' }}>
             <TextField
               autoFocus
               margin='dense'
@@ -89,7 +89,8 @@ const SignUpFormDialog = observer(({ isModalOpen }) => {
             value={email}
             onChange={handleEmail}
             error={emailError}
-            helperText={emailError ? emailErrorMsg : ""}
+            helperText={emailError ? emailErrorMsg : ''}
+            autoComplete='off'
             required
           />
           <TextField
@@ -100,6 +101,7 @@ const SignUpFormDialog = observer(({ isModalOpen }) => {
             value={password}
             onChange={handlePassword}
             error={passwordError}
+            autoComplete='new-password'
             required
           />
           <TextField
@@ -110,7 +112,8 @@ const SignUpFormDialog = observer(({ isModalOpen }) => {
             value={confirmPassword}
             onChange={handleConfirmPassword}
             error={passwordError}
-            helperText={passwordError ? passwordErrorMsg : ""}
+            helperText={passwordError ? passwordErrorMsg : ''}
+            autoComplete='new-password'
             required
           />
         </DialogContent>
@@ -119,7 +122,7 @@ const SignUpFormDialog = observer(({ isModalOpen }) => {
           <Button
             variant='contained'
             type='submit'
-            sx={{ marginRight: "24px" }}
+            sx={{ marginRight: '24px' }}
           >
             Sign Up
           </Button>
@@ -127,12 +130,12 @@ const SignUpFormDialog = observer(({ isModalOpen }) => {
       </form>
       <DialogContent
         sx={{
-          display: "flex",
-          justifyContent: "center",
+          display: 'flex',
+          justifyContent: 'center',
         }}
       >
         <Typography variant='body4'>
-          Already have an account?{" "}
+          Already have an account?{' '}
           <Button onClick={handleLinkSignIn} underline='none'>
             Sign In
           </Button>
