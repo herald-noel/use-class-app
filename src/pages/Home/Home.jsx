@@ -7,6 +7,7 @@ import {
   Divider,
   IconButton,
   Stack,
+  Button,
 } from '@mui/material';
 
 import MenuIcon from '@mui/icons-material/Menu';
@@ -79,6 +80,16 @@ const Home = observer(() => {
         <Stack direction={'row'}>
           <Form component={'form'}>
             {/* CONTENT --------------------------------------------- */}
+            <Box
+              width='100%'
+              display='flex'
+              justifyContent='flex-end'
+              marginBottom={'3px'}
+            >
+              <Button variant='outlined' size='small'>
+                Preview
+              </Button>
+            </Box>
             <Stack
               direction={'column'}
               sx={{
