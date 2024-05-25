@@ -1,25 +1,24 @@
-import * as React from "react";
-import PropTypes from "prop-types";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import CssBaseline from "@mui/material/CssBaseline";
-import Divider from "@mui/material/Divider";
-import Drawer from "@mui/material/Drawer";
-import IconButton from "@mui/material/IconButton";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
-import MenuIcon from "@mui/icons-material/Menu";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import { pages } from "../../../data/pages.constants";
-import SignInButton from "../../SignIn/SignInButton";
-import SignUpButton from "../../SignUp/SignUpButton";
-import { openSignIn } from "../../SignIn/signInFormDialogSlice";
-import { openSignUp } from "../../SignUp/signUpFromDialogSlice";
-import { useDispatch } from "react-redux";
+import * as React from 'react';
+import PropTypes from 'prop-types';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import CssBaseline from '@mui/material/CssBaseline';
+import Divider from '@mui/material/Divider';
+import Drawer from '@mui/material/Drawer';
+import IconButton from '@mui/material/IconButton';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
+import MenuIcon from '@mui/icons-material/Menu';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import { pages } from '../../../data/pages.constants';
+import SignInButton from '../../SignIn/SignInButton';
+import SignUpButton from '../../SignUp/SignUpButton';
+import AuthLoginViewModel from '../../../viewModels/AuthLoginViewModel';
+import AuthRegisterViewModel from '../../../viewModels/AuthRegisterViewModel';
 
 const drawerWidth = 240;
 
@@ -27,14 +26,12 @@ function NavBar(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
-  const dispatch = useDispatch();
-
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
 
   const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
+    <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
       <Typography variant='h6' sx={{ my: 2 }}>
         UseClass
       </Typography>
@@ -42,24 +39,24 @@ function NavBar(props) {
       <List>
         {pages.map((page) => (
           <ListItem key={page} disablePadding>
-            <ListItemButton sx={{ textAlign: "center" }}>
+            <ListItemButton sx={{ textAlign: 'center' }}>
               <ListItemText primary={page} />
             </ListItemButton>
           </ListItem>
         ))}
         <ListItem disablePadding>
-          <ListItemButton sx={{ textAlign: "center" }}>
+          <ListItemButton sx={{ textAlign: 'center' }}>
             <ListItemText
-              primary={"Log In"}
-              onClick={() => dispatch(openSignIn())}
+              primary={'Log In'}
+              onClick={AuthLoginViewModel.toggleSignInModal}
             />
           </ListItemButton>
         </ListItem>
         <ListItem disablePadding>
-          <ListItemButton sx={{ textAlign: "center" }}>
+          <ListItemButton sx={{ textAlign: 'center' }}>
             <ListItemText
-              primary={"Sign up"}
-              onClick={() => dispatch(openSignUp())}
+              primary={'Sign up'}
+              onClick={AuthRegisterViewModel.toggleSignUpModal}
             />
           </ListItemButton>
         </ListItem>
@@ -77,7 +74,7 @@ function NavBar(props) {
         color='default'
         component='nav'
         elevation={0}
-        style={{ background: "transparent" }}
+        style={{ background: 'transparent' }}
       >
         <Toolbar>
           <IconButton
@@ -85,15 +82,15 @@ function NavBar(props) {
             aria-label='open drawer'
             edge='start'
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: "none" } }}
+            sx={{ mr: 2, display: { sm: 'none' } }}
           >
             <MenuIcon />
           </IconButton>
           <Box
             sx={{
               display: {
-                xs: "none",
-                md: "flex",
+                xs: 'none',
+                md: 'flex',
                 flexGrow: 1,
               },
             }}
@@ -101,12 +98,12 @@ function NavBar(props) {
             <img src='brand_icon.svg' />
             <Button>UseClass</Button>
             {pages.map((page) => (
-              <Button key={page} sx={{ color: "black", display: "block" }}>
+              <Button key={page} sx={{ color: 'black', display: 'block' }}>
                 {page}
               </Button>
             ))}
           </Box>
-          <Box sx={{ display: { xs: "none", sm: "block", flexGrowGrow: 0 } }}>
+          <Box sx={{ display: { xs: 'none', sm: 'block', flexGrowGrow: 0 } }}>
             <SignInButton />
             <SignUpButton />
           </Box>
@@ -122,9 +119,9 @@ function NavBar(props) {
             keepMounted: true, // Better open performance on mobile.
           }}
           sx={{
-            display: { xs: "block", sm: "none" },
-            "& .MuiDrawer-paper": {
-              boxSizing: "border-box",
+            display: { xs: 'block', sm: 'none' },
+            '& .MuiDrawer-paper': {
+              boxSizing: 'border-box',
               width: drawerWidth,
             },
           }}
