@@ -22,8 +22,32 @@ import HomeViewModel from '../../viewModels/HomeViewModel';
 import { useEffect, useState } from 'react';
 import { DrawerHeader, AppBar, Drawer } from './styles/layoutStyles';
 import PreviewButton from './components/PreviewButton';
+import ClassDiagram from './components/Mermaid/ClassDiagram';
 
 const Home = observer(() => {
+  const mermaidSource = `
+classDiagram
+  Animal <|-- Duck
+  Animal <|-- Fish
+  Animal <|-- Zebra
+  Animal : +int age
+  Animal : +String gender
+  Animal: +isMammal()
+  Animal: +mate()
+  class Duck {
+    +String beakColor
+    +swim()
+    +quack()
+  }
+  class Fish {
+    -int sizeInFeet
+    -canEat()
+  }
+  class Zebra {
+    +bool isCool
+    +run()
+  }
+`;
   const theme = useTheme();
   const isOpen = HomeViewModel.isSideNavOpen;
   const [open, setOpen] = useState(false);
@@ -114,7 +138,8 @@ const Home = observer(() => {
               alignItems: 'center', // Center vertically
             }}
           >
-            <img src='mermaid.png' height={'500px'} />
+            {/* <img src='mermaid.png' height={'500px'} /> */}
+            <ClassDiagram source={mermaidSource} />
           </Box>
         </Stack>
       </Box>
