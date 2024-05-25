@@ -97,6 +97,9 @@ const Home = observer(() => {
                 }}
                 cols={30}
                 placeholder='Enter PlantUML Use Case Diagram'
+                onChange={(e) =>
+                  HomeViewModel.setPlantUMLSource(e.target.value)
+                }
               />
               <ConvertButton />
             </Stack>

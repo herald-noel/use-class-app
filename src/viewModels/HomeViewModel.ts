@@ -9,6 +9,10 @@ class HomeViewModel {
     return HomeModel.isPreviewOpen;
   }
 
+  get plantUMLSource() {
+    return HomeModel.plantUMLSource;
+  }
+
   toggleSignInModal = () => {
     const state = HomeModel.isSideNavOpen;
     HomeModel.toggleSideNav(!state);
@@ -16,6 +20,10 @@ class HomeViewModel {
 
   setIsPreviewOpen = (value: boolean) => {
     HomeModel.setIsPreviewOpen(value);
+  };
+
+  setPlantUMLSource = (value: string) => {
+    HomeModel.setPlantUMLSource(value);
   };
 }
 

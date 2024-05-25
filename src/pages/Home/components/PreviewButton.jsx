@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Box, Typography } from '@mui/material';
-import PlantUMLPreview from './PlantUMLPreview';
+import PlantUMLPreview from './PlantUMLPreview/PlantUMLPreview';
 import HomeViewModel from '../../../viewModels/HomeViewModel';
 import { observer } from 'mobx-react';
 
@@ -17,7 +17,6 @@ const PreviewButton = observer(() => {
         justifyContent='flex-end'
         marginBottom={'3px'}
       >
-        {console.log('hello')}
         <Button variant='outlined' size='small' onClick={handleOpenPreview}>
           Preview
         </Button>

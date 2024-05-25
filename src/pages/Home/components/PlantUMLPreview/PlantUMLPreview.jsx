@@ -1,7 +1,8 @@
 import { Modal, Box, Typography } from '@mui/material';
 import { observer } from 'mobx-react';
 import React from 'react';
-import HomeViewModel from '../../../viewModels/HomeViewModel';
+import HomeViewModel from '../../../../viewModels/HomeViewModel';
+import PlantUMLDiagram from './PlantUMLDiagram';
 
 const PlantUMLPreview = observer(({ isPreviewOpen }) => {
   const handlePreviewClose = () => {
@@ -26,7 +27,7 @@ const PlantUMLPreview = observer(({ isPreviewOpen }) => {
           p: 4,
         }}
       >
-        <img src='https://img.freepik.com/free-photo/painting-mountain-lake-with-mountain-background_188544-9126.jpg' />
+        <PlantUMLDiagram source={HomeViewModel.plantUMLSource} />
       </Box>
     </Modal>
   );
