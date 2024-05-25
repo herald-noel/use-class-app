@@ -134,8 +134,9 @@ classDiagram
               height: 'inherit',
               width: '100%',
               display: 'flex',
-              justifyContent: 'center', // Center horizontally
-              alignItems: 'center', // Center vertically
+              justifyContent: 'center',
+              alignItems: 'center',
+              overflow: 'auto',
             }}
           >
             {/* <img src='mermaid.png' height={'500px'} /> */}
