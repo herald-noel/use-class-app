@@ -2,9 +2,9 @@ import { Modal, Box, Typography } from '@mui/material';
 import { observer } from 'mobx-react';
 import React from 'react';
 import HomeViewModel from '../../../../viewModels/HomeViewModel';
-import PlantUMLDiagram from './PlantUMLDiagram';
+import Diagram from './Diagram';
 
-const PlantUMLPreview = observer(({ isPreviewOpen }) => {
+const Preview = observer(({ isPreviewOpen }) => {
   const handlePreviewClose = () => {
     HomeViewModel.setIsPreviewOpen(false);
   };
@@ -27,10 +27,10 @@ const PlantUMLPreview = observer(({ isPreviewOpen }) => {
           p: 4,
         }}
       >
-        <PlantUMLDiagram source={HomeViewModel.plantUMLSource} />
+        <Diagram source={HomeViewModel.plantUMLSource} />
       </Box>
     </Modal>
   );
 });
 
-export default PlantUMLPreview;
+export default Preview;

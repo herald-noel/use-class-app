@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Box, Typography } from '@mui/material';
-import PlantUMLPreview from './PlantUMLPreview/PlantUMLPreview';
+import Preview from './PlantUML/Preview';
 import HomeViewModel from '../../../viewModels/HomeViewModel';
 import { observer } from 'mobx-react';
 
@@ -22,7 +22,7 @@ const PreviewButton = observer(() => {
         </Button>
       </Box>
 
-      <PlantUMLPreview isPreviewOpen={HomeViewModel.isPreviewOpen} />
+      <Preview isPreviewOpen={HomeViewModel.isPreviewOpen} />
     </React.Fragment>
   );
 });
