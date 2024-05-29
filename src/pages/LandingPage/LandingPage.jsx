@@ -2,11 +2,25 @@ import { Box, Typography, Button } from '@mui/material';
 import Mainlayout from '../../layouts/Mainlayout';
 import heroImg from '../../assets/hero-img.svg';
 import { useMediaQuery } from '@mui/material';
-import { useDispatch } from 'react-redux';
-import { openSignUp } from '../SignUp/signUpFromDialogSlice';
+import { useEffect } from 'react';
+import { auth } from '../../services/firebase/firebase';
+import { useNavigate } from 'react-router-dom';
+import AuthLoginViewModel from '../../viewModels/AuthLoginViewModel';
+import AuthRegisterViewModel from '../../viewModels/AuthRegisterViewModel';
 
 const LandingPage = () => {
-  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        AuthLoginViewModel.setUser(user);
+        navigate('/home');
+      }
+    });
+    return unsubscribe;
+  }, [navigate]);
+
   return (
     <Mainlayout>
       <Box
@@ -47,7 +61,10 @@ const LandingPage = () => {
             Simplify your design process and bridge the gap between user needs
             and software architecture.
           </Typography>
-          <Button variant='contained' onClick={() => dispatch(openSignUp())}>
+          <Button
+            variant='contained'
+            onClick={AuthRegisterViewModel.toggleSignUpModal}
+          >
             Get Started
           </Button>
         </Box>

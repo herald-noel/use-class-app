@@ -7,77 +7,97 @@ import {
   Button,
   Link,
   Typography,
-} from "@mui/material";
-import { openSignIn } from "../signInFormDialogSlice";
-import { useSelector, useDispatch } from "react-redux";
-import useSignIn from "../hooks/useSignIn";
+} from '@mui/material';
+import useSignIn from '../hooks/useSignIn';
+import { observer } from 'mobx-react';
 
-const SignInFormDialog = () => {
-  const isOpen = useSelector((state) => state.signInFormDialog.isOpen);
-  const dispatch = useDispatch();
+const SignInFormDialog = observer(({ isModalOpen }) => {
   const {
+    handleSubmit,
     email,
+    setEmail,
     emailError,
     emailErrorMsg,
     password,
+    setPassword,
     passwordError,
     passwordErrorMsg,
-    handleLinkSignUp,
-    handleEmailChange,
-    handlePasswordChange,
-    handleSubmit,
+    toggleSignInModal,
+    toggleSignUpModal,
   } = useSignIn();
 
+  const handleClose = () => {
+    toggleSignInModal();
+  };
+
+  const handleEmail = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePassword = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const handleLinkSignUp = () => {
+    toggleSignInModal();
+    toggleSignUpModal();
+  };
+
   return (
-    <Dialog open={isOpen} onClose={() => dispatch(openSignIn())}>
-      <DialogTitle textAlign={"center"}>Welcome back.</DialogTitle>
+    <Dialog open={isModalOpen} onClose={handleClose}>
+      <DialogTitle textAlign={'center'}>Welcome back.</DialogTitle>
       <form>
         <DialogContent>
           <TextField
             autoFocus
-            margin="dense"
-            label="Email Address"
-            type="email"
+            margin='dense'
+            label='Email Address'
+            type='email'
             fullWidth
             error={emailError}
             value={email}
             helperText={emailErrorMsg}
-            onChange={handleEmailChange}
+            onChange={handleEmail}
+            autoComplete='username'
           />
           <TextField
-            margin="dense"
-            label="Password"
-            type="password"
+            margin='dense'
+            label='Password'
+            type='password'
             fullWidth
             error={passwordError}
             value={password}
             helperText={passwordErrorMsg}
-            onChange={handlePasswordChange}
-            sx={{ marginBottom: "10px" }}
+            onChange={handlePassword}
+            sx={{ marginBottom: '10px' }}
+            autoComplete='current-password'
           />
-          <Link href="#" underline="none">
+          <Link href='#' underline='none'>
             Forgot Password?
           </Link>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => dispatch(openSignIn())}>Cancel</Button>
-          <Button onClick={handleSubmit} variant="contained" type="submit">
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleSubmit} variant='contained' type='submit'>
             Submit
           </Button>
         </DialogActions>
       </form>
       <DialogContent
         sx={{
-          display: "flex",
-          justifyContent: "center",
+          display: 'flex',
+          justifyContent: 'center',
         }}
       >
-        <Typography variant="body4">
-          No account yet? <Button onClick={handleLinkSignUp} underline="none">Sign Up</Button>
+        <Typography variant='body4'>
+          No account yet?
+          <Button onClick={handleLinkSignUp} underline='none'>
+            Sign Up
+          </Button>
         </Typography>
       </DialogContent>
     </Dialog>
   );
-};
+});
 
 export default SignInFormDialog;

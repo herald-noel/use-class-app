@@ -8,35 +8,57 @@ import {
   Box,
   Typography,
 } from '@mui/material';
-import { openSignUp } from '../signUpFromDialogSlice';
 import useSignUp from '../hooks/useSignUp';
-import { useDispatch, useSelector } from 'react-redux';
 import { BRAND_NAME } from '../../../data/config.constants';
+import { observer } from 'mobx-react';
+import AuthRegisterViewModel from '../../../viewModels/AuthRegisterViewModel';
 
-const SignUpFormDialog = () => {
-  const dispatch = useDispatch();
-  const isOpen = useSelector((state) => state.signUpFormDialog.isOpen);
+const SignUpFormDialog = observer(({ isModalOpen }) => {
   const {
     firstName,
+    setFirstName,
     lastName,
+    setLastName,
     email,
+    setEmail,
     password,
+    setPassword,
     confirmPassword,
+    setConfirmPassword,
     emailError,
     emailErrorMsg,
     passwordError,
     passwordErrorMsg,
     handleLinkSignIn,
-    handleFirstNameChange,
-    handleLastNameChange,
-    handleEmailChange,
-    handlePasswordChange,
-    handleConfirmPasswordChange,
     handleSubmit,
   } = useSignUp();
 
+  const handleClose = () => {
+    AuthRegisterViewModel.toggleSignUpModal();
+  };
+
+  const handleFirstName = (e) => {
+    setFirstName(e.target.value);
+  };
+
+  const handleLastName = (e) => {
+    setLastName(e.target.value);
+  };
+
+  const handleEmail = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePassword = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const handleConfirmPassword = (e) => {
+    setConfirmPassword(e.target.value);
+  };
+
   return (
-    <Dialog open={isOpen} onClose={() => dispatch(openSignUp())}>
+    <Dialog open={isModalOpen} onClose={handleClose}>
       <DialogTitle textAlign={'center'}>Join {BRAND_NAME}.</DialogTitle>
       <form onSubmit={handleSubmit}>
         <DialogContent>
@@ -47,16 +69,15 @@ const SignUpFormDialog = () => {
               label='First Name'
               fullWidth
               value={firstName}
-              onChange={handleFirstNameChange}
+              onChange={handleFirstName}
               required
             />
             <TextField
-              autoFocus
               margin='dense'
               label='Last Name'
               fullWidth
               value={lastName}
-              onChange={handleLastNameChange}
+              onChange={handleLastName}
               required
             />
           </Box>
@@ -66,9 +87,10 @@ const SignUpFormDialog = () => {
             type='email'
             fullWidth
             value={email}
-            onChange={handleEmailChange}
+            onChange={handleEmail}
             error={emailError}
             helperText={emailError ? emailErrorMsg : ''}
+            autoComplete='off'
             required
           />
           <TextField
@@ -77,8 +99,9 @@ const SignUpFormDialog = () => {
             type='password'
             fullWidth
             value={password}
-            onChange={handlePasswordChange}
+            onChange={handlePassword}
             error={passwordError}
+            autoComplete='new-password'
             required
           />
           <TextField
@@ -87,14 +110,15 @@ const SignUpFormDialog = () => {
             type='password'
             fullWidth
             value={confirmPassword}
-            onChange={handleConfirmPasswordChange}
+            onChange={handleConfirmPassword}
             error={passwordError}
             helperText={passwordError ? passwordErrorMsg : ''}
+            autoComplete='new-password'
             required
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => dispatch(openSignUp())}>Cancel</Button>
+          <Button onClick={handleClose}>Cancel</Button>
           <Button
             variant='contained'
             type='submit'
@@ -119,6 +143,6 @@ const SignUpFormDialog = () => {
       </DialogContent>
     </Dialog>
   );
-};
+});
 
 export default SignUpFormDialog;

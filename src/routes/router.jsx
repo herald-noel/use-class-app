@@ -3,7 +3,6 @@ import MainRoute from "./MainRoute";
 import HomeRoute from "./HomeRoute";
 import LandingPageRoute from "./LandingPageRoute";
 import PrivateUserRoutes from "./privateRoutes/PrivateUserRoutes";
-import ChatRoute from "./ChatRoute";
 
 const router = () => {
   return (

@@ -21,5 +21,5 @@ const Form = (props) => {
 export default Form;
 
 Form.propTypes = {
-  children: PropTypes.object.isRequired,
+  children: PropTypes.array.isRequired,
 };
