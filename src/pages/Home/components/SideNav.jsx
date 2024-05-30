@@ -7,10 +7,10 @@ import { useTheme } from '@emotion/react';
 import NavItemsBelow from './NavItemsBelow/NavItemsBelow';
 
 const SideNav = (props) => {
-  const { isOpen, handleDrawerClose } = props;
+  const { open, handleDrawerClose } = props;
   const theme = useTheme();
   return (
-    <Drawer variant='permanent' open={isOpen}>
+    <Drawer variant='permanent' open={open}>
       <DrawerHeader>
         <IconButton onClick={handleDrawerClose}>
           {theme.direction === 'rtl' ? (
