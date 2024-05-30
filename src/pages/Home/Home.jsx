@@ -14,7 +14,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
 import { BRAND_NAME } from '../../data/config.constants';
-import NavItemsBelow from './components/NavItemsBelow';
+import NavItemsBelow from './components/NavItemsBelow/NavItemsBelow';
 import Form from './components/Form';
 import ConvertButton from './components/ConvertButton';
 import { observer } from 'mobx-react';

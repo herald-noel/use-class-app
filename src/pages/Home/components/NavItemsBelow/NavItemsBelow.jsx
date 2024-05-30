@@ -1,7 +1,7 @@
 import { List } from '@mui/material';
-import NavItem from './NavItem';
+import NavItem from './components/NavItem';
 import LogoutIcon from '@mui/icons-material/Logout';
-import useLogout from '../hooks/useLogout';
+import useLogout from '../../hooks/useLogout';
 
 const NavItemsBelow = () => {
   const { logoutUser } = useLogout();
