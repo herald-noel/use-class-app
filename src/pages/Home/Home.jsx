@@ -23,6 +23,7 @@ import { useEffect, useState } from 'react';
 import { DrawerHeader, AppBar, Drawer } from './styles/layoutStyles';
 import PreviewButton from './components/PreviewButton';
 import ClassDiagram from './components/Mermaid/ClassDiagram';
+import SideNav from './components/SideNav';
 
 const Home = observer(() => {
   const mermaidSource = `
@@ -86,19 +87,7 @@ classDiagram
           </Typography>
         </Toolbar>
       </AppBar>
-      <Drawer variant='permanent' open={isOpen}>
-        <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'rtl' ? (
-              <ChevronRightIcon />
-            ) : (
-              <ChevronLeftIcon />
-            )}
-          </IconButton>
-        </DrawerHeader>
-        <Divider />
-        <NavItemsBelow />
-      </Drawer>
+      <SideNav isOpen={isOpen} handleDrawerClose={handleDrawerClose} />
       <Box component='main' sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
         <Stack direction={'row'}>
