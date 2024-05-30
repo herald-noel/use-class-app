@@ -9,6 +9,7 @@ import PreviewButton from './components/PreviewButton';
 import ClassDiagram from './components/Mermaid/ClassDiagram';
 import SideNav from './components/SideNav';
 import TopNav from './components/TopNav';
+import MainContent from './components/MainContent';
 
 const Home = observer(() => {
   const mermaidSource = `
@@ -45,55 +46,17 @@ classDiagram
   };
 
   return (
-    <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
-      <TopNav open={open} handleDrawerOpen={handleDrawerOpen} />
-      <SideNav open={open} handleDrawerClose={handleDrawerClose} />
-      <Box component='main' sx={{ flexGrow: 1, p: 3 }}>
-        <DrawerHeader />
-        <Stack direction={'row'}>
-          <Form component={'form'}>
-            {/* CONTENT --------------------------------------------- */}
-            {<PreviewButton />}
-            <Stack
-              direction={'column'}
-              sx={{
-                width: '100%',
-                height: '100%',
-              }}
-            >
-              <textarea
-                style={{
-                  height: '100%',
-                  fontSize: '1rem',
-                  resize: 'none',
-                  padding: '5px',
-                }}
-                cols={30}
-                placeholder='Enter PlantUML Use Case Diagram'
-                onChange={(e) =>
-                  HomeViewModel.setPlantUMLSource(e.target.value)
-                }
-              />
-              <ConvertButton />
-            </Stack>
-            {/* END OF CONTENT --------------------------------------------- */}
-          </Form>
-          <Box
-            sx={{
-              height: 'inherit',
-              width: '100%',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              overflow: 'auto',
-            }}
-          >
-            <ClassDiagram source={mermaidSource} />
-          </Box>
-        </Stack>
+    <>
+      <Box sx={{ display: 'flex' }}>
+        <CssBaseline />
+        <TopNav open={open} handleDrawerOpen={handleDrawerOpen} />
+        <SideNav open={open} handleDrawerClose={handleDrawerClose} />
+        <Box component='main' sx={{ flexGrow: 1, p: 3 }}>
+          <DrawerHeader />
+          <MainContent />
+        </Box>
       </Box>
-    </Box>
+    </>
   );
 });
 
