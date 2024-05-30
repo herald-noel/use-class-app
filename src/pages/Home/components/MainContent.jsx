@@ -4,8 +4,12 @@ import PreviewButton from './PreviewButton';
 import ConvertButton from './ConvertButton';
 import { Editor } from '@monaco-editor/react';
 import { observer } from 'mobx-react';
-import { Box, Paper, Stack, Typography, styled } from '@mui/material';
 import ClassDiagram from './Mermaid/ClassDiagram';
+import {
+  DraggableBox,
+  DraggableBoxContainer,
+  DraggableDividerBar,
+} from '../styles/draggableStyles';
 
 const mermaidSource = `
 classDiagram
@@ -31,22 +35,6 @@ classDiagram
   }
 `;
 
-const DraggableBoxContainer = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  height: '83vh',
-}));
-
-const DraggableBox = styled(Paper)(({ theme, width }) => ({
-  flex: `${width}%`,
-  overflow: 'auto',
-}));
-
-const DraggableDividerBar = styled('div')(({ theme }) => ({
-  width: '8px',
-  backgroundColor: theme.palette.grey[300],
-  cursor: 'col-resize',
-}));
-
 const MainContent = observer(() => {
   const editorRef = useRef();
 
@@ -58,7 +46,6 @@ const MainContent = observer(() => {
   const [dividerPosition, setDividerPosition] = useState(30); // Initial percentage of the divider position
   const containerRef = useRef(null);
 
-  // Event handlers
   const handleMouseDown = (e) => {
     e.preventDefault();
     document.addEventListener('mousemove', handleMouseMove);
