@@ -120,8 +120,6 @@ export default function Chat() {
 
   return (
     <Box sx={{ display: "flex" }}>
-      <CssBaseline />
-
       <AppBar position="fixed" open={open}>
         <Toolbar>
           <IconButton
@@ -162,7 +160,7 @@ export default function Chat() {
           <ChatForms component={"form"}>
             {/* CONTENT --------------------------------------------- */}
             <Stack
-              direction={"row"}
+              direction={"column"}
               sx={{
                 width: "100%",
                 height: "100%",
@@ -170,18 +168,21 @@ export default function Chat() {
             >
               <ResponseCard />
             </Stack>
-            <Stack
-              direction={"row"}
-              sx={{
-                width: "100%",
-                height: "100%",
-              }}
-            >
-              <TextInputBox />
-            </Stack>
+
             {/* END OF CONTENT --------------------------------------------- */}
           </ChatForms>
         </Stack>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            position: "relative",
+            bottom: 0,
+            padding: "10px",
+          }}
+        >
+          <TextInputBox />
+        </Box>
       </Box>
     </Box>
   );

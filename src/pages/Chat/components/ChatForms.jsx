@@ -18,8 +18,11 @@ const ChatForms = (props) => {
   return <Box sx={{ height: `${adjustedHeight}px` }}>{children}</Box>;
 };
 
-export default ChatForms;
-
 ChatForms.propTypes = {
-  children: PropTypes.object.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
 };
+
+export default ChatForms;

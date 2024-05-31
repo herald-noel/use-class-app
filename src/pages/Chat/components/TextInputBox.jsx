@@ -6,21 +6,13 @@ import SendIcon from "@mui/icons-material/Send";
 
 export default function TextInputBox() {
   return (
-    <Box
-      component="form"
-      sx={{
-        display: "flex",
-        alignItems: "center", // Align items vertically centered
-        "& .MuiTextField-root": { m: 1, width: "115ch", height: "5ch" },
-      }}
-      noValidate
-      autoComplete="off"
-    >
+    <Box component="form" noValidate autoComplete="off" sx={{ width: "100%" }}>
       <TextField
         id="outlined-multiline-flexible"
         label=""
         multiline
         maxRows={5}
+        sx={{ width: "100%" }}
         InputProps={{
           style: {
             fontSize: "14px", // Adjust font size as desired
