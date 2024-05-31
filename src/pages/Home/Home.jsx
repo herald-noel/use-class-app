@@ -1,13 +1,4 @@
-import { useTheme } from '@mui/material/styles';
-import {
-  Box,
-  Toolbar,
-  CssBaseline,
-  Typography,
-  Divider,
-  IconButton,
-  Stack,
-} from '@mui/material';
+import { Box, CssBaseline, Stack } from '@mui/material';
 
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
@@ -19,10 +10,12 @@ import Form from './components/Form';
 import ConvertButton from './components/ConvertButton';
 import { observer } from 'mobx-react';
 import HomeViewModel from '../../viewModels/HomeViewModel';
-import { useEffect, useState } from 'react';
-import { DrawerHeader, AppBar, Drawer } from './styles/layoutStyles';
+import { DrawerHeader } from './styles/layoutStyles';
 import PreviewButton from './components/PreviewButton';
 import ClassDiagram from './components/Mermaid/ClassDiagram';
+import SideNav from './components/SideNav';
+import TopNav from './components/TopNav';
+import MainContent from './components/MainContent';
 
 const Home = observer(() => {
   const mermaidSource = `
@@ -48,13 +41,7 @@ classDiagram
     +run()
   }
 `;
-  const theme = useTheme();
-  const isOpen = HomeViewModel.isSideNavOpen;
-  const [open, setOpen] = useState(false);
-
-  useEffect(() => {
-    setOpen(isOpen);
-  }, [isOpen]);
+  const open = HomeViewModel.isSideNavOpen;
 
   const handleDrawerOpen = () => {
     HomeViewModel.toggleSignInModal();
@@ -143,8 +130,17 @@ classDiagram
             <ClassDiagram source={mermaidSource} />
           </Box>
         </Stack>
+    <>
+      <Box sx={{ display: 'flex' }}>
+        <CssBaseline />
+        <TopNav open={open} handleDrawerOpen={handleDrawerOpen} />
+        <SideNav open={open} handleDrawerClose={handleDrawerClose} />
+        <Box component='main' sx={{ flexGrow: 1, p: 3 }}>
+          <DrawerHeader />
+          <MainContent />
+        </Box>
       </Box>
-    </Box>
+    </>
   );
 });
 
