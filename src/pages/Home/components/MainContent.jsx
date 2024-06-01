@@ -10,6 +10,7 @@ import {
   DraggableDividerBar,
 } from '../styles/draggableStyles';
 import HorizDivide from './HorizDivide';
+import { Stack, Typography } from '@mui/material';
 
 const MainContent = observer(() => {
   const editorRef = useRef();
@@ -53,7 +54,14 @@ const MainContent = observer(() => {
     <>
       <DraggableBoxContainer ref={containerRef}>
         <DraggableBox width={dividerPosition}>
-          {<PreviewButton />}
+          <Stack
+            direction={'row'}
+            justifyContent={'space-between'}
+            alignItems={'center'}
+          >
+            <Typography variant='h6'>PlantUML Use-Case</Typography>
+            {<PreviewButton />}
+          </Stack>
           <Editor
             height={'calc(100% - 70px)'}
             width={`${dividerPosition}vw - 16px`}

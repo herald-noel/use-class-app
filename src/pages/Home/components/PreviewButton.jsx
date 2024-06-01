@@ -11,12 +11,7 @@ const PreviewButton = observer(() => {
 
   return (
     <React.Fragment>
-      <Box
-        width='100%'
-        display='flex'
-        justifyContent='flex-end'
-        marginBottom={'3px'}
-      >
+      <Box display='flex' justifyContent='flex-end' marginBottom={'3px'}>
         <Button variant='outlined' size='small' onClick={handleOpenPreview}>
           Preview
         </Button>
