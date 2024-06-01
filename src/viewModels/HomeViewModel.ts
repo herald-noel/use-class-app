@@ -13,6 +13,10 @@ class HomeViewModel {
     return HomeModel.plantUMLSource;
   }
 
+  get mermaidSource() {
+    return HomeModel.mermaidSource;
+  }
+
   toggleSignInModal = () => {
     const state = HomeModel.isSideNavOpen;
     HomeModel.toggleSideNav(!state);
@@ -24,6 +28,10 @@ class HomeViewModel {
 
   setPlantUMLSource = (value: string) => {
     HomeModel.setPlantUMLSource(value);
+  };
+
+  setMermaidSource = (value: string) => {
+    HomeModel.setMermaidSource(value);
   };
 }
 
