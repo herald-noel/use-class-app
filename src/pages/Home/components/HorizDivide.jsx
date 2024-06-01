@@ -7,7 +7,6 @@ import {
 import ClassDiagram from './Mermaid/ClassDiagram';
 import { Editor } from '@monaco-editor/react';
 import { Box, Typography, Button } from '@mui/material';
-import DownloadIcon from '@mui/icons-material/Download';
 import { observer } from 'mobx-react';
 import HomeViewModel from '../../../viewModels/HomeViewModel';
 
@@ -68,18 +67,6 @@ const HorizDivide = observer(() => {
   return (
     <DraggableBoxContainer ref={containerRef}>
       <DraggableBox height={dividerPosition}>
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            position: 'fixed',
-            right: 50,
-          }}
-        >
-          <Button startIcon={<DownloadIcon />} variant='outlined'>
-            Download
-          </Button>
-        </Box>
         <ClassDiagram source={HomeViewModel.mermaidSource} />
       </DraggableBox>
 
