@@ -7,32 +7,10 @@ import {
 import ClassDiagram from './Mermaid/ClassDiagram';
 import { Editor } from '@monaco-editor/react';
 import { Typography } from '@mui/material';
+import { observer } from 'mobx-react';
+import HomeViewModel from '../../../viewModels/HomeViewModel';
 
-const mermaidSource = `
-classDiagram
-  Animal <|-- Duck
-  Animal <|-- Fish
-  Animal <|-- Zebra
-  Animal : +int age
-  Animal : +String gender
-  Animal: +isMammal()
-  Animal: +mate()
-  class Duck {
-    +String beakColor
-    +swim()
-    +quack()
-  }
-  class Fish {
-    -int sizeInFeet
-    -canEat()
-  }
-  class Zebra {
-    +bool isCool
-    +run()
-  }
-`;
-
-const HorizDivide = () => {
+const HorizDivide = observer(() => {
   const [dividerPosition, setDividerPosition] = useState(70);
   const containerRef = useRef(null);
 
@@ -89,7 +67,7 @@ const HorizDivide = () => {
   return (
     <DraggableBoxContainer ref={containerRef}>
       <DraggableBox height={dividerPosition}>
-        <ClassDiagram source={mermaidSource} />
+        <ClassDiagram source={HomeViewModel.mermaidSource} />
       </DraggableBox>
       <DraggableDividerBar
         dividerPosition={dividerPosition}
@@ -97,10 +75,14 @@ const HorizDivide = () => {
       />
       <DraggableBox height={100 - dividerPosition}>
         <Typography variant='h6'>Mermaid Code</Typography>
-        <Editor theme='vs-light' value={mermaidSource} />
+        <Editor
+          theme='vs-light'
+          value={HomeViewModel.mermaidSource}
+          onChange={(value) => HomeViewModel.setMermaidSource(value)}
+        />
       </DraggableBox>
     </DraggableBoxContainer>
   );
-};
+});
 
 export default HorizDivide;
