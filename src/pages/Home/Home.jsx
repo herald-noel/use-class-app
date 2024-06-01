@@ -9,11 +9,7 @@ import MainContent from './components/MainContent';
 const Home = observer(() => {
   const open = HomeViewModel.isSideNavOpen;
 
-  const handleDrawerOpen = () => {
-    HomeViewModel.toggleSignInModal();
-  };
-
-  const handleDrawerClose = () => {
+  const handleDrawerClick = () => {
     HomeViewModel.toggleSignInModal();
   };
 
@@ -21,8 +17,8 @@ const Home = observer(() => {
     <>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
-        <TopNav open={open} handleDrawerOpen={handleDrawerOpen} />
-        <SideNav open={open} handleDrawerClose={handleDrawerClose} />
+        <TopNav open={open} handleDrawerOpen={handleDrawerClick} />
+        <SideNav open={open} handleDrawerClose={handleDrawerClick} />
         <Box component='main' sx={{ flexGrow: 1, p: 3 }}>
           <DrawerHeader />
           <MainContent />
