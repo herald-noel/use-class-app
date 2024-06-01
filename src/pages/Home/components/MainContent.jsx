@@ -10,6 +10,7 @@ import {
   DraggableBoxContainer,
   DraggableDividerBar,
 } from '../styles/draggableStyles';
+import HorizDivide from './HorizDivide';
 
 const mermaidSource = `
 classDiagram
@@ -92,7 +93,8 @@ const MainContent = observer(() => {
         </DraggableBox>
         <DraggableDividerBar onMouseDown={handleMouseDown} />
         <DraggableBox width={100 - dividerPosition}>
-          <ClassDiagram source={mermaidSource} />
+          {/* <ClassDiagram source={mermaidSource} /> */}
+          <HorizDivide />
         </DraggableBox>
       </DraggableBoxContainer>
     </>
