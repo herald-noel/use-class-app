@@ -4,37 +4,12 @@ import PreviewButton from './PreviewButton';
 import ConvertButton from './ConvertButton';
 import { Editor } from '@monaco-editor/react';
 import { observer } from 'mobx-react';
-import ClassDiagram from './Mermaid/ClassDiagram';
 import {
   DraggableBox,
   DraggableBoxContainer,
   DraggableDividerBar,
 } from '../styles/draggableStyles';
 import HorizDivide from './HorizDivide';
-
-const mermaidSource = `
-classDiagram
-  Animal <|-- Duck
-  Animal <|-- Fish
-  Animal <|-- Zebra
-  Animal : +int age
-  Animal : +String gender
-  Animal: +isMammal()
-  Animal: +mate()
-  class Duck {
-    +String beakColor
-    +swim()
-    +quack()
-  }
-  class Fish {
-    -int sizeInFeet
-    -canEat()
-  }
-  class Zebra {
-    +bool isCool
-    +run()
-  }
-`;
 
 const MainContent = observer(() => {
   const editorRef = useRef();
@@ -93,7 +68,6 @@ const MainContent = observer(() => {
         </DraggableBox>
         <DraggableDividerBar onMouseDown={handleMouseDown} />
         <DraggableBox width={100 - dividerPosition}>
-          {/* <ClassDiagram source={mermaidSource} /> */}
           <HorizDivide />
         </DraggableBox>
       </DraggableBoxContainer>

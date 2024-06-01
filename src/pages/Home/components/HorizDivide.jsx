@@ -1,11 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Box, Paper, Typography, styled } from '@mui/material';
 import {
   DraggableBoxContainer,
   DraggableBox,
   DraggableDividerBar,
 } from '../styles/horizStyle';
 import ClassDiagram from './Mermaid/ClassDiagram';
+import { Editor } from '@monaco-editor/react';
+import { Typography } from '@mui/material';
 
 const mermaidSource = `
 classDiagram
@@ -95,8 +96,8 @@ const HorizDivide = () => {
         onMouseDown={handleMouseDown}
       />
       <DraggableBox height={100 - dividerPosition}>
-        {/* <Typography variant='h6'>Output</Typography> */}
-        {/* Output component */}
+        <Typography variant='h6'>Mermaid Code</Typography>
+        <Editor theme='vs-light' value={mermaidSource} />
       </DraggableBox>
     </DraggableBoxContainer>
   );
