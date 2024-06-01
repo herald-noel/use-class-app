@@ -4,8 +4,7 @@ class HomeModel {
   isSideNavOpen = false;
   isPreviewOpen = false;
   plantUMLSource = '';
-  mermaidSource = `
-classDiagram
+  mermaidSource = `classDiagram
   Animal <|-- Duck
   Animal <|-- Fish
   Animal <|-- Zebra

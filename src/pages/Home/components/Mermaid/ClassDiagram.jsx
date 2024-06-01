@@ -22,8 +22,18 @@ const ClassDiagram = ({ source }) => {
 
   const handleExport = async () => {
     if (containerRef.current) {
+      const originalWidth = containerRef.current.style.width;
+      const originalHeight = containerRef.current.style.height;
+
+      containerRef.current.style.width = 'auto';
+      containerRef.current.style.height = 'auto';
+
       const canvas = await html2canvas(containerRef.current);
       const dataUrl = canvas.toDataURL('image/png');
+
+      containerRef.current.style.width = originalWidth;
+      containerRef.current.style.height = originalHeight;
+
       const link = document.createElement('a');
       link.href = dataUrl;
       link.download = 'mermaid-diagram.png';
