@@ -17,6 +17,10 @@ class HomeViewModel {
     return HomeModel.mermaidSource;
   }
 
+  get isLoading() {
+    return HomeModel.isLoading;
+  }
+
   toggleSignInModal = () => {
     const state = HomeModel.isSideNavOpen;
     HomeModel.toggleSideNav(!state);
