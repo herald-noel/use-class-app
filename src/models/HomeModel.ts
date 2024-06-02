@@ -1,6 +1,7 @@
 import { makeObservable, observable, action } from 'mobx';
 import axiosInstance from '../../axiosInstance';
 import generateUMLFromJSON from '../utils/generateUMLFromJSON';
+import { saveDiagram } from '../services/firebase/user/userActions';
 
 class HomeModel {
   isSideNavOpen = false;
@@ -44,6 +45,7 @@ class HomeModel {
       setMermaidSource: action,
       setIsLoading: action,
       covertToMermaidCD: action,
+      saveMermaidCode: action,
     });
   }
 
@@ -81,6 +83,10 @@ class HomeModel {
     } finally {
       this.setIsLoading(false);
     }
+  };
+
+  saveMermaidCode = () => {
+    saveDiagram(this.mermaidSource);
   };
 }
 

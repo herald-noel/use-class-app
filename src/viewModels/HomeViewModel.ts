@@ -41,6 +41,10 @@ class HomeViewModel {
   covertToMermaidCD = async () => {
     await HomeModel.covertToMermaidCD();
   };
+
+  saveMermaidCode = () => {
+    HomeModel.saveMermaidCode();
+  };
 }
 
 export default new HomeViewModel();
