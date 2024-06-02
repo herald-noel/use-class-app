@@ -15,7 +15,7 @@ const ClassDiagram = ({ source }) => {
   useEffect(() => {
     if (containerRef.current) {
       containerRef.current.removeAttribute('data-processed');
-      containerRef.current.innerHTML = source;
+      containerRef.current.innerHTML = source.trim();
       mermaid.init(undefined, containerRef.current);
     }
   }, [source]);
