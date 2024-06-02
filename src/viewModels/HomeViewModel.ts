@@ -1,4 +1,4 @@
-import HomeModel from '../models/HomeModel';
+import HomeModel from "../models/HomeModel";
 
 class HomeViewModel {
   get isSideNavOpen() {
@@ -24,6 +24,10 @@ class HomeViewModel {
   toggleSignInModal = () => {
     const state = HomeModel.isSideNavOpen;
     HomeModel.toggleSideNav(!state);
+  };
+
+  setTitle = (value: string) => {
+    HomeModel.setTitle(value);
   };
 
   setIsPreviewOpen = (value: boolean) => {

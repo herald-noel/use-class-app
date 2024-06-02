@@ -1,6 +1,7 @@
-import { get, push, ref, set, update } from 'firebase/database';
-import { database } from '../firebase';
-import AuthLoginViewModel from '../../../viewModels/AuthLoginViewModel';
+import { get, push, ref, set, update } from "firebase/database";
+import { database } from "../firebase";
+import AuthLoginViewModel from "../../../viewModels/AuthLoginViewModel";
+import dayjs from "dayjs";
 
 interface UserCredential {
   firstname: string;
@@ -19,27 +20,39 @@ export const addUserInfo = async (
       lastname: userCredential.lastname,
       email: userCredential.email,
     });
-    console.log('Profile updated successfully');
+    console.log("Profile updated successfully");
   } catch (error) {
-    console.error('Error updating profile:', error);
+    console.error("Error updating profile:", error);
   }
 };
 
-export const saveDiagram = async (mermaidCode: string) => {
+export const saveDiagram = async (
+  title: string,
+  plantUMLCode: string,
+  mermaidCode: string
+) => {
   try {
     const user = AuthLoginViewModel.user;
     if (user !== null) {
-      const userId = user['uid'];
+      const userId = user["uid"];
 
       const userMermaidCodesRef = ref(database, `users/${userId}/mermaidCodes`);
 
       const newEntryRef = push(userMermaidCodesRef);
 
-      const value = { mermaidCode: mermaidCode };
+      const today = dayjs();
+      const dateCreated = today.format("YYYY-MM-DD");
+
+      const value = {
+        title: title,
+        plantUMLCode: plantUMLCode,
+        mermaidCode: mermaidCode,
+        dateCreated: dateCreated,
+      };
 
       await update(newEntryRef, value);
     }
   } catch (error) {
-    console.error('Error saving mermaide code:', error);
+    console.error("Error saving mermaide code:", error);
   }
 };
