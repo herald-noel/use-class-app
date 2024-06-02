@@ -1,4 +1,4 @@
-import HomeModel from "../models/HomeModel";
+import HomeModel from '../models/HomeModel';
 
 class HomeViewModel {
   get isSideNavOpen() {
@@ -25,7 +25,7 @@ class HomeViewModel {
     return HomeModel.currentPage;
   }
 
-  toggleSignInModal = () => {
+  toggleSideNav = () => {
     const state = HomeModel.isSideNavOpen;
     HomeModel.toggleSideNav(!state);
   };
