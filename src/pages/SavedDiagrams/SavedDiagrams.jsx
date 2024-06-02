@@ -1,30 +1,30 @@
-import * as React from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import { observer } from 'mobx-react';
-import DeleteIcon from '@mui/icons-material/Delete';
-import IconButton from '@mui/material/IconButton';
-import { orange } from '@mui/material/colors';
-import Typography from '@mui/material/Typography';
+import * as React from "react";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import { observer } from "mobx-react";
+import DeleteIcon from "@mui/icons-material/Delete";
+import IconButton from "@mui/material/IconButton";
+import { orange } from "@mui/material/colors";
+import Typography from "@mui/material/Typography";
 
 // Mock data for saved diagrams
 const savedDiagrams = [
-  { id: 1, title: 'Diagram 1', dateCreated: '2023-05-01' },
-  { id: 2, title: 'Diagram 2', dateCreated: '2023-04-15' },
-  { id: 3, title: 'Diagram 3', dateCreated: '2023-03-20' },
-  { id: 4, title: 'Diagram 4', dateCreated: '2023-02-28' },
-  { id: 5, title: 'Diagram 5', dateCreated: '2023-01-10' },
+  { id: 1, title: "Diagram 1", dateCreated: "2023-05-01" },
+  { id: 2, title: "Diagram 2", dateCreated: "2023-04-15" },
+  { id: 3, title: "Diagram 3", dateCreated: "2023-03-20" },
+  { id: 4, title: "Diagram 4", dateCreated: "2023-02-28" },
+  { id: 5, title: "Diagram 5", dateCreated: "2023-01-10" },
 ];
 
 const SavedDiagrams = observer(() => {
   const handleDeleteDiagram = (diagramId) => {
     // Add your logic to handle the deletion of the diagram here
-    console.log('Deleting diagram with ID:', diagramId);
+    console.log("Deleting diagram with ID:", diagramId);
   };
 
   return (
@@ -34,15 +34,11 @@ const SavedDiagrams = observer(() => {
       </Typography>
       <TableContainer component={Paper}>
         <Table aria-label="saved diagrams table">
-          <TableHead sx={{ backgroundColor: orange[700] }}>
+          <TableHead sx={{ backgroundColor: "silver" }}>
             <TableRow>
-              <TableCell sx={{ color: 'white' }}>Title</TableCell>
-              <TableCell sx={{ color: 'white' }} align="right">
-                Date Created
-              </TableCell>
-              <TableCell sx={{ color: 'white' }} align="right">
-                Actions
-              </TableCell>
+              <TableCell>Title</TableCell>
+              <TableCell align="right">Date Created</TableCell>
+              <TableCell align="right">Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
