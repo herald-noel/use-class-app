@@ -10,7 +10,7 @@ const AuthLayout = observer((props) => {
   const open = HomeViewModel.isSideNavOpen;
 
   const handleDrawerClick = () => {
-    HomeViewModel.toggleSignInModal();
+    HomeViewModel.toggleSideNav();
   };
 
   return (
