@@ -33,6 +33,10 @@ class HomeViewModel {
   setMermaidSource = (value: string) => {
     HomeModel.setMermaidSource(value);
   };
+
+  covertToMermaidCD = async () => {
+    await HomeModel.covertToMermaidCD();
+  };
 }
 
 export default new HomeViewModel();

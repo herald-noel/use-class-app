@@ -1,4 +1,6 @@
 import { makeObservable, observable, action } from 'mobx';
+import axiosInstance from '../../axiosInstance';
+import generateUMLFromJSON from '../utils/generateUMLFromJSON';
 
 class HomeModel {
   isSideNavOpen = false;
@@ -38,6 +40,7 @@ class HomeModel {
       setIsPreviewOpen: action,
       setPlantUMLSource: action,
       setMermaidSource: action,
+      covertToMermaidCD: action,
     });
   }
 
@@ -55,6 +58,19 @@ class HomeModel {
 
   setMermaidSource = (value: string) => {
     this.mermaidSource = value;
+  };
+
+  covertToMermaidCD = async () => {
+    try {
+      const response = await axiosInstance.post(
+        '/api/v1/chat/convert',
+        this.plantUMLSource
+      );
+      const mermaidSourceCode = generateUMLFromJSON(response.data);
+      this.setMermaidSource(mermaidSourceCode);
+    } catch (error) {
+      console.error(error);
+    }
   };
 }
 
