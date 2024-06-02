@@ -1,4 +1,4 @@
-import { get, ref, set, update } from 'firebase/database';
+import { get, push, ref, set, update } from 'firebase/database';
 import { database } from '../firebase';
 import AuthLoginViewModel from '../../../viewModels/AuthLoginViewModel';
 
@@ -30,13 +30,14 @@ export const saveDiagram = async (mermaidCode: string) => {
     const user = AuthLoginViewModel.user;
     if (user !== null) {
       const userId = user['uid'];
-      const userRef = ref(database, `users/${userId}`);
 
-      const snapshot = await get(userRef);
-      const existingCodes = snapshot.val().mermaidCode || [];
-      const updatedCodes = [...existingCodes, mermaidCode];
+      const userMermaidCodesRef = ref(database, `users/${userId}/mermaidCodes`);
 
-      await update(userRef, { mermaidCode: updatedCodes });
+      const newEntryRef = push(userMermaidCodesRef);
+
+      const value = { mermaidCode: mermaidCode };
+
+      await update(newEntryRef, value);
     }
   } catch (error) {
     console.error('Error saving mermaide code:', error);
