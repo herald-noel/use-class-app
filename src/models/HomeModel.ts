@@ -30,6 +30,7 @@ class HomeModel {
   }
 `;
   isLoading = false;
+  currentPage = 0;
 
   constructor() {
     makeObservable(this, {
@@ -38,6 +39,7 @@ class HomeModel {
       plantUMLSource: observable,
       mermaidSource: observable,
       isLoading: observable,
+      currentPage: observable,
 
       toggleSideNav: action,
       setIsPreviewOpen: action,
@@ -46,6 +48,7 @@ class HomeModel {
       setIsLoading: action,
       covertToMermaidCD: action,
       saveMermaidCode: action,
+      setCurrentPage: action,
     });
   }
 
@@ -67,6 +70,10 @@ class HomeModel {
 
   setIsLoading = (value: boolean) => {
     this.isLoading = value;
+  };
+
+  setCurrentPage = (value: number) => {
+    this.currentPage = value;
   };
 
   covertToMermaidCD = async () => {

@@ -21,6 +21,10 @@ class HomeViewModel {
     return HomeModel.isLoading;
   }
 
+  get currentPage() {
+    return HomeModel.currentPage;
+  }
+
   toggleSignInModal = () => {
     const state = HomeModel.isSideNavOpen;
     HomeModel.toggleSideNav(!state);
@@ -44,6 +48,10 @@ class HomeViewModel {
 
   saveMermaidCode = () => {
     HomeModel.saveMermaidCode();
+  };
+
+  setCurrentPage = (value: number) => {
+    HomeModel.setCurrentPage(value);
   };
 }
 

@@ -7,8 +7,9 @@ import { auth } from '../../services/firebase/firebase';
 import { useNavigate } from 'react-router-dom';
 import AuthLoginViewModel from '../../viewModels/AuthLoginViewModel';
 import AuthRegisterViewModel from '../../viewModels/AuthRegisterViewModel';
+import { observer } from 'mobx-react';
 
-const LandingPage = () => {
+const LandingPage = observer(() => {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -84,6 +85,6 @@ const LandingPage = () => {
       </Box>
     </Mainlayout>
   );
-};
+});
 
 export default LandingPage;
