@@ -9,8 +9,8 @@ import Paper from "@mui/material/Paper";
 import { observer } from "mobx-react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
-import { orange } from "@mui/material/colors";
 import Typography from "@mui/material/Typography";
+import { Grid, Divider } from "@mui/material";
 
 // Mock data for saved diagrams
 const savedDiagrams = [
@@ -29,9 +29,31 @@ const SavedDiagrams = observer(() => {
 
   return (
     <React.Fragment>
-      <Typography variant="h3" gutterBottom>
-        Saved Diagrams
-      </Typography>
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <Typography variant="h4">Saved Diagrams</Typography>
+        </Grid>
+        <Grid item xs={12} container spacing={2}>
+          <Grid item xs={12} md={6} sx={{ mt: 1 }}>
+            <Typography variant="body1" gutterBottom>
+              Discover Recent Updates
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              "Explore your stored diagrams for valuable insights."
+            </Typography>
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            md={6}
+            display="flex"
+            justifyContent="flex-end"
+            alignItems="center"
+            sx={{ mt: 1 }}
+          ></Grid>
+        </Grid>
+      </Grid>
+      <Divider sx={{ my: 2 }} />
       <TableContainer component={Paper}>
         <Table aria-label="saved diagrams table">
           <TableHead sx={{ backgroundColor: "silver" }}>
