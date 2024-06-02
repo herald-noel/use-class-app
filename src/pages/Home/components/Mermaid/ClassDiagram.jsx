@@ -4,6 +4,9 @@ import './styles/mermaid.css';
 import html2canvas from 'html2canvas';
 import DownloadIcon from '@mui/icons-material/Download';
 import { Box, Button } from '@mui/material';
+import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
+import { saveDiagram } from '../../../../services/firebase/user/userActions';
+import HomeViewModel from '../../../../viewModels/HomeViewModel';
 
 const ClassDiagram = ({ source }) => {
   const containerRef = useRef(null);
@@ -41,12 +44,18 @@ const ClassDiagram = ({ source }) => {
     }
   };
 
+  const handleSave = () => {
+    HomeViewModel.saveMermaidCode();
+  };
+
   return (
     <>
       <Box
         sx={{
           display: 'flex',
+          flexDirection: 'column',
           justifyContent: 'flex-end',
+          gap: '10px',
           position: 'fixed',
           right: 50,
         }}
@@ -57,6 +66,13 @@ const ClassDiagram = ({ source }) => {
           onClick={handleExport}
         >
           Export
+        </Button>
+        <Button
+          startIcon={<SaveOutlinedIcon />}
+          variant='outlined'
+          onClick={handleSave}
+        >
+          Save
         </Button>
       </Box>
       <div className='mermaid-container mermaid' ref={containerRef} />
