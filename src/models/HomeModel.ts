@@ -28,6 +28,7 @@ class HomeModel {
     +run()
   }
 `;
+  isLoading = false;
 
   constructor() {
     makeObservable(this, {
@@ -35,11 +36,13 @@ class HomeModel {
       isPreviewOpen: observable,
       plantUMLSource: observable,
       mermaidSource: observable,
+      isLoading: observable,
 
       toggleSideNav: action,
       setIsPreviewOpen: action,
       setPlantUMLSource: action,
       setMermaidSource: action,
+      setIsLoading: action,
       covertToMermaidCD: action,
     });
   }
@@ -60,7 +63,12 @@ class HomeModel {
     this.mermaidSource = value;
   };
 
+  setIsLoading = (value: boolean) => {
+    this.isLoading = value;
+  };
+
   covertToMermaidCD = async () => {
+    this.setIsLoading(true);
     try {
       const response = await axiosInstance.post(
         '/api/v1/chat/convert',
@@ -70,6 +78,8 @@ class HomeModel {
       this.setMermaidSource(mermaidSourceCode);
     } catch (error) {
       console.error(error);
+    } finally {
+      this.setIsLoading(false);
     }
   };
 }

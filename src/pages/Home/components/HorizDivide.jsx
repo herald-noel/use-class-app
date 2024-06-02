@@ -6,7 +6,7 @@ import {
 } from '../styles/horizStyle';
 import ClassDiagram from './Mermaid/ClassDiagram';
 import { Editor } from '@monaco-editor/react';
-import { Box, Typography, Button } from '@mui/material';
+import { Typography, LinearProgress } from '@mui/material';
 import { observer } from 'mobx-react';
 import HomeViewModel from '../../../viewModels/HomeViewModel';
 
@@ -68,8 +68,8 @@ const HorizDivide = observer(() => {
     <DraggableBoxContainer ref={containerRef}>
       <DraggableBox height={dividerPosition}>
         <ClassDiagram source={HomeViewModel.mermaidSource} />
+        {HomeViewModel.isLoading && <LinearProgress color='secondary' />}
       </DraggableBox>
-
       <DraggableDividerBar
         dividerPosition={dividerPosition}
         onMouseDown={handleMouseDown}
