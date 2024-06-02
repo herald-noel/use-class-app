@@ -87,6 +87,7 @@ class HomeModel {
 
   saveMermaidCode = () => {
     saveDiagram(this.mermaidSource);
+    alert('Successfully saved.');
   };
 }
 
