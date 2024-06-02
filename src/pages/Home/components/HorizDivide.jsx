@@ -68,8 +68,8 @@ const HorizDivide = observer(() => {
     <DraggableBoxContainer ref={containerRef}>
       <DraggableBox height={dividerPosition}>
         <ClassDiagram source={HomeViewModel.mermaidSource} />
-        {HomeViewModel.isLoading && <LinearProgress color='secondary' />}
       </DraggableBox>
+      {HomeViewModel.isLoading && <LinearProgress color='secondary' />}
       <DraggableDividerBar
         dividerPosition={dividerPosition}
         onMouseDown={handleMouseDown}
