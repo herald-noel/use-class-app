@@ -11,8 +11,7 @@ import {
 } from "../styles/draggableStyles";
 import HorizDivide from "./HorizDivide";
 import { Stack, Typography } from "@mui/material";
-import generateUMLFromJSON from "../../../utils/generateUMLFromJSON";
-import axiosInstance from "../../../../axiosInstance";
+import useConvert from "../../../hooks/useConvert"
 
 const MainContent = observer(() => {
   const editorRef = useRef();
@@ -52,21 +51,8 @@ const MainContent = observer(() => {
     };
   }, []);
 
-  const fetchData = async () => {
-    try {
-      const response = await axiosInstance.post(
-        "/api/v1/chat/convert",
-        HomeViewModel.plantUMLSource
-      );
-      const mermaidSourceCode = generateUMLFromJSON(response.data);
-      HomeViewModel.setMermaidSource(mermaidSourceCode);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   const handleConvert = async () => {
-    await fetchData();
+    await useConvert(HomeViewModel)
   };
 
   return (
