@@ -1,5 +1,6 @@
-import { ref, set } from 'firebase/database';
+import { get, ref, set, update } from 'firebase/database';
 import { database } from '../firebase';
+import AuthLoginViewModel from '../../../viewModels/AuthLoginViewModel';
 
 interface UserCredential {
   firstname: string;
@@ -21,5 +22,23 @@ export const addUserInfo = async (
     console.log('Profile updated successfully');
   } catch (error) {
     console.error('Error updating profile:', error);
+  }
+};
+
+export const saveDiagram = async (mermaidCode: string) => {
+  try {
+    const user = AuthLoginViewModel.user;
+    if (user !== null) {
+      const userId = user['uid'];
+      const userRef = ref(database, `users/${userId}`);
+
+      const snapshot = await get(userRef);
+      const existingCodes = snapshot.val().mermaidCode || [];
+      const updatedCodes = [...existingCodes, mermaidCode];
+
+      await update(userRef, { mermaidCode: updatedCodes });
+    }
+  } catch (error) {
+    console.error('Error saving mermaide code:', error);
   }
 };
