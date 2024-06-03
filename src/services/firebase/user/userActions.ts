@@ -1,4 +1,12 @@
-import { get, onValue, push, ref, set, update } from 'firebase/database';
+import {
+  get,
+  onValue,
+  push,
+  ref,
+  remove,
+  set,
+  update,
+} from 'firebase/database';
 import { database } from '../firebase';
 import AuthLoginViewModel from '../../../viewModels/AuthLoginViewModel';
 import dayjs from 'dayjs';
@@ -70,6 +78,24 @@ export const getUserMermaidCodes = async () => {
       } else {
         return [];
       }
+    }
+  } catch (e) {
+    console.error(e);
+    return [];
+  }
+};
+
+export const deleteMermaidCode = async (diagramId: string) => {
+  const user = AuthLoginViewModel.user;
+  try {
+    if (user !== null) {
+      const userId = user['uid'];
+      const userMermaidCodesRef = ref(
+        database,
+        `users/${userId}/mermaidCodes/${diagramId}`
+      );
+
+      await remove(userMermaidCodesRef);
     }
   } catch (e) {
     console.error(e);

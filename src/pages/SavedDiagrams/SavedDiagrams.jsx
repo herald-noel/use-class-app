@@ -11,7 +11,10 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { Grid, Divider } from '@mui/material';
-import { getUserMermaidCodes } from '../../services/firebase/user/userActions';
+import {
+  deleteMermaidCode,
+  getUserMermaidCodes,
+} from '../../services/firebase/user/userActions';
 import HomeViewModel from '../../viewModels/HomeViewModel';
 
 // Mock data for saved diagrams
@@ -24,7 +27,6 @@ const savedDiagrams = [
 ];
 
 const SavedDiagrams = observer(() => {
-
   React.useEffect(() => {
     const getData = async () => {
       const codes = await getUserMermaidCodes();
@@ -34,6 +36,7 @@ const SavedDiagrams = observer(() => {
   }, []);
 
   const handleDeleteDiagram = (diagramId) => {
+    deleteMermaidCode(diagramId);
     console.log('Deleting diagram with ID:', diagramId);
   };
 
