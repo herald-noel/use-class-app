@@ -9,7 +9,8 @@ import HomeViewModel from '../../../../viewModels/HomeViewModel';
 const NavItemsBelow = () => {
   const { logoutUser } = useLogout();
   const handleHome = () => {
-    console.log('test');
+    HomeViewModel.setPlantUMLSource('');
+    HomeViewModel.setMermaidSource('');
     HomeViewModel.setCurrentPage(0);
   };
 
