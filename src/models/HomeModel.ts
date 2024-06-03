@@ -1,7 +1,10 @@
 import { makeObservable, observable, action } from 'mobx';
 import axiosInstance from '../../axiosInstance';
 import generateUMLFromJSON from '../utils/generateUMLFromJSON';
-import { saveDiagram } from '../services/firebase/user/userActions';
+import {
+  getUserMermaidCodes,
+  saveDiagram,
+} from '../services/firebase/user/userActions';
 
 class HomeModel {
   isSideNavOpen = false;
@@ -109,6 +112,11 @@ class HomeModel {
   saveMermaidCode = () => {
     saveDiagram(this.title, this.plantUMLSource, this.mermaidSource);
     alert('Successfully saved.');
+  };
+
+  fetchSavedDiagrams = async () => {
+    const codes = await getUserMermaidCodes();
+    this.setSavedDiagrams(codes);
   };
 }
 

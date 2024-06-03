@@ -62,8 +62,12 @@ class HomeViewModel {
     HomeModel.setCurrentPage(value);
   };
 
-  setSavedDiagram = (value: object[]) => {
+  setSavedDiagrams = (value: object[]) => {
     HomeModel.setSavedDiagrams(value);
+  };
+
+  fetchSavedDiagrams = async () => {
+    HomeModel.fetchSavedDiagrams();
   };
 }
 
