@@ -52,15 +52,17 @@ const MainContent = observer(() => {
   }, []);
 
   const handleConvert = async () => {
-    await HomeViewModel.covertToMermaidCD();
+    if (parseUML(HomeViewModel.plantUMLSource).valid) {
+      await HomeViewModel.covertToMermaidCD();
+    } else {
+      HomeViewModel.setParseErrors(
+        parseUML(HomeViewModel.plantUMLSource).errors
+      );
+    }
   };
 
   const onHandleChange = (sourceCode) => {
-    if (parseUML(sourceCode).valid) {
-      HomeViewModel.setPlantUMLSource(sourceCode);
-    } else {
-      console.log("error") 
-    }
+    HomeViewModel.setPlantUMLSource(sourceCode);
   };
 
   return (

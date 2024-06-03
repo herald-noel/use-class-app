@@ -12,10 +12,16 @@ export default function parseUML(uml) {
     relationships: [],
   };
 
+  let startUMLCount = 0;
+  let endUMLCount = 0;
   let insideRectangle = false;
 
   for (const line of lines) {
-    if (
+    if (line === "@startuml") {
+      startUMLCount++;
+    } else if (line === "@enduml") {
+      endUMLCount++;
+    } else if (
       line.startsWith("left to right direction") ||
       line.startsWith("top to bottom direction")
     ) {
@@ -44,6 +50,14 @@ export default function parseUML(uml) {
 
   // Validation checks
   const errors = [];
+
+  if (startUMLCount !== 1) {
+    errors.push("Exactly one '@startuml' tag must be present.");
+  }
+
+  if (endUMLCount !== 1) {
+    errors.push("Exactly one '@enduml' tag must be present.");
+  }
 
   if (!result.direction) {
     errors.push("Direction not specified (e.g., 'left to right direction').");
