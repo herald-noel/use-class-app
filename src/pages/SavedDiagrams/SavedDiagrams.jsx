@@ -1,39 +1,26 @@
-import * as React from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import { observer } from "mobx-react";
-import DeleteIcon from "@mui/icons-material/Delete";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import { Grid, Divider } from "@mui/material";
-import { getUserMermaidCodes } from "../../services/firebase/user/userActions";
-import HomeViewModel from "../../viewModels/HomeViewModel";
-
-// Mock data for saved diagrams
-const savedDiagrams = [
-  { id: 1, title: "Diagram 1", dateCreated: "2023-05-01" },
-  { id: 2, title: "Diagram 2", dateCreated: "2023-04-15" },
-  { id: 3, title: "Diagram 3", dateCreated: "2023-03-20" },
-  { id: 4, title: "Diagram 4", dateCreated: "2023-02-28" },
-  { id: 5, title: "Diagram 5", dateCreated: "2023-01-10" },
-];
+import * as React from 'react';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import { observer } from 'mobx-react';
+import DeleteIcon from '@mui/icons-material/Delete';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import { Grid, Divider } from '@mui/material';
+import { deleteMermaidCode } from '../../services/firebase/user/userActions';
+import HomeViewModel from '../../viewModels/HomeViewModel';
 
 const SavedDiagrams = observer(() => {
   React.useEffect(() => {
-    const getData = async () => {
-      const codes = await getUserMermaidCodes();
-      HomeViewModel.setSavedDiagram(codes);
-    };
-    getData();
+    HomeViewModel.fetchSavedDiagrams();
   }, []);
 
   const handleDeleteDiagram = (diagramId) => {
-    console.log("Deleting diagram with ID:", diagramId);
+    HomeViewModel.deleteSavedDiagram(diagramId);
   };
 
   const borderColor = "#c2b1ee";

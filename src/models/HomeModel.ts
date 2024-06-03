@@ -1,7 +1,11 @@
 import { makeObservable, observable, action } from 'mobx';
 import axiosInstance from '../../axiosInstance';
 import generateUMLFromJSON from '../utils/generateUMLFromJSON';
-import { saveDiagram } from '../services/firebase/user/userActions';
+import {
+  deleteMermaidCode,
+  getUserMermaidCodes,
+  saveDiagram,
+} from '../services/firebase/user/userActions';
 
 class HomeModel {
   isSideNavOpen = false;
@@ -55,6 +59,7 @@ class HomeModel {
       saveMermaidCode: action,
       setCurrentPage: action,
       setSavedDiagrams: action,
+      deleteSavedDiagram: action,
     });
   }
 
@@ -109,6 +114,16 @@ class HomeModel {
   saveMermaidCode = () => {
     saveDiagram(this.title, this.plantUMLSource, this.mermaidSource);
     alert('Successfully saved.');
+  };
+
+  fetchSavedDiagrams = async () => {
+    const codes = await getUserMermaidCodes();
+    this.setSavedDiagrams(codes);
+  };
+
+  deleteSavedDiagram = async (diagramId: string) => {
+    await deleteMermaidCode(diagramId);
+    this.fetchSavedDiagrams();
   };
 }
 
