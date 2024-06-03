@@ -1,13 +1,13 @@
-import { makeObservable, observable, action } from "mobx";
-import axiosInstance from "../../axiosInstance";
-import generateUMLFromJSON from "../utils/generateUMLFromJSON";
-import { saveDiagram } from "../services/firebase/user/userActions";
+import { makeObservable, observable, action } from 'mobx';
+import axiosInstance from '../../axiosInstance';
+import generateUMLFromJSON from '../utils/generateUMLFromJSON';
+import { saveDiagram } from '../services/firebase/user/userActions';
 
 class HomeModel {
   isSideNavOpen = false;
   isPreviewOpen = false;
-  title = "";
-  plantUMLSource = "";
+  title = '';
+  plantUMLSource = '';
   mermaidSource = `classDiagram
   Animal <|-- Duck
   Animal <|-- Fish
@@ -32,6 +32,7 @@ class HomeModel {
 `;
   isLoading = false;
   currentPage = 0;
+  savedDiagrams: object[] = [];
 
   constructor() {
     makeObservable(this, {
@@ -42,6 +43,7 @@ class HomeModel {
       mermaidSource: observable,
       isLoading: observable,
       currentPage: observable,
+      savedDiagrams: observable,
 
       toggleSideNav: action,
       setIsPreviewOpen: action,
@@ -52,6 +54,7 @@ class HomeModel {
       covertToMermaidCD: action,
       saveMermaidCode: action,
       setCurrentPage: action,
+      setSavedDiagrams: action,
     });
   }
 
@@ -83,11 +86,15 @@ class HomeModel {
     this.currentPage = value;
   };
 
+  setSavedDiagrams = (value: object[]) => {
+    this.savedDiagrams = value;
+  };
+
   covertToMermaidCD = async () => {
     this.setIsLoading(true);
     try {
       const response = await axiosInstance.post(
-        "/api/v1/chat/convert",
+        '/api/v1/chat/convert',
         this.plantUMLSource
       );
       const mermaidSourceCode = generateUMLFromJSON(response.data);
@@ -101,7 +108,7 @@ class HomeModel {
 
   saveMermaidCode = () => {
     saveDiagram(this.title, this.plantUMLSource, this.mermaidSource);
-    alert("Successfully saved.");
+    alert('Successfully saved.');
   };
 }
 

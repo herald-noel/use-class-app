@@ -57,24 +57,22 @@ export const saveDiagram = async (
   }
 };
 
-export const getUserMermaidCodes = () => {
+export const getUserMermaidCodes = async () => {
   const user = AuthLoginViewModel.user;
   try {
     if (user !== null) {
       const userId = user['uid'];
-
       const userMermaidCodesRef = ref(database, `users/${userId}/mermaidCodes`);
 
-      let results: object[] = [];
-      onValue(userMermaidCodesRef, (snapshot) => {
-        const data = snapshot.val();
-        results = data;
-      });
-
-      // console.log(results);
-      return results;
+      const snapshot = await get(userMermaidCodesRef);
+      if (snapshot.exists()) {
+        return Object.values(snapshot.val());
+      } else {
+        return [];
+      }
     }
   } catch (e) {
-    console.log(e);
+    console.error(e);
+    return [];
   }
 };

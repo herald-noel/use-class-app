@@ -25,6 +25,10 @@ class HomeViewModel {
     return HomeModel.currentPage;
   }
 
+  get savedDiagrams() {
+    return HomeModel.savedDiagrams;
+  }
+
   toggleSideNav = () => {
     const state = HomeModel.isSideNavOpen;
     HomeModel.toggleSideNav(!state);
@@ -56,6 +60,10 @@ class HomeViewModel {
 
   setCurrentPage = (value: number) => {
     HomeModel.setCurrentPage(value);
+  };
+
+  setSavedDiagram = (value: object[]) => {
+    HomeModel.setSavedDiagrams(value);
   };
 }
 
