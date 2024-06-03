@@ -1,19 +1,23 @@
-import * as React from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import { observer } from 'mobx-react';
-import DeleteIcon from '@mui/icons-material/Delete';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import { Grid, Divider } from '@mui/material';
-import { deleteMermaidCode } from '../../services/firebase/user/userActions';
-import HomeViewModel from '../../viewModels/HomeViewModel';
-
+import * as React from "react";
+import { observer } from "mobx-react";
+import DeleteIcon from "@mui/icons-material/Delete";
+import IconButton from "@mui/material/IconButton";
+import LaunchIcon from "@mui/icons-material/Launch";
+import Typography from "@mui/material/Typography";
+import { deleteMermaidCode } from "../../services/firebase/user/userActions";
+import HomeViewModel from "../../viewModels/HomeViewModel";
+import {
+  Box,
+  Grid,
+  Divider,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from "@mui/material";
 const SavedDiagrams = observer(() => {
   React.useEffect(() => {
     HomeViewModel.fetchSavedDiagrams();
@@ -59,19 +63,10 @@ const SavedDiagrams = observer(() => {
         <Table aria-label="saved diagrams table">
           <TableHead sx={{ backgroundColor: "#ececff" }}>
             <TableRow>
-              <TableCell >
-                Title
-              </TableCell>
-              <TableCell
-                align="right"
-              >
-                Date Created
-              </TableCell>
-              <TableCell
-                align="right"
-              >
-                Actions
-              </TableCell>
+              <TableCell>Title</TableCell>
+              <TableCell align="right">Date Created</TableCell>
+
+              <TableCell align="right">Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -94,12 +89,24 @@ const SavedDiagrams = observer(() => {
                   align="right"
                   sx={{ borderTop: `2px solid ${borderColor}` }}
                 >
-                  <IconButton
-                    aria-label="delete"
-                    onClick={() => handleDeleteDiagram(key)}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
+                  <Box sx={{display: "flex", justifyContent: "flex-end"}}>
+                    <Box>
+                      <IconButton
+                        aria-label="open"
+                        onClick={() => handleOpenDiagram(key)}
+                      >
+                        <LaunchIcon />
+                      </IconButton>
+                    </Box>
+                    <Box>
+                      <IconButton
+                        aria-label="delete"
+                        onClick={() => handleDeleteDiagram(key)}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </Box>
+                  </Box>
                 </TableCell>
               </TableRow>
             ))}
