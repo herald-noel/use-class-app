@@ -70,46 +70,56 @@ const SavedDiagrams = observer(() => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {Object.entries(HomeViewModel.savedDiagrams).map(([key, value]) => (
-              <TableRow key={key}>
-                <TableCell
-                  component="th"
-                  scope="row"
-                  sx={{ borderTop: `2px solid ${borderColor}` }}
-                >
-                  {value.title}
-                </TableCell>
-                <TableCell
-                  align="right"
-                  sx={{ borderTop: `2px solid ${borderColor}` }}
-                >
-                  {value.dateCreated}
-                </TableCell>
-                <TableCell
-                  align="right"
-                  sx={{ borderTop: `2px solid ${borderColor}` }}
-                >
-                  <Box sx={{display: "flex", justifyContent: "flex-end"}}>
-                    <Box>
-                      <IconButton
-                        aria-label="open"
-                        onClick={() => handleOpenDiagram(key)}
-                      >
-                        <LaunchIcon />
-                      </IconButton>
-                    </Box>
-                    <Box>
-                      <IconButton
-                        aria-label="delete"
-                        onClick={() => handleDeleteDiagram(key)}
-                      >
-                        <DeleteIcon />
-                      </IconButton>
-                    </Box>
-                  </Box>
+            {Object.entries(HomeViewModel.savedDiagrams).length > 0 ? (
+              Object.entries(HomeViewModel.savedDiagrams).map(
+                ([key, value]) => (
+                  <TableRow key={key}>
+                    <TableCell
+                      component="th"
+                      scope="row"
+                      sx={{ borderTop: `2px solid ${borderColor}` }}
+                    >
+                      {value.title}
+                    </TableCell>
+                    <TableCell
+                      align="right"
+                      sx={{ borderTop: `2px solid ${borderColor}` }}
+                    >
+                      {value.dateCreated}
+                    </TableCell>
+                    <TableCell
+                      align="right"
+                      sx={{ borderTop: `2px solid ${borderColor}` }}
+                    >
+                      <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+                        <Box>
+                          <IconButton
+                            aria-label="open"
+                            onClick={() => handleOpenDiagram(key)}
+                          >
+                            <LaunchIcon />
+                          </IconButton>
+                        </Box>
+                        <Box>
+                          <IconButton
+                            aria-label="delete"
+                            onClick={() => handleDeleteDiagram(key)}
+                          >
+                            <DeleteIcon />
+                          </IconButton>
+                        </Box>
+                      </Box>
+                    </TableCell>
+                  </TableRow>
+                )
+              )
+            ) : (
+              <TableRow>
+                <TableCell colSpan={3} align="center">
+                  No saved diagrams
                 </TableCell>
               </TableRow>
-            ))}
+            )}
           </TableBody>
         </Table>
       </TableContainer>
