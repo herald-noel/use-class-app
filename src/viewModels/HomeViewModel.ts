@@ -1,4 +1,4 @@
-import HomeModel from '../models/HomeModel';
+import HomeModel from "../models/HomeModel";
 
 class HomeViewModel {
   get isSideNavOpen() {
@@ -27,6 +27,10 @@ class HomeViewModel {
 
   get savedDiagrams() {
     return HomeModel.savedDiagrams;
+  }
+
+  get parseErrors() {
+    return HomeModel.parseErrors;
   }
 
   toggleSideNav = () => {
@@ -72,6 +76,10 @@ class HomeViewModel {
 
   deleteSavedDiagram = (diagramId: string) => {
     HomeModel.deleteSavedDiagram(diagramId);
+  };
+
+  setParseErrors = (value: string[]) => {
+    HomeModel.setParseErrors(value);
   };
 }
 

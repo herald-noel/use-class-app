@@ -1,17 +1,17 @@
-import { makeObservable, observable, action } from 'mobx';
-import axiosInstance from '../../axiosInstance';
-import generateUMLFromJSON from '../utils/generateUMLFromJSON';
+import { makeObservable, observable, action } from "mobx";
+import axiosInstance from "../../axiosInstance";
+import generateUMLFromJSON from "../utils/generateUMLFromJSON";
 import {
   deleteMermaidCode,
   getUserMermaidCodes,
   saveDiagram,
-} from '../services/firebase/user/userActions';
+} from "../services/firebase/user/userActions";
 
 class HomeModel {
   isSideNavOpen = false;
   isPreviewOpen = false;
-  title = '';
-  plantUMLSource = '';
+  title = "";
+  plantUMLSource = "";
   mermaidSource = `classDiagram
   Animal <|-- Duck
   Animal <|-- Fish
@@ -37,6 +37,7 @@ class HomeModel {
   isLoading = false;
   currentPage = 0;
   savedDiagrams: object[] = [];
+  parseErrors: string[] = [];
 
   constructor() {
     makeObservable(this, {
@@ -48,6 +49,7 @@ class HomeModel {
       isLoading: observable,
       currentPage: observable,
       savedDiagrams: observable,
+      parseErrors: observable,
 
       toggleSideNav: action,
       setIsPreviewOpen: action,
@@ -60,6 +62,7 @@ class HomeModel {
       setCurrentPage: action,
       setSavedDiagrams: action,
       deleteSavedDiagram: action,
+      setParseErrors: action,
     });
   }
 
@@ -95,11 +98,15 @@ class HomeModel {
     this.savedDiagrams = value;
   };
 
+  setParseErrors = (value: string[]) => {
+    this.parseErrors = value;
+  };
+
   covertToMermaidCD = async () => {
     this.setIsLoading(true);
     try {
       const response = await axiosInstance.post(
-        '/api/v1/chat/convert',
+        "/api/v1/chat/convert",
         this.plantUMLSource
       );
       const mermaidSourceCode = generateUMLFromJSON(response.data);
@@ -113,7 +120,7 @@ class HomeModel {
 
   saveMermaidCode = () => {
     saveDiagram(this.title, this.plantUMLSource, this.mermaidSource);
-    alert('Successfully saved.');
+    alert("Successfully saved.");
   };
 
   fetchSavedDiagrams = async () => {

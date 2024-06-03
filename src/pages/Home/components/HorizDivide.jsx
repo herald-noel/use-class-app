@@ -1,14 +1,14 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from "react";
 import {
   DraggableBoxContainer,
   DraggableBox,
   DraggableDividerBar,
-} from '../styles/horizStyle';
-import ClassDiagram from './Mermaid/ClassDiagram';
-import { Editor } from '@monaco-editor/react';
-import { Typography, LinearProgress } from '@mui/material';
-import { observer } from 'mobx-react';
-import HomeViewModel from '../../../viewModels/HomeViewModel';
+} from "../styles/horizStyle";
+import ClassDiagram from "./Mermaid/ClassDiagram";
+import { Editor } from "@monaco-editor/react";
+import { Typography, LinearProgress } from "@mui/material";
+import { observer } from "mobx-react";
+import HomeViewModel from "../../../viewModels/HomeViewModel";
 
 const HorizDivide = observer(() => {
   const [dividerPosition, setDividerPosition] = useState(70);
@@ -29,12 +29,12 @@ const HorizDivide = observer(() => {
     };
 
     const handleMouseUp = () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUp);
     };
 
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', handleMouseUp);
+    document.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseup", handleMouseUp);
   };
 
   useEffect(() => {
@@ -48,19 +48,19 @@ const HorizDivide = observer(() => {
             startPosition + ((e.clientY - startY) / containerHeight) * 100;
           setDividerPosition(Math.max(0, Math.min(100, newDividerPosition)));
         };
-        document.addEventListener('mousemove', handleMouseMoveInternal);
-        document.addEventListener('mouseup', handleMouseUp);
+        document.addEventListener("mousemove", handleMouseMoveInternal);
+        document.addEventListener("mouseup", handleMouseUp);
       }
     };
 
     const handleMouseUp = () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUp);
     };
 
     return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUp);
     };
   }, [dividerPosition]);
 
@@ -69,15 +69,15 @@ const HorizDivide = observer(() => {
       <DraggableBox height={dividerPosition}>
         <ClassDiagram source={HomeViewModel.mermaidSource} />
       </DraggableBox>
-      {HomeViewModel.isLoading && <LinearProgress color='secondary' />}
+      {HomeViewModel.isLoading && <LinearProgress color="secondary" />}
       <DraggableDividerBar
         dividerPosition={dividerPosition}
         onMouseDown={handleMouseDown}
       />
       <DraggableBox height={100 - dividerPosition}>
-        <Typography variant='h6'>Mermaid Code</Typography>
+        <Typography variant="h6">Mermaid Code</Typography>
         <Editor
-          theme='vs-light'
+          theme="vs-light"
           value={HomeViewModel.mermaidSource}
           onChange={(value) => HomeViewModel.setMermaidSource(value)}
         />
