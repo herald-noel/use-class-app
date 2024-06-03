@@ -66,7 +66,7 @@ export const getUserMermaidCodes = async () => {
 
       const snapshot = await get(userMermaidCodesRef);
       if (snapshot.exists()) {
-        return Object.values(snapshot.val());
+        return snapshot.val();
       } else {
         return [];
       }

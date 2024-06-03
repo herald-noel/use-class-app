@@ -24,19 +24,16 @@ const savedDiagrams = [
 ];
 
 const SavedDiagrams = observer(() => {
-  const [mermaidCodes, setMermaidCodes] = React.useState([]);
 
   React.useEffect(() => {
     const getData = async () => {
       const codes = await getUserMermaidCodes();
-      // setMermaidCodes(codes);
       HomeViewModel.setSavedDiagram(codes);
     };
     getData();
   }, []);
 
   const handleDeleteDiagram = (diagramId) => {
-    // Add your logic to handle the deletion of the diagram here
     console.log('Deleting diagram with ID:', diagramId);
   };
 
@@ -77,16 +74,16 @@ const SavedDiagrams = observer(() => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {HomeViewModel.savedDiagrams.map((mermaidCode, index) => (
-              <TableRow key={index}>
+            {Object.entries(HomeViewModel.savedDiagrams).map(([key, value]) => (
+              <TableRow key={key}>
                 <TableCell component='th' scope='row'>
-                  {mermaidCode.title}
+                  {value.title}
                 </TableCell>
-                <TableCell align='right'>{mermaidCode.dateCreated}</TableCell>
+                <TableCell align='right'>{value.dateCreated}</TableCell>
                 <TableCell align='right'>
                   <IconButton
                     aria-label='delete'
-                    onClick={() => handleDeleteDiagram(mermaidCode.id)}
+                    onClick={() => handleDeleteDiagram(key)}
                   >
                     <DeleteIcon />
                   </IconButton>
