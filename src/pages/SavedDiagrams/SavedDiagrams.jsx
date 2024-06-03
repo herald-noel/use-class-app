@@ -20,8 +20,7 @@ const SavedDiagrams = observer(() => {
   }, []);
 
   const handleDeleteDiagram = (diagramId) => {
-    deleteMermaidCode(diagramId);
-    console.log('Deleting diagram with ID:', diagramId);
+    HomeViewModel.deleteSavedDiagram(diagramId);
   };
 
   return (

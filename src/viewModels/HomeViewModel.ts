@@ -66,8 +66,12 @@ class HomeViewModel {
     HomeModel.setSavedDiagrams(value);
   };
 
-  fetchSavedDiagrams = async () => {
+  fetchSavedDiagrams = () => {
     HomeModel.fetchSavedDiagrams();
+  };
+
+  deleteSavedDiagram = (diagramId: string) => {
+    HomeModel.deleteSavedDiagram(diagramId);
   };
 }
 
