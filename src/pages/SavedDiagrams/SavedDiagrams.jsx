@@ -27,6 +27,7 @@ const SavedDiagrams = observer(() => {
   };
 
   const handleOpenDiagram = (plantUMLCode, mermaidCode) => {
+    HomeViewModel.setParseErrors([]);
     HomeViewModel.setPlantUMLSource(plantUMLCode);
     HomeViewModel.setMermaidSource(mermaidCode);
     HomeViewModel.setCurrentPage(0);
