@@ -1,1 +1,0 @@
-export const navItems = ['Log In', 'Sign Up']
