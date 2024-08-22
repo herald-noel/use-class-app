@@ -10,12 +10,14 @@ const ErrorMessage = observer(() => {
         if (ConvertViewModel.parseErrors.length > 0) {
             const errorMessages = ConvertViewModel.parseErrors
                 .map((error, index) => `${index + 1}. ${error}`)
-                .join('\n')
-            
+                .join('<br />')
+
             toast({
                 variant: 'destructive',
                 title: 'Uh oh! Something went wrong.',
-                description: errorMessages,
+                description: (
+                    <span dangerouslySetInnerHTML={{ __html: errorMessages }} />
+                ),
             })
         }
     }, [ConvertViewModel.parseErrors, toast])
