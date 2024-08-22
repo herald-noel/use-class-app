@@ -10,9 +10,10 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { PageUrl } from '@/data/pages.constants'
 import useSignUp from '@/hooks/useSignUp'
-import { Loader2 } from 'lucide-react'
+import { Eye, EyeOff, Loader2 } from 'lucide-react'
 import { observer } from 'mobx-react'
 import { Link } from 'react-router-dom'
+import { useState } from 'react'
 
 const Register = observer(() => {
     const {
@@ -33,6 +34,9 @@ const Register = observer(() => {
         handleSubmit,
         isLoading,
     } = useSignUp()
+
+    const [showPassword, setShowPassword] = useState(false)
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
     return (
         <div className="p-8">
@@ -76,7 +80,7 @@ const Register = observer(() => {
                             <Input
                                 id="email"
                                 type="email"
-                                placeholder="j@example.com"
+                                placeholder="name@example.com"
                                 value={email}
                                 onChange={(e) => {
                                     setEmail(e.target.value)
@@ -89,29 +93,55 @@ const Register = observer(() => {
                                 </small>
                             )}
                         </div>
-                        <div className="grid gap-2">
+                        <div className="grid gap-2 relative">
                             <Label htmlFor="password">Password</Label>
                             <Input
                                 id="password"
-                                type="password"
+                                placeholder="password"
+                                type={showPassword ? 'text' : 'password'}
                                 value={password}
                                 onChange={(e) => {
                                     setPassword(e.target.value)
                                 }}
                                 required
                             />
+                            <button
+                                type="button"
+                                onClick={() => setShowPassword(!showPassword)}
+                                className="absolute right-2 top-8"
+                            >
+                                {showPassword ? (
+                                    <EyeOff className="h-5 w-5" />
+                                ) : (
+                                    <Eye className="h-5 w-5" />
+                                )}
+                            </button>
                         </div>
-                        <div className="grid gap-2">
+                        <div className="grid gap-2 relative">
                             <Label htmlFor="password">Confirm Password</Label>
                             <Input
                                 id="confirm-password"
-                                type="password"
+                                placeholder="password"
+                                type={showConfirmPassword ? 'text' : 'password'}
                                 value={confirmPassword}
                                 onChange={(e) => {
                                     setConfirmPassword(e.target.value)
                                 }}
                                 required
                             />
+                            <button
+                                type="button"
+                                onClick={() =>
+                                    setShowConfirmPassword(!showConfirmPassword)
+                                }
+                                className="absolute right-2 top-8"
+                            >
+                                {showConfirmPassword ? (
+                                    <EyeOff className="h-5 w-5" />
+                                ) : (
+                                    <Eye className="h-5 w-5" />
+                                )}
+                            </button>
                             {passwordError && (
                                 <small className="text-sm text-red-300">
                                     {passwordErrorMsg}
