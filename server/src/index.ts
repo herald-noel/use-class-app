@@ -19,7 +19,7 @@ const version = "/api/v1";
 app.use(`${version}/chat`, ChatRoute);
 
 app
-  .listen(PORT, () => {
+  .listen(PORT || 3000, () => {
     console.log("Server running at PORT: ", PORT);
   })
   .on("error", (error) => {
