@@ -94,172 +94,175 @@ const Documentation = () => {
                     </nav>
                 </div>
             </div>
-            <div className="container mx-auto py-20 max-w-4xl">
-                <h1 className="text-3xl font-bold mb-6">
-                    Creating Use Case Diagrams with PlantUML
-                </h1>
-                <p className="mb-6">
-                    PlantUML is a powerful tool for creating various types of
-                    UML diagrams, including use case diagrams. This guide will
-                    walk you through the process of creating use case diagrams
-                    using PlantUML syntax.
-                </p>
+            <div className="bg-[#1e1e1e]">
+                <div className="container mx-auto py-20 max-w-4xl">
+                    <h1 className="text-3xl font-bold mb-6">
+                        Creating Use Case Diagrams with PlantUML
+                    </h1>
+                    <p className="mb-6">
+                        PlantUML is a powerful tool for creating various types
+                        of UML diagrams, including use case diagrams. This guide
+                        will walk you through the process of creating use case
+                        diagrams using PlantUML syntax.
+                    </p>
 
-                <Card className="mb-6">
-                    <CardHeader>
-                        <CardTitle>Basic Structure</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <PlantUMLSection code={basicStructure} />
-                    </CardContent>
-                </Card>
+                    <Card className="mb-6">
+                        <CardHeader>
+                            <CardTitle>Basic Structure</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <PlantUMLSection code={basicStructure} />
+                        </CardContent>
+                    </Card>
 
-                <Card className="mb-6">
-                    <CardHeader>
-                        <CardTitle>Step-by-Step Guide</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <ol className="list-decimal list-inside space-y-4">
-                            <li>
-                                <strong>Start and End the Diagram</strong>
-                                <p>
-                                    Begin your diagram with `@startuml` and end
-                                    it with `@enduml`.
-                                </p>
-                            </li>
-                            <li>
-                                <strong>Set the Direction</strong>
-                                <p>
-                                    Use `left to right direction` to set the
-                                    orientation of the diagram.
-                                </p>
-                            </li>
-                            <li>
-                                <strong>Define Actors</strong>
-                                <p>
-                                    Create actors using the `actor` keyword
-                                    followed by the actor's name:
-                                </p>
-                                <pre className="bg-[#1e1e1e] p-2 rounded-md mt-2">
-                                    actor ActorName
-                                </pre>
-                            </li>
-                            <li>
-                                <strong>Create the System Rectangle</strong>
-                                <p>
-                                    Enclose your use cases within a rectangle
-                                    representing the system:
-                                </p>
-                                <pre className="bg-[#1e1e1e] p-2 rounded-md mt-2">
-                                    {`rectangle "System Name" {
+                    <Card className="mb-6">
+                        <CardHeader>
+                            <CardTitle>Step-by-Step Guide</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <ol className="list-decimal list-inside space-y-4">
+                                <li>
+                                    <strong>Start and End the Diagram</strong>
+                                    <p>
+                                        Begin your diagram with `@startuml` and
+                                        end it with `@enduml`.
+                                    </p>
+                                </li>
+                                <li>
+                                    <strong>Set the Direction</strong>
+                                    <p>
+                                        Use `left to right direction` to set the
+                                        orientation of the diagram.
+                                    </p>
+                                </li>
+                                <li>
+                                    <strong>Define Actors</strong>
+                                    <p>
+                                        Create actors using the `actor` keyword
+                                        followed by the actor's name:
+                                    </p>
+                                    <pre className="bg-[#1e1e1e] p-2 rounded-md mt-2">
+                                        actor ActorName
+                                    </pre>
+                                </li>
+                                <li>
+                                    <strong>Create the System Rectangle</strong>
+                                    <p>
+                                        Enclose your use cases within a
+                                        rectangle representing the system:
+                                    </p>
+                                    <pre className="bg-[#1e1e1e] p-2 rounded-md mt-2">
+                                        {`rectangle "System Name" {
   // Use cases go here
 }`}
-                                </pre>
-                            </li>
-                            <li>
-                                <strong>Define Use Cases</strong>
-                                <p>
-                                    Create use cases using the `usecase`
-                                    keyword:
-                                </p>
-                                <pre className="bg-[#1e1e1e] p-2 rounded-md mt-2">
-                                    usecase "Use Case Description" as UCx
-                                </pre>
-                                <p>
-                                    Where `UCx` is a unique identifier for the
-                                    use case.
-                                </p>
-                            </li>
-                            <li>
-                                <strong>Connect Actors to Use Cases</strong>
-                                <p>
-                                    Use arrows to connect actors to their
-                                    associated use cases:
-                                </p>
-                                <pre className="bg-[#1e1e1e] p-2 rounded-md mt-2">
-                                    ActorName --{'>'} UCx
-                                </pre>
-                            </li>
-                        </ol>
-                    </CardContent>
-                </Card>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <strong>Define Use Cases</strong>
+                                    <p>
+                                        Create use cases using the `usecase`
+                                        keyword:
+                                    </p>
+                                    <pre className="bg-[#1e1e1e] p-2 rounded-md mt-2">
+                                        usecase "Use Case Description" as UCx
+                                    </pre>
+                                    <p>
+                                        Where `UCx` is a unique identifier for
+                                        the use case.
+                                    </p>
+                                </li>
+                                <li>
+                                    <strong>Connect Actors to Use Cases</strong>
+                                    <p>
+                                        Use arrows to connect actors to their
+                                        associated use cases:
+                                    </p>
+                                    <pre className="bg-[#1e1e1e] p-2 rounded-md mt-2">
+                                        ActorName --{'>'} UCx
+                                    </pre>
+                                </li>
+                            </ol>
+                        </CardContent>
+                    </Card>
 
-                <Card className="mb-6">
-                    <CardHeader>
-                        <CardTitle>Examples</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <Tabs defaultValue="email">
-                            <TabsList className="mb-4">
-                                <TabsTrigger
-                                    value="email"
-                                    className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
-                                >
-                                    Email System
-                                </TabsTrigger>
-                                <TabsTrigger
-                                    value="library"
-                                    className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
-                                >
-                                    Library Management System
-                                </TabsTrigger>
-                                <TabsTrigger
-                                    value="bookstore"
-                                    className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
-                                >
-                                    Bookstore System
-                                </TabsTrigger>
-                            </TabsList>
-                            <TabsContent value="email">
-                                <PlantUMLSection code={emailSystem} />
-                            </TabsContent>
-                            <TabsContent value="library">
-                                <PlantUMLSection code={librarySystem} />
-                            </TabsContent>
-                            <TabsContent value="bookstore">
-                                <PlantUMLSection code={bookstoreSystem} />
-                            </TabsContent>
-                        </Tabs>
-                    </CardContent>
-                </Card>
+                    <Card className="mb-6">
+                        <CardHeader>
+                            <CardTitle>Examples</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <Tabs defaultValue="email">
+                                <TabsList className="mb-4">
+                                    <TabsTrigger
+                                        value="email"
+                                        className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+                                    >
+                                        Email System
+                                    </TabsTrigger>
+                                    <TabsTrigger
+                                        value="library"
+                                        className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+                                    >
+                                        Library Management System
+                                    </TabsTrigger>
+                                    <TabsTrigger
+                                        value="bookstore"
+                                        className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+                                    >
+                                        Bookstore System
+                                    </TabsTrigger>
+                                </TabsList>
+                                <TabsContent value="email">
+                                    <PlantUMLSection code={emailSystem} />
+                                </TabsContent>
+                                <TabsContent value="library">
+                                    <PlantUMLSection code={librarySystem} />
+                                </TabsContent>
+                                <TabsContent value="bookstore">
+                                    <PlantUMLSection code={bookstoreSystem} />
+                                </TabsContent>
+                            </Tabs>
+                        </CardContent>
+                    </Card>
 
-                <Card>
-                    <CardHeader>
-                        <CardTitle>Tips</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <ul className="list-disc list-inside space-y-2">
-                            <li>
-                                Use meaningful names for actors and use cases to
-                                make your diagram easy to understand.
-                            </li>
-                            <li>
-                                Keep use case descriptions concise but
-                                descriptive.
-                            </li>
-                            <li>
-                                Use unique identifiers (e.g., UC1, UC2) for each
-                                use case to make connections easier.
-                            </li>
-                            <li>
-                                You can add multiple actors to a single diagram
-                                if needed.
-                            </li>
-                            <li>
-                                PlantUML allows for more advanced features like
-                                inheritance between actors or inclusion
-                                relationships between use cases. Explore the
-                                PlantUML documentation for more advanced
-                                options.
-                            </li>
-                        </ul>
-                    </CardContent>
-                </Card>
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>Tips</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <ul className="list-disc list-inside space-y-2">
+                                <li>
+                                    Use meaningful names for actors and use
+                                    cases to make your diagram easy to
+                                    understand.
+                                </li>
+                                <li>
+                                    Keep use case descriptions concise but
+                                    descriptive.
+                                </li>
+                                <li>
+                                    Use unique identifiers (e.g., UC1, UC2) for
+                                    each use case to make connections easier.
+                                </li>
+                                <li>
+                                    You can add multiple actors to a single
+                                    diagram if needed.
+                                </li>
+                                <li>
+                                    PlantUML allows for more advanced features
+                                    like inheritance between actors or inclusion
+                                    relationships between use cases. Explore the
+                                    PlantUML documentation for more advanced
+                                    options.
+                                </li>
+                            </ul>
+                        </CardContent>
+                    </Card>
 
-                <p className="mt-6">
-                    By following this guide, you can create clear and
-                    informative use case diagrams using PlantUML syntax.
-                </p>
+                    <p className="mt-6">
+                        By following this guide, you can create clear and
+                        informative use case diagrams using PlantUML syntax.
+                    </p>
+                </div>
             </div>
         </>
     )
