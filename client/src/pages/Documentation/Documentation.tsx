@@ -3,10 +3,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
 import DocsEditor from '@/components/docs-editor'
 import { Link } from 'react-router-dom'
 import { PageUrl } from '@/data/pages.constants'
-<<<<<<< HEAD
 import PlantUMLSection from '@/components/plantuml-section'
-=======
->>>>>>> 7bf45e4b5c32870f344a27eac9668ab0d81eee6a
 
 const Documentation = () => {
     const basicStructure = `@startuml
