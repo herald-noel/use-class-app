@@ -24,6 +24,8 @@ import useLogout from '@/hooks/useLogout'
 import { Link } from 'react-router-dom'
 import { PageUrl } from '@/data/pages.constants'
 import { ChatPopover } from '@/components/chat-popover'
+import { DropdownMenuDiagram } from '@/components/dropdown-settings'
+import { DIAGRAMS } from '@/data/diagrams.constants'
 
 const Home = observer(() => {
     const editorRef = useRef()
@@ -142,17 +144,7 @@ const Home = observer(() => {
                                 </h4>
                             </div>
                             <div className="pr-8 flex">
-                                <Button
-                                    size="sm"
-                                    variant="outline"
-                                    onClick={() =>
-                                        handleCodeDownload(
-                                            ConvertViewModel.plantUMLSource
-                                        )
-                                    }
-                                >
-                                    <Download />
-                                </Button>
+                                <DropdownMenuDiagram type={DIAGRAMS.plantUML} />
                                 <Button
                                     size="sm"
                                     variant="outline"
@@ -204,17 +196,9 @@ const Home = observer(() => {
                                         </h4>
                                     </div>
                                     <div className="pr-8">
-                                        <Button
-                                            size="sm"
-                                            variant="outline"
-                                            onClick={() =>
-                                                handleCodeDownload(
-                                                    ConvertViewModel.mermaidSource
-                                                )
-                                            }
-                                        >
-                                            <Download />
-                                        </Button>
+                                        <DropdownMenuDiagram
+                                            type={DIAGRAMS.mermaid}
+                                        />
                                     </div>
                                 </div>
                                 <Editor
