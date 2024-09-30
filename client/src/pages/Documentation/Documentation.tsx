@@ -3,6 +3,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
 import DocsEditor from '@/components/docs-editor'
 import { Link } from 'react-router-dom'
 import { PageUrl } from '@/data/pages.constants'
+import PlantUMLSection from '@/components/plantuml-section'
 
 const Documentation = () => {
     const basicStructure = `@startuml
@@ -109,7 +110,7 @@ const Documentation = () => {
                         <CardTitle>Basic Structure</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <DocsEditor value={basicStructure} />
+                        <PlantUMLSection code={basicStructure} />
                     </CardContent>
                 </Card>
 
@@ -210,13 +211,13 @@ const Documentation = () => {
                                 </TabsTrigger>
                             </TabsList>
                             <TabsContent value="email">
-                                <DocsEditor value={emailSystem} />
+                                <PlantUMLSection code={emailSystem} />
                             </TabsContent>
                             <TabsContent value="library">
-                                <DocsEditor value={librarySystem} />
+                                <PlantUMLSection code={librarySystem} />
                             </TabsContent>
                             <TabsContent value="bookstore">
-                                <DocsEditor value={bookstoreSystem} />
+                                <PlantUMLSection code={bookstoreSystem} />
                             </TabsContent>
                         </Tabs>
                     </CardContent>
