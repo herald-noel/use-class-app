@@ -80,6 +80,12 @@ const Home = observer(() => {
                     <nav className="flex items-center gap-4 text-sm lg:gap-6">
                         <Link
                             className="transition-colors hover:text-foreground/80 text-foreground/60"
+                            to={PageUrl.DOCUMENTATION}
+                        >
+                            Docs
+                        </Link>
+                        <Link
+                            className="transition-colors hover:text-foreground/80 text-foreground/60"
                             to={PageUrl.SAVED_DIAGRAM}
                         >
                             Saved Diagram
