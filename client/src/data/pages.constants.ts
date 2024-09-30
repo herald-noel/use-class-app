@@ -4,4 +4,5 @@ export const enum PageUrl {
     REGISTER = '/register',
     HOME = '/home',
     SAVED_DIAGRAM = '/saved_diagram',
+    DOCUMENTATION = '/docs'
 }
