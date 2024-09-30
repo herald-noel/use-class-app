@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/resizable'
 import { Separator } from '@/components/ui/separator'
 import ClassDiagram from '@/components/class-diagram'
-import { CircleUser, Loader2 } from 'lucide-react'
+import { CircleUser, Download, Loader2 } from 'lucide-react'
 import PreviewButton from '@/components/preview-button'
 import SaveButton from '@/components/save-button'
 import {
@@ -32,6 +32,18 @@ const Home = observer(() => {
     const onMount = (editor) => {
         editorRef.current = editor
         editor.focus()
+    }
+
+    const handleCodeDownload = (diagramCode: string) => {
+        const element = document.createElement('a')
+        const file = new Blob([diagramCode], {
+            type: 'text/plain',
+        })
+        element.href = URL.createObjectURL(file)
+        element.download = 'diagram.txt'
+        document.body.appendChild(element)
+        element.click()
+        document.body.removeChild(element)
     }
 
     const handleConvert = async () => {
@@ -123,8 +135,20 @@ const Home = observer(() => {
                                     PlantUML Code
                                 </h4>
                             </div>
-                            <div className="px-8">
+                            <div className="pr-8 flex">
                                 <Button
+                                    size="sm"
+                                    variant="outline"
+                                    onClick={() =>
+                                        handleCodeDownload(
+                                            ConvertViewModel.plantUMLSource
+                                        )
+                                    }
+                                >
+                                    <Download />
+                                </Button>
+                                <Button
+                                    size="sm"
                                     variant="outline"
                                     onClick={ConvertViewModel.newDiagram}
                                 >
@@ -163,14 +187,29 @@ const Home = observer(() => {
                             </ResizablePanel>
                             <ResizableHandle withHandle />
                             <ResizablePanel defaultSize={40}>
-                                <div className="flex items-center space-x-2 px-8 py-2 bg-secondary">
-                                    <img
-                                        src="mermaid.svg"
-                                        className="w-4 h-6 pb-1 pt-1"
-                                    />
-                                    <h4 className="text-sm text-foreground font-medium">
-                                        Mermaid Code
-                                    </h4>
+                                <div className="bg-secondary flex items-center justify-between">
+                                    <div className="flex items-center space-x-2 px-8 py-2">
+                                        <img
+                                            src="mermaid.svg"
+                                            className="w-4 h-6 pb-1 pt-1"
+                                        />
+                                        <h4 className="text-sm text-foreground font-medium">
+                                            Mermaid Code
+                                        </h4>
+                                    </div>
+                                    <div className="pr-8">
+                                        <Button
+                                            size="sm"
+                                            variant="outline"
+                                            onClick={() =>
+                                                handleCodeDownload(
+                                                    ConvertViewModel.mermaidSource
+                                                )
+                                            }
+                                        >
+                                            <Download />
+                                        </Button>
+                                    </div>
                                 </div>
                                 <Editor
                                     theme="vs-dark"
