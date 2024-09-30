@@ -14,9 +14,11 @@ const router = observer(() => {
             <Routes>
                 <Route element={<PrivateUserRoutes />}>
                     <Route path={PageUrl.HOME} element={<Home />} />
+                    <Route
+                        path={PageUrl.SAVED_DIAGRAM}
+                        element={<SavedDiagram />}
+                    />
                 </Route>
-
-                <Route path={PageUrl.SAVED_DIAGRAM} element={<SavedDiagram />} />
                 <Route path={PageUrl.ROOT} element={<LandingPage />} />
                 <Route path={PageUrl.LOGIN} element={<Login />} />
                 <Route path={PageUrl.REGISTER} element={<Register />} />
