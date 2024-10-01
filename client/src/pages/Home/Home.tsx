@@ -3,7 +3,7 @@ import parseUML from '@/utils/parseUML'
 import ConvertViewModel from '@/viewModels/ConvertViewModel'
 import { Editor } from '@monaco-editor/react'
 import { observer } from 'mobx-react'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import {
     ResizableHandle,
     ResizablePanel,
@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/resizable'
 import { Separator } from '@/components/ui/separator'
 import ClassDiagram from '@/components/class-diagram'
-import { CircleUser, Download, Loader2 } from 'lucide-react'
+import { CircleHelp, CircleUser, Download, Loader2 } from 'lucide-react'
 import PreviewButton from '@/components/preview-button'
 import SaveButton from '@/components/save-button'
 import {
@@ -23,17 +23,17 @@ import {
 import useLogout from '@/hooks/useLogout'
 import { Link } from 'react-router-dom'
 import { PageUrl } from '@/data/pages.constants'
-import { ChatPopover } from '@/components/chat-popover'
+// import { ChatPopover } from '@/components/chat-popover'
 import { DropdownMenuDiagram } from '@/components/dropdown-settings'
 import { DIAGRAMS } from '@/data/diagrams.constants'
-import Joyride, { Step } from 'react-joyride'
+import Joyride, { STATUS, Step } from 'react-joyride'
 
 const Home = observer(() => {
     const editorRef = useRef()
     const { logoutUser } = useLogout()
 
     const [joyrideState, setJoyrideState] = useState({
-        run: true, // Auto-start the tour
+        run: false,
         steps: [
             {
                 content: (
@@ -51,6 +51,11 @@ const Home = observer(() => {
                 },
                 placement: 'center',
                 target: 'body',
+            },
+            {
+                target: '.docs',
+                content:
+                    'You can check how to build your use-case diagram here using plantUML.',
             },
             {
                 target: '.editor-container',
@@ -80,16 +85,47 @@ const Home = observer(() => {
                 content:
                     'You can import/export your mermaid class diagram code in .txt format here.',
             },
-            {
-                target: '.modify-button',
-                content: 'Modify your class diagram via chat!',
-            },
         ] as Step[],
     })
+
+    useEffect(() => {
+        const hasCompletedTour = localStorage.getItem('hasCompletedTour')
+
+        if (!hasCompletedTour) {
+            setJoyrideState((prevState) => ({
+                ...prevState,
+                run: true,
+            }))
+        }
+    }, [])
+
+    const handleTourEnd = () => {
+        localStorage.setItem('hasCompletedTour', 'true')
+        setJoyrideState((prevState) => ({
+            ...prevState,
+            run: false,
+        }))
+    }
+
+    const handleClickStart = () => {
+        setJoyrideState((prevState) => ({
+            ...prevState,
+            run: true,
+        }))
+    }
 
     const onMount = (editor) => {
         editorRef.current = editor
         editor.focus()
+    }
+
+    const handleJoyrideCallback = (data: any) => {
+        const { status } = data
+        const finishedStatuses = [STATUS.FINISHED, STATUS.SKIPPED]
+
+        if (finishedStatuses.includes(status)) {
+            handleTourEnd()
+        }
     }
 
     const handleConvert = async () => {
@@ -107,6 +143,7 @@ const Home = observer(() => {
             <Joyride
                 steps={joyrideState.steps}
                 run={joyrideState.run}
+                callback={handleJoyrideCallback}
                 continuous
                 showSkipButton
                 showProgress
@@ -134,7 +171,7 @@ const Home = observer(() => {
                     </Link>
                     <nav className="flex items-center gap-4 text-sm lg:gap-6">
                         <Link
-                            className="transition-colors hover:text-foreground/80 text-foreground/60"
+                            className="transition-colors hover:text-foreground/80 text-foreground/60 docs"
                             to={PageUrl.DOCUMENTATION}
                         >
                             Docs
@@ -166,23 +203,36 @@ const Home = observer(() => {
                         <SaveButton />
                     </div>
                 </div>
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button
-                            variant="secondary"
-                            size="icon"
-                            className="rounded-full"
-                        >
-                            <CircleUser className="h-5 w-5" />
-                            <span className="sr-only">Toggle user menu</span>
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                        <DropdownMenuItem onClick={logoutUser}>
-                            Logout
-                        </DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
+                <div className="flex gap-1">
+                    <Button
+                        variant="secondary"
+                        size="icon"
+                        className="rounded-full"
+                        onClick={handleClickStart}
+                    >
+                        <CircleHelp className="h-5 w-5" />
+                        <span className="sr-only">Toggle tour</span>
+                    </Button>
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button
+                                variant="secondary"
+                                size="icon"
+                                className="rounded-full"
+                            >
+                                <CircleUser className="h-5 w-5" />
+                                <span className="sr-only">
+                                    Toggle user menu
+                                </span>
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                            <DropdownMenuItem onClick={logoutUser}>
+                                Logout
+                            </DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                </div>
             </div>
             <div className="h-[91vh]">
                 <Separator />
@@ -282,11 +332,11 @@ const Home = observer(() => {
                         </ResizablePanelGroup>
                     </ResizablePanel>
                 </ResizablePanelGroup>
-                <div className="absolute bottom-6 right-6">
-                    <div className="modify-button">
+                {/* <div className="absolute bottom-6 right-6">
+                    <div>
                         <ChatPopover />
                     </div>
-                </div>
+                </div> */}
             </div>
         </>
     )
