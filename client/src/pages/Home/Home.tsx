@@ -3,7 +3,7 @@ import parseUML from '@/utils/parseUML'
 import ConvertViewModel from '@/viewModels/ConvertViewModel'
 import { Editor } from '@monaco-editor/react'
 import { observer } from 'mobx-react'
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import {
     ResizableHandle,
     ResizablePanel,
@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/resizable'
 import { Separator } from '@/components/ui/separator'
 import ClassDiagram from '@/components/class-diagram'
-import { CircleUser, Loader2 } from 'lucide-react'
+import { CircleHelp, CircleUser, Download, Loader2 } from 'lucide-react'
 import PreviewButton from '@/components/preview-button'
 import SaveButton from '@/components/save-button'
 import {
@@ -23,15 +23,109 @@ import {
 import useLogout from '@/hooks/useLogout'
 import { Link } from 'react-router-dom'
 import { PageUrl } from '@/data/pages.constants'
-import { ChatPopover } from '@/components/chat-popover'
+// import { ChatPopover } from '@/components/chat-popover'
+import { DropdownMenuDiagram } from '@/components/dropdown-settings'
+import { DIAGRAMS } from '@/data/diagrams.constants'
+import Joyride, { STATUS, Step } from 'react-joyride'
 
 const Home = observer(() => {
     const editorRef = useRef()
     const { logoutUser } = useLogout()
 
+    const [joyrideState, setJoyrideState] = useState({
+        run: false,
+        steps: [
+            {
+                content: (
+                    <>
+                        <h2>Learn the basics!</h2>
+                        <p>
+                            Complete this quick tutorial to learn how to convert
+                            your first plantUML Use-case Code to Mermaid's class
+                            diagram.
+                        </p>
+                    </>
+                ),
+                locale: {
+                    skip: <h1 aria-label="skip">skip</h1>,
+                },
+                placement: 'center',
+                target: 'body',
+            },
+            {
+                target: '.docs',
+                content:
+                    'You can check how to build your use-case diagram here using plantUML.',
+            },
+            {
+                target: '.editor-container',
+                content:
+                    'This is where you can input your PlantUML Use-case code.',
+            },
+            {
+                target: '.op-button',
+                content:
+                    'You can import/export your plantUML use-case code in .txt format here.',
+            },
+            {
+                target: '.convert-button',
+                content:
+                    'Click here to convert your use-case diagram to class diagram.',
+            },
+            {
+                target: '.preview-button',
+                content: 'You can visually check your plantUML code here',
+            },
+            {
+                target: '.save-button',
+                content: 'This is where you save your diagram.',
+            },
+            {
+                target: '.op-mermaid-button',
+                content:
+                    'You can import/export your mermaid class diagram code in .txt format here.',
+            },
+        ] as Step[],
+    })
+
+    useEffect(() => {
+        const hasCompletedTour = localStorage.getItem('hasCompletedTour')
+
+        if (!hasCompletedTour) {
+            setJoyrideState((prevState) => ({
+                ...prevState,
+                run: true,
+            }))
+        }
+    }, [])
+
+    const handleTourEnd = () => {
+        localStorage.setItem('hasCompletedTour', 'true')
+        setJoyrideState((prevState) => ({
+            ...prevState,
+            run: false,
+        }))
+    }
+
+    const handleClickStart = () => {
+        setJoyrideState((prevState) => ({
+            ...prevState,
+            run: true,
+        }))
+    }
+
     const onMount = (editor) => {
         editorRef.current = editor
         editor.focus()
+    }
+
+    const handleJoyrideCallback = (data: any) => {
+        const { status } = data
+        const finishedStatuses = [STATUS.FINISHED, STATUS.SKIPPED]
+
+        if (finishedStatuses.includes(status)) {
+            handleTourEnd()
+        }
     }
 
     const handleConvert = async () => {
@@ -45,6 +139,16 @@ const Home = observer(() => {
     }
     return (
         <>
+            {/* Joyride component */}
+            <Joyride
+                steps={joyrideState.steps}
+                run={joyrideState.run}
+                callback={handleJoyrideCallback}
+                continuous
+                showSkipButton
+                showProgress
+            />
+
             <div className="container flex max-w-screen-2xl items-center justify-between h-[8vh]">
                 <div className="mr-4 hidden md:flex">
                     <Link
@@ -67,6 +171,12 @@ const Home = observer(() => {
                     </Link>
                     <nav className="flex items-center gap-4 text-sm lg:gap-6">
                         <Link
+                            className="transition-colors hover:text-foreground/80 text-foreground/60 docs"
+                            to={PageUrl.DOCUMENTATION}
+                        >
+                            Docs
+                        </Link>
+                        <Link
                             className="transition-colors hover:text-foreground/80 text-foreground/60"
                             to={PageUrl.SAVED_DIAGRAM}
                         >
@@ -76,6 +186,7 @@ const Home = observer(() => {
                 </div>
                 <div className="flex gap-2">
                     <Button
+                        className="convert-button"
                         variant="outline"
                         disabled={ConvertViewModel.isLoading}
                         onClick={handleConvert}
@@ -85,26 +196,43 @@ const Home = observer(() => {
                         )}
                         Convert
                     </Button>
-                    <PreviewButton />
-                    <SaveButton />
+                    <div className="preview-button">
+                        <PreviewButton />
+                    </div>
+                    <div className="save-button">
+                        <SaveButton />
+                    </div>
                 </div>
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button
-                            variant="secondary"
-                            size="icon"
-                            className="rounded-full"
-                        >
-                            <CircleUser className="h-5 w-5" />
-                            <span className="sr-only">Toggle user menu</span>
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                        <DropdownMenuItem onClick={logoutUser}>
-                            Logout
-                        </DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
+                <div className="flex gap-1">
+                    <Button
+                        variant="secondary"
+                        size="icon"
+                        className="rounded-full"
+                        onClick={handleClickStart}
+                    >
+                        <CircleHelp className="h-5 w-5" />
+                        <span className="sr-only">Toggle tour</span>
+                    </Button>
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button
+                                variant="secondary"
+                                size="icon"
+                                className="rounded-full"
+                            >
+                                <CircleUser className="h-5 w-5" />
+                                <span className="sr-only">
+                                    Toggle user menu
+                                </span>
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                            <DropdownMenuItem onClick={logoutUser}>
+                                Logout
+                            </DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                </div>
             </div>
             <div className="h-[91vh]">
                 <Separator />
@@ -113,7 +241,7 @@ const Home = observer(() => {
                     className="border-none"
                 >
                     <ResizablePanel defaultSize={30}>
-                        <div className="bg-secondary flex items-center justify-between">
+                        <div className="bg-secondary flex items-center justify-between editor-container">
                             <div className="flex items-center space-x-2 px-8 py-2">
                                 <img
                                     src="plantuml.svg"
@@ -123,8 +251,14 @@ const Home = observer(() => {
                                     PlantUML Code
                                 </h4>
                             </div>
-                            <div className="px-8">
+                            <div className="pr-8 flex">
+                                <div className="op-button">
+                                    <DropdownMenuDiagram
+                                        type={DIAGRAMS.plantUML}
+                                    />
+                                </div>
                                 <Button
+                                    size="sm"
                                     variant="outline"
                                     onClick={ConvertViewModel.newDiagram}
                                 >
@@ -134,6 +268,7 @@ const Home = observer(() => {
                         </div>
                         <Editor
                             height="100%"
+                            className="editor-container"
                             theme="vs-dark"
                             defaultLanguage="java"
                             defaultValue="// enter your PlantUML use case diagram"
@@ -163,14 +298,21 @@ const Home = observer(() => {
                             </ResizablePanel>
                             <ResizableHandle withHandle />
                             <ResizablePanel defaultSize={40}>
-                                <div className="flex items-center space-x-2 px-8 py-2 bg-secondary">
-                                    <img
-                                        src="mermaid.svg"
-                                        className="w-4 h-6 pb-1 pt-1"
-                                    />
-                                    <h4 className="text-sm text-foreground font-medium">
-                                        Mermaid Code
-                                    </h4>
+                                <div className="bg-secondary flex items-center justify-between">
+                                    <div className="flex items-center space-x-2 px-8 py-2">
+                                        <img
+                                            src="mermaid.svg"
+                                            className="w-4 h-6 pb-1 pt-1"
+                                        />
+                                        <h4 className="text-sm text-foreground font-medium">
+                                            Mermaid Code
+                                        </h4>
+                                    </div>
+                                    <div className="pr-8 op-mermaid-button">
+                                        <DropdownMenuDiagram
+                                            type={DIAGRAMS.mermaid}
+                                        />
+                                    </div>
                                 </div>
                                 <Editor
                                     theme="vs-dark"
@@ -190,9 +332,11 @@ const Home = observer(() => {
                         </ResizablePanelGroup>
                     </ResizablePanel>
                 </ResizablePanelGroup>
-                <div className="absolute bottom-6 right-6">
-                    <ChatPopover />
-                </div>
+                {/* <div className="absolute bottom-6 right-6">
+                    <div>
+                        <ChatPopover />
+                    </div>
+                </div> */}
             </div>
         </>
     )

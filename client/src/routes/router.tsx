@@ -7,6 +7,7 @@ import Home from '@/pages/Home/Home'
 import { PageUrl } from '@/data/pages.constants'
 import PrivateUserRoutes from './privateRoutes/UserRoutes'
 import SavedDiagram from '@/pages/SavedDiagram/SavedDiagram'
+import Documentation from '@/pages/Documentation/Documentation'
 
 const router = observer(() => {
     return (
@@ -14,12 +15,15 @@ const router = observer(() => {
             <Routes>
                 <Route element={<PrivateUserRoutes />}>
                     <Route path={PageUrl.HOME} element={<Home />} />
+                    <Route
+                        path={PageUrl.SAVED_DIAGRAM}
+                        element={<SavedDiagram />}
+                    />
                 </Route>
-
-                <Route path={PageUrl.SAVED_DIAGRAM} element={<SavedDiagram />} />
                 <Route path={PageUrl.ROOT} element={<LandingPage />} />
                 <Route path={PageUrl.LOGIN} element={<Login />} />
                 <Route path={PageUrl.REGISTER} element={<Register />} />
+                <Route path={PageUrl.DOCUMENTATION} element={<Documentation />} />
             </Routes>
         </Router>
     )
