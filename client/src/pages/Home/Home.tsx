@@ -3,7 +3,7 @@ import parseUML from '@/utils/parseUML'
 import ConvertViewModel from '@/viewModels/ConvertViewModel'
 import { Editor } from '@monaco-editor/react'
 import { observer } from 'mobx-react'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import {
     ResizableHandle,
     ResizablePanel,
@@ -26,26 +26,70 @@ import { PageUrl } from '@/data/pages.constants'
 import { ChatPopover } from '@/components/chat-popover'
 import { DropdownMenuDiagram } from '@/components/dropdown-settings'
 import { DIAGRAMS } from '@/data/diagrams.constants'
+import Joyride, { Step } from 'react-joyride'
 
 const Home = observer(() => {
     const editorRef = useRef()
     const { logoutUser } = useLogout()
 
+    const [joyrideState, setJoyrideState] = useState({
+        run: true, // Auto-start the tour
+        steps: [
+            {
+                content: (
+                    <>
+                        <h2>Learn the basics!</h2>
+                        <p>
+                            Complete this quick tutorial to learn how to convert
+                            your first plantUML Use-case Code to Mermaid's class
+                            diagram.
+                        </p>
+                    </>
+                ),
+                locale: {
+                    skip: <h1 aria-label="skip">skip</h1>,
+                },
+                placement: 'center',
+                target: 'body',
+            },
+            {
+                target: '.editor-container',
+                content:
+                    'This is where you can input your PlantUML Use-case code.',
+            },
+            {
+                target: '.op-button',
+                content:
+                    'You can import/export your plantUML use-case code in .txt format here.',
+            },
+            {
+                target: '.convert-button',
+                content:
+                    'Click here to convert your use-case diagram to class diagram.',
+            },
+            {
+                target: '.preview-button',
+                content: 'You can visually check your plantUML code here',
+            },
+            {
+                target: '.save-button',
+                content: 'This is where you save your diagram.',
+            },
+            {
+                target: '.op-mermaid-button',
+                content:
+                    'You can import/export your mermaid class diagram code in .txt format here.',
+            },
+            {
+                target: '.modify-button',
+                content: 'Modify your class diagram via chat!',
+            },
+        ] as Step[],
+    })
+
     const onMount = (editor) => {
         editorRef.current = editor
         editor.focus()
-    }
-
-    const handleCodeDownload = (diagramCode: string) => {
-        const element = document.createElement('a')
-        const file = new Blob([diagramCode], {
-            type: 'text/plain',
-        })
-        element.href = URL.createObjectURL(file)
-        element.download = 'diagram.txt'
-        document.body.appendChild(element)
-        element.click()
-        document.body.removeChild(element)
     }
 
     const handleConvert = async () => {
@@ -59,6 +103,15 @@ const Home = observer(() => {
     }
     return (
         <>
+            {/* Joyride component */}
+            <Joyride
+                steps={joyrideState.steps}
+                run={joyrideState.run}
+                continuous
+                showSkipButton
+                showProgress
+            />
+
             <div className="container flex max-w-screen-2xl items-center justify-between h-[8vh]">
                 <div className="mr-4 hidden md:flex">
                     <Link
@@ -96,6 +149,7 @@ const Home = observer(() => {
                 </div>
                 <div className="flex gap-2">
                     <Button
+                        className="convert-button"
                         variant="outline"
                         disabled={ConvertViewModel.isLoading}
                         onClick={handleConvert}
@@ -105,8 +159,12 @@ const Home = observer(() => {
                         )}
                         Convert
                     </Button>
-                    <PreviewButton />
-                    <SaveButton />
+                    <div className="preview-button">
+                        <PreviewButton />
+                    </div>
+                    <div className="save-button">
+                        <SaveButton />
+                    </div>
                 </div>
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
@@ -133,7 +191,7 @@ const Home = observer(() => {
                     className="border-none"
                 >
                     <ResizablePanel defaultSize={30}>
-                        <div className="bg-secondary flex items-center justify-between">
+                        <div className="bg-secondary flex items-center justify-between editor-container">
                             <div className="flex items-center space-x-2 px-8 py-2">
                                 <img
                                     src="plantuml.svg"
@@ -144,7 +202,11 @@ const Home = observer(() => {
                                 </h4>
                             </div>
                             <div className="pr-8 flex">
-                                <DropdownMenuDiagram type={DIAGRAMS.plantUML} />
+                                <div className="op-button">
+                                    <DropdownMenuDiagram
+                                        type={DIAGRAMS.plantUML}
+                                    />
+                                </div>
                                 <Button
                                     size="sm"
                                     variant="outline"
@@ -156,6 +218,7 @@ const Home = observer(() => {
                         </div>
                         <Editor
                             height="100%"
+                            className="editor-container"
                             theme="vs-dark"
                             defaultLanguage="java"
                             defaultValue="// enter your PlantUML use case diagram"
@@ -195,7 +258,7 @@ const Home = observer(() => {
                                             Mermaid Code
                                         </h4>
                                     </div>
-                                    <div className="pr-8">
+                                    <div className="pr-8 op-mermaid-button">
                                         <DropdownMenuDiagram
                                             type={DIAGRAMS.mermaid}
                                         />
@@ -220,7 +283,9 @@ const Home = observer(() => {
                     </ResizablePanel>
                 </ResizablePanelGroup>
                 <div className="absolute bottom-6 right-6">
-                    <ChatPopover />
+                    <div className="modify-button">
+                        <ChatPopover />
+                    </div>
                 </div>
             </div>
         </>
