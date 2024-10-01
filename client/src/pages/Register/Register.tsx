@@ -122,21 +122,20 @@ const Register = observer(() => {
                             <Input
                                 id="confirm-password"
                                 placeholder="password"
-                                type={showConfirmPassword ? 'text' : 'password'}
+                                type={showPassword ? 'text' : 'password'} // Mirroring the showPassword state
                                 value={confirmPassword}
                                 onChange={(e) => {
                                     setConfirmPassword(e.target.value)
                                 }}
                                 required
                             />
+                            {/* Added button to toggle visibility for confirm password */}
                             <button
                                 type="button"
-                                onClick={() =>
-                                    setShowConfirmPassword(!showConfirmPassword)
-                                }
+                                onClick={() => setShowPassword(!showPassword)} // Toggle showPassword state
                                 className="absolute right-2 top-8"
                             >
-                                {showConfirmPassword ? (
+                                {showPassword ? (
                                     <EyeOff className="h-5 w-5" />
                                 ) : (
                                     <Eye className="h-5 w-5" />

@@ -1,4 +1,5 @@
 import plantumlEncoder from 'plantuml-encoder'
+import { useEffect, useState } from 'react'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -11,16 +12,29 @@ import {
 import ConvertViewModel from '@/viewModels/ConvertViewModel'
 
 const PreviewButton = () => {
-    const encodedSource = plantumlEncoder.encode(
-        ConvertViewModel.plantUMLSource
-    )
-    const imageSource = `https://www.plantuml.com/plantuml/png/${encodedSource}`
+    const [imageSource, setImageSource] = useState('')
+    const [imageHeight, setImageHeight] = useState(0)
+
+    useEffect(() => {
+        const encodedSource = plantumlEncoder.encode(
+            ConvertViewModel.plantUMLSource
+        )
+        setImageSource(`https://www.plantuml.com/plantuml/png/${encodedSource}`)
+    }, [ConvertViewModel.plantUMLSource])
+
+    const handleImageLoad = (event: React.SyntheticEvent<HTMLImageElement>) => {
+        setImageHeight(event.currentTarget.naturalHeight)
+    }
+
     return (
         <Dialog>
             <DialogTrigger asChild>
                 <Button variant="outline">Preview</Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-md">
+            <DialogContent
+                className="sm:max-w-md max-h-[80vh]"
+                style={{ overflowY: imageHeight > 500 ? 'scroll' : 'hidden' }}
+            >
                 <DialogHeader>
                     <DialogTitle>PlantUML Preview Code</DialogTitle>
                 </DialogHeader>
@@ -29,6 +43,7 @@ const PreviewButton = () => {
                         src={imageSource}
                         alt="PlantUML Diagram"
                         className="w-full"
+                        onLoad={handleImageLoad}
                     />
                 </div>
             </DialogContent>
