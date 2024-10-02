@@ -12,11 +12,19 @@ const ErrorMessage = observer(() => {
                 .map((error, index) => `${index + 1}. ${error}`)
                 .join('<br />')
 
+            const isLongMessage = ConvertViewModel.parseErrors.length > 20
+
             toast({
                 variant: 'destructive',
                 title: 'Uh oh! Something went wrong.',
                 description: (
-                    <span dangerouslySetInnerHTML={{ __html: errorMessages }} />
+                    <div
+                        style={{
+                            maxHeight: '100px',
+                            overflowY: isLongMessage ? 'scroll' : 'hidden',
+                        }}
+                        dangerouslySetInnerHTML={{ __html: errorMessages }}
+                    />
                 ),
             })
         }
