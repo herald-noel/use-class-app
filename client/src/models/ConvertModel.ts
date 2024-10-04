@@ -209,7 +209,22 @@ rectangle "Animal Behavior System" {
     }
 
     newDiagram = (): void => {
-        this.plantUMLSource = ''
+        this.plantUMLSource = `@startuml
+left to right direction
+actor "Animals" as AO
+rectangle "Animal Behavior System" {
+  usecase "Swim" as UC1
+  usecase "Quack" as UC2
+  usecase "Mate" as UC3
+  usecase "Run" as UC4
+  usecase "Can Eat" as UC5
+  AO --> UC1 : "Duck"
+  AO --> UC2 : "Duck"
+  AO --> UC3 : "Animal"
+  AO --> UC4 : "Zebra"
+  AO --> UC5 : "Fish"
+}
+@enduml`
         this.id = ''
         this.mermaidSource = defaultMermaidSource
     }
