@@ -35,7 +35,22 @@ const defaultMermaidSource = `classDiagram
 class ConvertModel {
     id = ''
     title = ''
-    plantUMLSource = ''
+    plantUMLSource = `@startuml
+left to right direction
+actor "Animals" as AO
+rectangle "Animal Behavior System" {
+  usecase "Swim" as UC1
+  usecase "Quack" as UC2
+  usecase "Mate" as UC3
+  usecase "Run" as UC4
+  usecase "Can Eat" as UC5
+  AO --> UC1 : "Duck"
+  AO --> UC2 : "Duck"
+  AO --> UC3 : "Animal"
+  AO --> UC4 : "Zebra"
+  AO --> UC5 : "Fish"
+}
+@enduml`
     mermaidSource = defaultMermaidSource
     parsedMermaidSource = ''
     userRequest = ''
@@ -129,7 +144,10 @@ class ConvertModel {
         try {
             const response = await axiosInstance.post(
                 '/api/v1/chat/modify-mermaid',
-                { mermaid: this.parsedMermaidSource, userRequest : this.userRequest },
+                {
+                    mermaid: this.parsedMermaidSource,
+                    userRequest: this.userRequest,
+                },
                 {
                     headers: {
                         'Content-Type': 'application/json',
@@ -148,7 +166,9 @@ class ConvertModel {
     convertMermaidCodetoJSON = async (): Promise<void> => {
         const parser = new MermaidParser(this.mermaidSource)
         parser.parse()
-        this.setParsedMermaidSource(JSON.stringify(parser.getDiagram(), null, 2))
+        this.setParsedMermaidSource(
+            JSON.stringify(parser.getDiagram(), null, 2)
+        )
     }
 
     saveMermaidCode = async (): Promise<boolean> => {
@@ -166,7 +186,7 @@ class ConvertModel {
         title: string,
         plantUMLSource: string,
         mermaidSource: string
-    ) : Promise<boolean> => {
+    ): Promise<boolean> => {
         const isSuccess = await updateDiagram(
             id,
             title,
