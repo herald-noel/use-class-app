@@ -27,6 +27,7 @@ import { PageUrl } from '@/data/pages.constants'
 import { DropdownMenuDiagram } from '@/components/dropdown-settings'
 import { DIAGRAMS } from '@/data/diagrams.constants'
 import Joyride, { STATUS, Step } from 'react-joyride'
+import HOME_DATA from '@/data/home.constants'
 
 const Home = observer(() => {
     const editorRef = useRef()
@@ -271,22 +272,7 @@ const Home = observer(() => {
                             className="editor-container"
                             theme="vs-dark"
                             defaultLanguage="java"
-                            defaultValue={`@startuml
-left to right direction
-actor "Animals" as AO
-rectangle "Animal Behavior System" {
-  usecase "Swim" as UC1
-  usecase "Quack" as UC2
-  usecase "Mate" as UC3
-  usecase "Run" as UC4
-  usecase "Can Eat" as UC5
-  AO --> UC1 : "Duck"
-  AO --> UC2 : "Duck"
-  AO --> UC3 : "Animal"
-  AO --> UC4 : "Zebra"
-  AO --> UC5 : "Fish"
-}
-@enduml`}
+                            defaultValue={HOME_DATA.defaultPlantUMLSource}
                             value={ConvertViewModel.plantUMLSource}
                             options={{
                                 minimap: { enabled: false },

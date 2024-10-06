@@ -9,48 +9,13 @@ import {
     updateDiagram,
 } from '../services/firebase/user/userActions'
 import MermaidParser from '@/utils/MermaidParser'
+import HOME_DATA from '@/data/home.constants'
 
-const defaultMermaidSource = `classDiagram
-  Animal <|-- Duck
-  Animal <|-- Fish
-  Animal <|-- Zebra
-  Animal : +int age
-  Animal : +string gender
-  Animal: +isMammal()
-  Animal: +mate()
-  class Duck {
-    +string beakColor
-    +swim()
-    +quack()
-  }
-  class Fish {
-    -int sizeInFeet
-    -canEat()
-  }
-  class Zebra {
-    +bool isCool
-    +run()
-  }
-`
+const defaultMermaidSource = HOME_DATA.defaultMermaidSource
 class ConvertModel {
     id = ''
     title = ''
-    plantUMLSource = `@startuml
-left to right direction
-actor "Animals" as AO
-rectangle "Animal Behavior System" {
-  usecase "Swim" as UC1
-  usecase "Quack" as UC2
-  usecase "Mate" as UC3
-  usecase "Run" as UC4
-  usecase "Can Eat" as UC5
-  AO --> UC1 : "Duck"
-  AO --> UC2 : "Duck"
-  AO --> UC3 : "Animal"
-  AO --> UC4 : "Zebra"
-  AO --> UC5 : "Fish"
-}
-@enduml`
+    plantUMLSource = HOME_DATA.defaultPlantUMLSource
     mermaidSource = defaultMermaidSource
     parsedMermaidSource = ''
     userRequest = ''
@@ -209,22 +174,7 @@ rectangle "Animal Behavior System" {
     }
 
     newDiagram = (): void => {
-        this.plantUMLSource = `@startuml
-left to right direction
-actor "Animals" as AO
-rectangle "Animal Behavior System" {
-  usecase "Swim" as UC1
-  usecase "Quack" as UC2
-  usecase "Mate" as UC3
-  usecase "Run" as UC4
-  usecase "Can Eat" as UC5
-  AO --> UC1 : "Duck"
-  AO --> UC2 : "Duck"
-  AO --> UC3 : "Animal"
-  AO --> UC4 : "Zebra"
-  AO --> UC5 : "Fish"
-}
-@enduml`
+        this.plantUMLSource = HOME_DATA.defaultPlantUMLSource
         this.id = ''
         this.mermaidSource = defaultMermaidSource
     }
