@@ -52,7 +52,7 @@ export function DropdownMenuDiagram({ type }: DropdownMenuDiagramProps) {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <Button size="sm" variant="outline">
+                <Button size="xs" variant="leetcode">
                     <Settings />
                 </Button>
             </DropdownMenuTrigger>
@@ -62,7 +62,7 @@ export function DropdownMenuDiagram({ type }: DropdownMenuDiagramProps) {
                         className="relative flex cursor-default select-none items-center
                 rounded-sm px-2 py-1.5 text-sm outline-none transition-colors
                 focus:bg-accent focus:text-accent-foreground
-                data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
+                data-[disabled]:pointer-events-none data-[disabled]:opacity-50 hover:bg-slate-300 hover:text-black"
                     >
                         <span>
                             <label
@@ -84,7 +84,7 @@ export function DropdownMenuDiagram({ type }: DropdownMenuDiagramProps) {
                         className="relative flex select-none items-center
                 rounded-sm px-2 py-1.5 text-sm outline-none transition-colors
                 focus:bg-accent focus:text-accent-foreground
-                data-[disabled]:pointer-events-none data-[disabled]:opacity-50 cursor-pointer"
+                data-[disabled]:pointer-events-none data-[disabled]:opacity-50 cursor-pointer hover:bg-slate-300 hover:text-black"
                         onClick={handleCodeDownload}
                     >
                         <span>Export</span>
