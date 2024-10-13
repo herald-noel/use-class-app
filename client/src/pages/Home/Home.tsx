@@ -11,7 +11,16 @@ import {
 } from '@/components/ui/resizable'
 import { Separator } from '@/components/ui/separator'
 import ClassDiagram from '@/components/class-diagram'
-import { CircleHelp, CircleUser, Download, Loader2 } from 'lucide-react'
+import {
+    ChevronDownIcon,
+    ChevronLeft,
+    ChevronRight,
+    ChevronUp,
+    CircleHelp,
+    CircleUser,
+    Download,
+    Loader2,
+} from 'lucide-react'
 import PreviewButton from '@/components/preview-button'
 import SaveButton from '@/components/save-button'
 import {
@@ -27,7 +36,6 @@ import { PageUrl } from '@/data/pages.constants'
 import { DropdownMenuDiagram } from '@/components/dropdown-settings'
 import { DIAGRAMS } from '@/data/diagrams.constants'
 import Joyride, { STATUS, Step } from 'react-joyride'
-import HOME_DATA from '@/data/home.constants'
 
 const Home = observer(() => {
     const editorRef = useRef()
@@ -48,7 +56,7 @@ const Home = observer(() => {
                     </>
                 ),
                 locale: {
-                    skip: <h1 aria-label="skip">skip</h1>,
+                    skip: <h1 aria-label="skip">Skip</h1>,
                 },
                 placement: 'center',
                 target: 'body',
@@ -138,6 +146,17 @@ const Home = observer(() => {
             )
         }
     }
+
+    const [isSideDrawerOpen, setIsSideDrawerOpen] = useState(true)
+    const [isBottomDrawerOpen, setIsBottomDrawerOpen] = useState(true)
+
+    const toggleDrawer = () => {
+        setIsSideDrawerOpen((prev) => !prev)
+    }
+    const toggleBottomDrawer = () => {
+        setIsBottomDrawerOpen((prev) => !prev)
+    }
+
     return (
         <>
             {/* Joyride component */}
@@ -235,13 +254,31 @@ const Home = observer(() => {
                     </DropdownMenu>
                 </div>
             </div>
+
             <div className="h-[91vh]">
                 <Separator />
+
                 <ResizablePanelGroup
                     direction="horizontal"
                     className="border-none"
                 >
-                    <ResizablePanel defaultSize={30}>
+                    {!isSideDrawerOpen && (
+                        <div className="flex p-2 ">
+                            <Button
+                                size="sm"
+                                variant="leetcode"
+                                onClick={toggleDrawer}
+                                className="space-x-1"
+                            >
+                                <img src="plantuml.svg" className="w-5 h-5" />
+                                <ChevronRight className="h-5 w-5" />
+                            </Button>
+                        </div>
+                    )}
+                    <ResizablePanel
+                        defaultSize={30}
+                        className={isSideDrawerOpen ? '' : 'hidden'}
+                    >
                         <div className="bg-secondary flex items-center justify-between editor-container">
                             <div className="flex items-center space-x-2 px-8 py-2">
                                 <img
@@ -252,19 +289,28 @@ const Home = observer(() => {
                                     PlantUML Code
                                 </h4>
                             </div>
-                            <div className="pr-8 flex">
+                            <div className=" flex space-x-1 p-1">
+                                <Button
+                                    size="xs"
+                                    variant="leetcode"
+                                    onClick={ConvertViewModel.newDiagram}
+                                >
+                                    New
+                                </Button>
                                 <div className="op-button">
                                     <DropdownMenuDiagram
                                         type={DIAGRAMS.plantUML}
                                     />
                                 </div>
-                                <Button
-                                    size="sm"
-                                    variant="outline"
-                                    onClick={ConvertViewModel.newDiagram}
-                                >
-                                    New
-                                </Button>
+                                <div className="flex">
+                                    <Button
+                                        size="xs"
+                                        variant="leetcode"
+                                        onClick={toggleDrawer}
+                                    >
+                                        <ChevronLeft className="h-5 w-5" />
+                                    </Button>
+                                </div>
                             </div>
                         </div>
                         <Editor
@@ -272,7 +318,7 @@ const Home = observer(() => {
                             className="editor-container"
                             theme="vs-dark"
                             defaultLanguage="java"
-                            defaultValue={HOME_DATA.defaultPlantUMLSource}
+                            // defaultValue={HOME_DATA.defaultPlantUMLSource}
                             value={ConvertViewModel.plantUMLSource}
                             options={{
                                 minimap: { enabled: false },
@@ -286,7 +332,9 @@ const Home = observer(() => {
                             onMount={onMount}
                         />
                     </ResizablePanel>
+
                     <ResizableHandle withHandle />
+
                     <ResizablePanel defaultSize={70}>
                         <ResizablePanelGroup direction="vertical">
                             <ResizablePanel
@@ -298,7 +346,10 @@ const Home = observer(() => {
                                 />
                             </ResizablePanel>
                             <ResizableHandle withHandle />
-                            <ResizablePanel defaultSize={40}>
+                            <ResizablePanel
+                                defaultSize={40}
+                                className={isBottomDrawerOpen ? '' : 'hidden'}
+                            >
                                 <div className="bg-secondary flex items-center justify-between">
                                     <div className="flex items-center space-x-2 px-8 py-2">
                                         <img
@@ -309,10 +360,19 @@ const Home = observer(() => {
                                             Mermaid Code
                                         </h4>
                                     </div>
-                                    <div className="pr-8 op-mermaid-button">
+                                    <div className="p-1 op-mermaid-button flex">
                                         <DropdownMenuDiagram
                                             type={DIAGRAMS.mermaid}
                                         />
+                                        <div className="flex space-x-1">
+                                            <Button
+                                                size="xs"
+                                                variant="leetcode"
+                                                onClick={toggleBottomDrawer}
+                                            >
+                                                <ChevronDownIcon className="h-5 w-5" />
+                                            </Button>
+                                        </div>
                                     </div>
                                 </div>
                                 <Editor
@@ -330,6 +390,22 @@ const Home = observer(() => {
                                     }
                                 />
                             </ResizablePanel>
+                            {!isBottomDrawerOpen && (
+                                <div className="flex p-2 justify-end">
+                                    <Button
+                                        size="sm"
+                                        variant="leetcode"
+                                        onClick={toggleBottomDrawer}
+                                        className="space-x-1"
+                                    >
+                                        <img
+                                            src="mermaid.svg"
+                                            className="w-5 h-5"
+                                        />
+                                        <ChevronUp className="h-5 w-5" />
+                                    </Button>
+                                </div>
+                            )}
                         </ResizablePanelGroup>
                     </ResizablePanel>
                 </ResizablePanelGroup>
