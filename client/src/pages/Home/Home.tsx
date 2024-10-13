@@ -147,14 +147,14 @@ const Home = observer(() => {
         }
     }
 
-    const [isSideDrawerOpen, setIsSideDrawerOpen] = useState(true)
-    const [isBottomDrawerOpen, setIsBottomDrawerOpen] = useState(true)
+    const [isPlantUMLDrawerOpen, setIsPlantUMLDrawerOpen] = useState(true)
+    const [isMermaidDrawerOpen, setIsMermaidDrawerOpen] = useState(false)
 
-    const toggleDrawer = () => {
-        setIsSideDrawerOpen((prev) => !prev)
+    const togglePlantUMLDrawer = () => {
+        setIsPlantUMLDrawerOpen((prev) => !prev)
     }
-    const toggleBottomDrawer = () => {
-        setIsBottomDrawerOpen((prev) => !prev)
+    const toggleMermaidDrawer = () => {
+        setIsMermaidDrawerOpen((prev) => !prev)
     }
 
     return (
@@ -262,12 +262,12 @@ const Home = observer(() => {
                     direction="horizontal"
                     className="border-none"
                 >
-                    {!isSideDrawerOpen && (
+                    {!isPlantUMLDrawerOpen && (
                         <div className="flex p-2 ">
                             <Button
                                 size="sm"
                                 variant="leetcode"
-                                onClick={toggleDrawer}
+                                onClick={togglePlantUMLDrawer}
                                 className="space-x-1"
                             >
                                 <img src="plantuml.svg" className="w-5 h-5" />
@@ -277,7 +277,7 @@ const Home = observer(() => {
                     )}
                     <ResizablePanel
                         defaultSize={30}
-                        className={isSideDrawerOpen ? '' : 'hidden'}
+                        className={isPlantUMLDrawerOpen ? '' : 'hidden'}
                     >
                         <div className="bg-secondary flex items-center justify-between editor-container">
                             <div className="flex items-center space-x-2 px-8 py-2">
@@ -306,7 +306,7 @@ const Home = observer(() => {
                                     <Button
                                         size="xs"
                                         variant="leetcode"
-                                        onClick={toggleDrawer}
+                                        onClick={togglePlantUMLDrawer}
                                     >
                                         <ChevronLeft className="h-5 w-5" />
                                     </Button>
@@ -348,7 +348,7 @@ const Home = observer(() => {
                             <ResizableHandle withHandle />
                             <ResizablePanel
                                 defaultSize={40}
-                                className={isBottomDrawerOpen ? '' : 'hidden'}
+                                className={isMermaidDrawerOpen ? '' : 'hidden'}
                             >
                                 <div className="bg-secondary flex items-center justify-between">
                                     <div className="flex items-center space-x-2 px-8 py-2">
@@ -368,7 +368,7 @@ const Home = observer(() => {
                                             <Button
                                                 size="xs"
                                                 variant="leetcode"
-                                                onClick={toggleBottomDrawer}
+                                                onClick={toggleMermaidDrawer}
                                             >
                                                 <ChevronDownIcon className="h-5 w-5" />
                                             </Button>
@@ -390,12 +390,12 @@ const Home = observer(() => {
                                     }
                                 />
                             </ResizablePanel>
-                            {!isBottomDrawerOpen && (
+                            {!isMermaidDrawerOpen && (
                                 <div className="flex p-2 justify-end">
                                     <Button
                                         size="sm"
                                         variant="leetcode"
-                                        onClick={toggleBottomDrawer}
+                                        onClick={toggleMermaidDrawer}
                                         className="space-x-1"
                                     >
                                         <img
