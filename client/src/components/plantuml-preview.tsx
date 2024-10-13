@@ -19,8 +19,9 @@ const PlantUMLPreview = () => {
     }
 
     return (
-        <div style={{ overflowY: imageHeight > 500 ? 'scroll' : 'hidden' }}>
+        <div className={'min-h-[500px] overflow-y-auto'}>
             <img
+                className="min-h-[500px] object-contain"
                 src={imageSource}
                 alt="PlantUML Diagram"
                 onLoad={handleImageLoad}

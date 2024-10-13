@@ -18,10 +18,9 @@ import {
     ChevronUp,
     CircleHelp,
     CircleUser,
-    Download,
     Loader2,
+    PanelsTopLeft,
 } from 'lucide-react'
-import PreviewButton from '@/components/preview-button'
 import SaveButton from '@/components/save-button'
 import {
     DropdownMenu,
@@ -36,6 +35,13 @@ import { PageUrl } from '@/data/pages.constants'
 import { DropdownMenuDiagram } from '@/components/dropdown-settings'
 import { DIAGRAMS } from '@/data/diagrams.constants'
 import Joyride, { STATUS, Step } from 'react-joyride'
+import PlantUMLPreview from '@/components/plantuml-preview'
+
+enum TOGGLE_DIAGRAM {
+    PlantUML = 0,
+    Mermaid,
+    PlantUMLAndMermaid,
+}
 
 const Home = observer(() => {
     const editorRef = useRef()
@@ -147,6 +153,18 @@ const Home = observer(() => {
         }
     }
 
+    const [currentDiagram, setCurrentDiagram] = useState<TOGGLE_DIAGRAM>(
+        TOGGLE_DIAGRAM.Mermaid
+    )
+
+    const handleToggleDiagram = () => {
+        setCurrentDiagram((prev) =>
+            prev === TOGGLE_DIAGRAM.PlantUMLAndMermaid
+                ? TOGGLE_DIAGRAM.PlantUML
+                : prev + 1
+        )
+    }
+
     const [isPlantUMLDrawerOpen, setIsPlantUMLDrawerOpen] = useState(true)
     const [isMermaidDrawerOpen, setIsMermaidDrawerOpen] = useState(false)
 
@@ -216,9 +234,6 @@ const Home = observer(() => {
                         )}
                         Convert
                     </Button>
-                    <div className="preview-button">
-                        <PreviewButton />
-                    </div>
                     <div className="save-button">
                         <SaveButton />
                     </div>
@@ -302,6 +317,12 @@ const Home = observer(() => {
                                         type={DIAGRAMS.plantUML}
                                     />
                                 </div>
+
+                                <Button size="xs" variant="leetcode">
+                                    <PanelsTopLeft
+                                        onClick={handleToggleDiagram}
+                                    />
+                                </Button>
                                 <div className="flex">
                                     <Button
                                         size="xs"
@@ -348,9 +369,24 @@ const Home = observer(() => {
                                 defaultSize={60}
                                 className="!overflow-auto relative"
                             >
-                                <ClassDiagram
-                                    source={ConvertViewModel.mermaidSource}
-                                />
+                                <div className="flex justify-center items-center space-x-4 p-3">
+                                    {currentDiagram !==
+                                        TOGGLE_DIAGRAM.Mermaid && (
+                                        <div className="w-1/2 bg-red flex justify-center">
+                                            <PlantUMLPreview />
+                                        </div>
+                                    )}
+                                    {currentDiagram !==
+                                        TOGGLE_DIAGRAM.PlantUML && (
+                                        <div className="w-1/2 bg-blue">
+                                            <ClassDiagram
+                                                source={
+                                                    ConvertViewModel.mermaidSource
+                                                }
+                                            />
+                                        </div>
+                                    )}
+                                </div>
                             </ResizablePanel>
                             <ResizableHandle
                                 withHandle
