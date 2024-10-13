@@ -36,6 +36,7 @@ import { DropdownMenuDiagram } from '@/components/dropdown-settings'
 import { DIAGRAMS } from '@/data/diagrams.constants'
 import Joyride, { STATUS, Step } from 'react-joyride'
 import PlantUMLPreview from '@/components/plantuml-preview'
+import { cn } from '@/lib/utils'
 
 enum TOGGLE_DIAGRAM {
     PlantUML = 0,
@@ -292,7 +293,7 @@ const Home = observer(() => {
                     )}
                     <ResizablePanel
                         defaultSize={30}
-                        className={isPlantUMLDrawerOpen ? '' : 'hidden'}
+                        className={cn({ hidden: !isPlantUMLDrawerOpen })}
                     >
                         <div className="bg-secondary flex items-center justify-between editor-container">
                             <div className="flex items-center space-x-2 px-8 py-2">
@@ -356,11 +357,11 @@ const Home = observer(() => {
 
                     <ResizableHandle
                         withHandle
-                        className={isPlantUMLDrawerOpen ? '' : 'hidden'}
+                        className={cn({ hidden: !isPlantUMLDrawerOpen })}
                     />
                     <Separator
                         orientation="vertical"
-                        className={!isPlantUMLDrawerOpen ? '' : 'hidden'}
+                        className={cn({ hidden: isPlantUMLDrawerOpen })}
                     />
 
                     <ResizablePanel defaultSize={70}>
@@ -373,7 +374,12 @@ const Home = observer(() => {
                                     {currentDiagram !==
                                         TOGGLE_DIAGRAM.Mermaid && (
                                         <div className="w-1/2 bg-red flex justify-center">
-                                            <PlantUMLPreview />
+                                            <PlantUMLPreview
+                                                isDownload={
+                                                    currentDiagram ===
+                                                    TOGGLE_DIAGRAM.PlantUML
+                                                }
+                                            />
                                         </div>
                                     )}
                                     {currentDiagram !==
@@ -383,6 +389,10 @@ const Home = observer(() => {
                                                 source={
                                                     ConvertViewModel.mermaidSource
                                                 }
+                                                isDownload={
+                                                    currentDiagram ===
+                                                    TOGGLE_DIAGRAM.Mermaid
+                                                }
                                             />
                                         </div>
                                     )}
@@ -390,14 +400,14 @@ const Home = observer(() => {
                             </ResizablePanel>
                             <ResizableHandle
                                 withHandle
-                                className={isMermaidDrawerOpen ? '' : 'hidden'}
+                                className={cn({ hidden: !isMermaidDrawerOpen })}
                             />
                             <Separator
-                                className={!isMermaidDrawerOpen ? '' : 'hidden'}
+                                className={cn({ hidden: isMermaidDrawerOpen })}
                             />
                             <ResizablePanel
                                 defaultSize={40}
-                                className={isMermaidDrawerOpen ? '' : 'hidden'}
+                                className={cn({ hidden: !isMermaidDrawerOpen })}
                             >
                                 <div className="bg-secondary flex items-center justify-between">
                                     <div className="flex items-center space-x-2 px-8 py-2">
