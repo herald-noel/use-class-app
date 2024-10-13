@@ -4,8 +4,9 @@ import { Button } from '@/components/ui/button'
 import { useEffect, useRef } from 'react'
 import ErrorMessage from './error-message'
 import { Download } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
-const ClassDiagram = ({ source }) => {
+const ClassDiagram = ({ source, isDownload }) => {
     const containerRef = useRef(null)
 
     useEffect(() => {
@@ -52,7 +53,9 @@ const ClassDiagram = ({ source }) => {
             <ErrorMessage />
             <Button
                 size="sm"
-                className="absolute right-3 top-3"
+                className={cn('absolute right-3 top-3', {
+                    hidden: !isDownload,
+                })}
                 variant="outline"
                 onClick={handleExport}
             >
