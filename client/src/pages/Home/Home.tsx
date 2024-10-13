@@ -333,11 +333,14 @@ const Home = observer(() => {
                         />
                     </ResizablePanel>
 
-                    {isPlantUMLDrawerOpen ? (
-                        <ResizableHandle withHandle />
-                    ) : (
-                        <Separator orientation="vertical" />
-                    )}
+                    <ResizableHandle
+                        withHandle
+                        className={isPlantUMLDrawerOpen ? '' : 'hidden'}
+                    />
+                    <Separator
+                        orientation="vertical"
+                        className={!isPlantUMLDrawerOpen ? '' : 'hidden'}
+                    />
 
                     <ResizablePanel defaultSize={70}>
                         <ResizablePanelGroup direction="vertical">
@@ -349,11 +352,13 @@ const Home = observer(() => {
                                     source={ConvertViewModel.mermaidSource}
                                 />
                             </ResizablePanel>
-                            {isMermaidDrawerOpen ? (
-                                <ResizableHandle withHandle />
-                            ) : (
-                                <Separator />
-                            )}
+                            <ResizableHandle
+                                withHandle
+                                className={isMermaidDrawerOpen ? '' : 'hidden'}
+                            />
+                            <Separator
+                                className={!isMermaidDrawerOpen ? '' : 'hidden'}
+                            />
                             <ResizablePanel
                                 defaultSize={40}
                                 className={isMermaidDrawerOpen ? '' : 'hidden'}
