@@ -154,7 +154,7 @@ const Home = observer(() => {
     }
 
     const [currentDiagram, setCurrentDiagram] = useState<TOGGLE_DIAGRAM>(
-        TOGGLE_DIAGRAM.Mermaid
+        TOGGLE_DIAGRAM.PlantUMLAndMermaid
     )
 
     const handleToggleDiagram = () => {
