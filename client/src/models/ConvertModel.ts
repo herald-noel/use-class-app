@@ -174,8 +174,9 @@ class ConvertModel {
     }
 
     newDiagram = (): void => {
-        this.plantUMLSource = HOME_DATA.defaultPlantUMLSource
         this.id = ''
+        this.title = ''
+        this.plantUMLSource = HOME_DATA.defaultPlantUMLSource
         this.mermaidSource = defaultMermaidSource
     }
 }

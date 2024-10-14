@@ -39,6 +39,9 @@ const SavedCard = ({ id, value }) => {
     }
 
     const handleDeleteDiagram = async (diagramId: string) => {
+        if (diagramId === ConvertViewModel.id) {
+            ConvertViewModel.newDiagram()
+        }
         await ConvertViewModel.deleteSavedDiagram(diagramId)
     }
 
