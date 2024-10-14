@@ -182,6 +182,23 @@ const Documentation = () => {
                                     </pre>
                                 </li>
                             </ol>
+                            <div className="p-4 border-l-4 border-white mt-4">
+                                <h3 className="font-bold">Tip</h3>
+                                <p>
+                                    In PlantUML, you can add comments by using a
+                                    single quote (<code>'</code>). Any text
+                                    following the single quote will be ignored
+                                    by the diagram parser.
+                                </p>
+                                <p className="mt-2">
+                                    Example:
+                                    <pre className="bg-[#1e1e1e] p-2 mt-1">
+                                        <code>
+                                            {"'"}This is a comment{"'"}
+                                        </code>
+                                    </pre>
+                                </p>
+                            </div>
                         </CardContent>
                     </Card>
 
