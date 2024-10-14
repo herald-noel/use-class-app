@@ -74,6 +74,10 @@ const Home = observer(() => {
                     'You can check how to build your use-case diagram here using plantUML.',
             },
             {
+                target: '.saved-diagram',
+                content: 'You can check your saved diagrams here.',
+            },
+            {
                 target: '.editor-container',
                 content:
                     'This is where you can input your PlantUML Use-case code.',
@@ -84,22 +88,17 @@ const Home = observer(() => {
                     'You can import/export your plantUML use-case code in .txt format here.',
             },
             {
+                target: '.toggle-diagram-button',
+                content: 'You can toggle diagram views here.',
+            },
+            {
                 target: '.convert-button',
                 content:
                     'Click here to convert your use-case diagram to class diagram.',
             },
             {
-                target: '.preview-button',
-                content: 'You can visually check your plantUML code here',
-            },
-            {
                 target: '.save-button',
                 content: 'This is where you save your diagram.',
-            },
-            {
-                target: '.op-mermaid-button',
-                content:
-                    'You can import/export your mermaid class diagram code in .txt format here.',
             },
         ] as Step[],
     })
@@ -216,7 +215,7 @@ const Home = observer(() => {
                             Docs
                         </Link>
                         <Link
-                            className="transition-colors hover:text-foreground/80 text-foreground/60"
+                            className="transition-colors hover:text-foreground/80 text-foreground/60 saved-diagram"
                             to={PageUrl.SAVED_DIAGRAM}
                         >
                             Saved Diagram
@@ -319,7 +318,11 @@ const Home = observer(() => {
                                     />
                                 </div>
 
-                                <Button size="xs" variant="leetcode">
+                                <Button
+                                    size="xs"
+                                    variant="leetcode"
+                                    className="toggle-diagram-button"
+                                >
                                     <PanelsTopLeft
                                         onClick={handleToggleDiagram}
                                     />
