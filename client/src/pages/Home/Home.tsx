@@ -373,7 +373,7 @@ const Home = observer(() => {
                                 <div className="flex justify-center items-center space-x-4 p-3">
                                     {currentDiagram !==
                                         TOGGLE_DIAGRAM.Mermaid && (
-                                        <div className="w-1/2 bg-red flex justify-center">
+                                        <div className="w-1/2">
                                             <PlantUMLPreview
                                                 isDownload={
                                                     currentDiagram ===
@@ -384,7 +384,7 @@ const Home = observer(() => {
                                     )}
                                     {currentDiagram !==
                                         TOGGLE_DIAGRAM.PlantUML && (
-                                        <div className="w-1/2 bg-blue">
+                                        <div className="w-1/2">
                                             <ClassDiagram
                                                 source={
                                                     ConvertViewModel.mermaidSource
