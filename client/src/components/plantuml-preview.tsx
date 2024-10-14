@@ -41,7 +41,11 @@ const PlantUMLPreview = ({ isDownload }) => {
     }
 
     return (
-        <div className={'min-h-[500px] overflow-y-auto'}>
+        <div
+            className={
+                'flex justify-center w-full min-h-[350px] min-w-[300px] overflow-y-auto'
+            }
+        >
             <Button
                 size="sm"
                 className={cn('absolute right-3 top-3', {
@@ -54,7 +58,7 @@ const PlantUMLPreview = ({ isDownload }) => {
             </Button>
             <img
                 ref={imageRef}
-                className="min-h-[500px] object-contain"
+                className="min-h-[350px] min-w-[300px] object-contain"
                 src={imageSource}
                 alt="PlantUML Diagram"
                 onLoad={handleImageLoad}
