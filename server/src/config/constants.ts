@@ -56,62 +56,66 @@ Considerations:
 - Pay close attention to nouns (e.g., User, Email) for class identification.
 - Use verbs (e.g., Compose, Send) to determine class methods.
 - Focus on designing each class and relationship to align with OOP principles.
+
+IMPORTANT:
+- Make sure you follow the JSON format.
+- Ensure there are no trailing commas in arrays or objects, and that all keys and string values are enclosed in double quotes.
 `;
 
 export const CLASS_JSON_FORMAT = `
 {
-  title: "<Title of the Diagram>",
-  classes: [
+  "title": "<Title of the Diagram>",
+  "classes": [
     {
-      name: "<Class Name>",
-      attributes: {
-        attribute_1: "<attribute_type>",
-        attribute_2: "<attribute_type>",
-        attribute_3: "<attribute_type>",
+      "name": "<Class Name>",
+      "attributes": {
+        "attribute_1": "<attribute_type>",
+        "attribute_2": "<attribute_type>",
+        "attribute_3": "<attribute_type>"
       },
-      methods: ["<method_name()>", "<method_name()>"],
+      "methods": ["<method_name()>", "<method_name()>"]
     },
     {
-      name: "<Class Name>",
-      attributes: {
-        attribute_1: "<attribute_type>",
-        attribute_2: "<attribute_type>",
-        attribute_3: "<attribute_type>",
+      "name": "<Class Name>",
+      "attributes": {
+        "attribute_1": "<attribute_type>",
+        "attribute_2": "<attribute_type>",
+        "attribute_3": "<attribute_type>"
       },
-      methods: ["<method_name()>", "<method_name()>"],
+      "methods": ["<method_name()>", "<method_name()>"]
     },
     {
-      name: "<Class Name>",
-      attributes: {
-        attribute_1: "<attribute_type>",
-        attribute_2: "<attribute_type>",
-        attribute_3: "<attribute_type>",
+      "name": "<Class Name>",
+      "attributes": {
+        "attribute_1": "<attribute_type>",
+        "attribute_2": "<attribute_type>",
+        "attribute_3": "<attribute_type>"
       },
-      methods: ["<method_name()>", "<method_name()>"],
-    },
+      "methods": ["<method_name()>", "<method_name()>"]
+    }
   ],
-  relationships: [
+  "relationships": [
     {
-      from: "<Class Name>",
-      to: "<Class Name>",
-      type: "<relationship_type>",
-      link: "<link_type>",
-      multiplicity: {
-        from: "<multiplicity_from>",
-        to: "<multiplicity_to>",
+      "from": "<Class Name>",
+      "to": "<Class Name>",
+      "type": "<relationship_type>",
+      "link": "<link_type>",
+      "multiplicity": {
+        "from": "<multiplicity_from>",
+        "to": "<multiplicity_to>"
       },
-      label: "<relationship_label>",
+      "label": "<relationship_label>"
     },
     {
-      from: "<Class Name>",
-      to: "<Class Name>",
-      type: "<relationship_type>",
-      link: "<link_type>",
-      multiplicity: {
-        from: "<multiplicity_from>",
-        to: "<multiplicity_to>",
+      "from": "<Class Name>",
+      "to": "<Class Name>",
+      "type": "<relationship_type>",
+      "link": "<link_type>",
+      "multiplicity": {
+        "from": "<multiplicity_from>",
+        "to": "<multiplicity_to>"
       },
-      label: "<relationship_label>",
-    },
-  ],
+      "label": "<relationship_label>"
+    }
+  ]
 }`;

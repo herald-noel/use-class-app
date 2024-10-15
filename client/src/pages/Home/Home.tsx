@@ -144,7 +144,7 @@ const Home = observer(() => {
 
     const handleConvert = async () => {
         if (parseUML(ConvertViewModel.plantUMLSource).valid) {
-            await ConvertViewModel.covertToMermaidCD()
+            await ConvertViewModel.convertToMermaidCD()
         } else {
             ConvertViewModel.setParseErrors(
                 parseUML(ConvertViewModel.plantUMLSource).errors

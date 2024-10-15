@@ -57,8 +57,8 @@ class ConvertViewModel {
         await ConvertModel.convertMermaidCodetoJSON()
     }
 
-    covertToMermaidCD = async (): Promise<void> => {
-        await ConvertModel.covertToMermaidCD()
+    convertToMermaidCD = async (): Promise<void> => {
+        await ConvertModel.convertToMermaidCD()
     }
 
     saveMermaidCode = async (): Promise<boolean> => {
