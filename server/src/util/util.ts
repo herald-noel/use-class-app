@@ -4,9 +4,8 @@ import { CLASS_JSON_FORMAT } from "../config/constants";
 // TODO: set model dynamic depending on the catch error.
 // TODO: refine response OOP
 
-module.exports.chatUtil = async (prompt: string) => {
-  const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
-
+module.exports.chatUtil = async (prompt: string, currentApiKey: string) => {
+  const groq = new Groq({ apiKey: process.env[currentApiKey] });
   return groq.chat.completions.create({
     messages: [
       {
@@ -29,6 +28,16 @@ module.exports.isRetryableError = (error: any) => {
   );
 };
 
+module.exports.isTooManyRequests = (error: any) => {
+  return error.status === 429;
+};
+
 module.exports.delay = (ms: number) => {
   return new Promise((resolve) => setTimeout(resolve, ms));
+};
+
+module.exports.switchApiKey = (currentApiKey: string) => {
+  return currentApiKey === "GROQ_API_KEY_1"
+    ? "GROQ_API_KEY_2"
+    : "GROQ_API_KEY_1";
 };
