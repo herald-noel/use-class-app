@@ -58,7 +58,7 @@ const PlantUMLPreview = ({ isDownload }) => {
                 'flex justify-center w-full min-h-[650px] min-w-[300px] overflow-y-auto'
             }
         >
-            <div className="absolute right-3 top-3 flex flex-col ">
+            <div className="fixed right-3 top-3 flex flex-col mt-16 mr-4">
                 <Button
                     size="xs"
                     className={cn('absolute right-3 top-3', {
