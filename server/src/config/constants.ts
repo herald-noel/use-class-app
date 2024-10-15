@@ -56,11 +56,6 @@ Considerations:
 - Pay close attention to nouns (e.g., User, Email) for class identification.
 - Use verbs (e.g., Compose, Send) to determine class methods.
 - Focus on designing each class and relationship to align with OOP principles.
-
-IMPORTANT:
-- MAKE SURE YOU FOLLOW THE JSON FORMAT.
-- JUST OUTPUT THE JSON DIRECTLY NO NEED TO ADD ANY COMMENT.
-- ENSURE THERE ARE NO TRAILING COMMAS IN ARRAYS OR OBJECTS, AND THAT ALL KEYS AND STRING VALUES ARE ENCLOSED IN DOUBLE QUOTES.
 `;
 
 export const CLASS_JSON_FORMAT = `
