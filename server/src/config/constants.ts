@@ -20,7 +20,7 @@ Instructions:
 
 5. Relationship Identification:
    - Establish relationships between the classes to reflect interactions and dependencies in the use cases.
-   - Apply OOP relationships (e.g., inheritance, composition) to properly structure class interactions.
+   - Apply OOP relationships (e.g., Inheritance, Composition) to properly structure class interactions.
    - Use clear relationship types (e.g., Inheritance, Composition, Aggregation, Association, Link, Dependency, Realization).
    - Ensure that relationships are based on the nature of interaction, not on use case aliases.
 

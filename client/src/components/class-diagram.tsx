@@ -28,8 +28,6 @@ const ClassDiagram = ({ source, isDownload }) => {
             const originalBackgroundColor =
                 containerRef.current.style.backgroundColor
 
-            console.log(originalHeight)
-
             containerRef.current.style.width = 'auto'
             containerRef.current.style.height = 'auto'
             containerRef.current.style.backgroundColor = 'black'

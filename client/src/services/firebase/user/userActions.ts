@@ -20,7 +20,6 @@ export const addUserInfo = async (
             lastname: userCredential.lastname,
             email: userCredential.email,
         })
-        console.log('Profile updated successfully')
     } catch (error) {
         console.error('Error updating profile:', error)
     }

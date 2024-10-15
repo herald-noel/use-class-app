@@ -14,7 +14,6 @@ export interface SignUpData {
 export const doCreateUserWithEmailAndPassword = async (
   signUpData: SignUpData
 ) => {
-  console.log(signUpData.email, signUpData.password);
   try {
     const userCredential = await createUserWithEmailAndPassword(
       auth,
