@@ -1,5 +1,7 @@
 import Groq from "groq-sdk";
 
+// TODO: set model dynamic depending on the catch error.
+// TODO: refine response OOP
 
 module.exports.chatUtil = async (prompt: string) => {
   const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
