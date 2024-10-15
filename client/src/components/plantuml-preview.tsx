@@ -60,7 +60,7 @@ const PlantUMLPreview = ({ isDownload }) => {
         >
             <div className="absolute right-3 top-3 flex flex-col ">
                 <Button
-                    size="sm"
+                    size="xs"
                     className={cn('absolute right-3 top-3', {
                         hidden: !isDownload,
                     })}
@@ -70,7 +70,7 @@ const PlantUMLPreview = ({ isDownload }) => {
                     <Download />
                 </Button>
                 <Button
-                    size="sm"
+                    size="xs"
                     className={cn('absolute right-3 top-14', {
                         hidden: !isDownload,
                     })}
@@ -80,7 +80,7 @@ const PlantUMLPreview = ({ isDownload }) => {
                     <PlusIcon />
                 </Button>
                 <Button
-                    size="sm"
+                    size="xs"
                     className={cn('absolute right-3 top-24', {
                         hidden: !isDownload,
                     })}

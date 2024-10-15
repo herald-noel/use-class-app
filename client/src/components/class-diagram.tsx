@@ -67,7 +67,7 @@ const ClassDiagram = ({ source, isDownload }) => {
     return (
         <>
             <ErrorMessage />
-            <div className="flex-col fixed right-3 top-3 mt-16 mr-2">
+            <div className="flex-col fixed right-3 top-3 mt-16 mr-4">
                 <Button
                     size="xs"
                     className={cn('absolute right-3 top-3', {
