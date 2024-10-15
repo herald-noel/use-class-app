@@ -34,7 +34,6 @@ export class ChatService {
         const jsonString = JSON.stringify(json);
         const cleanJson = jsonrepair(jsonString);
 
-        console.log(JSON.parse(cleanJson));
         return JSON.parse(cleanJson);
       } catch (error) {
 
@@ -46,7 +45,6 @@ export class ChatService {
         if (isTooManyRequests(error)) {
           retries++;
           this.currentApi = switchApiKey(this.currentApi);
-          console.log("error test");
           continue;
         }
 

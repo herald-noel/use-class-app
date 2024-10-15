@@ -102,7 +102,6 @@ class AuthLoginModel {
     handleError = (error): void => {
         const errorCode = error.message
         let errorMessage = 'An error occurred during login.'
-        console.log('the error is ', error)
 
         switch (errorCode) {
             case 'auth/invalid-credential':

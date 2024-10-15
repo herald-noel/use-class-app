@@ -1,9 +1,6 @@
 import Groq from "groq-sdk";
 import { CLASS_JSON_FORMAT } from "../config/constants";
 
-// TODO: set model dynamic depending on the catch error.
-// TODO: refine response OOP
-
 module.exports.chatUtil = async (prompt: string, currentApiKey: string) => {
   const groq = new Groq({ apiKey: process.env[currentApiKey] });
   return groq.chat.completions.create({
