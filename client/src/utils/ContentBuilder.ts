@@ -1,71 +1,71 @@
 class ContentBuilder {
-    stringBuilder: string[];
-    hasDiagram: boolean;
-    numSpaces: number;
-    relationTypeMap: Record<string, string>;
-    linkTypeMap: Record<string, string>;
+    stringBuilder: string[]
+    hasDiagram: boolean
+    numSpaces: number
+    relationTypeMap: Record<string, string>
+    linkTypeMap: Record<string, string>
 
     constructor() {
-        this.stringBuilder = [];
-        this.hasDiagram = false;
-        this.numSpaces = 4;
+        this.stringBuilder = []
+        this.hasDiagram = false
+        this.numSpaces = 4
         this.relationTypeMap = {
             Inheritance: '<|',
             Composition: '*',
             Aggregation: 'o',
             Association: '>',
             Realization: '|>',
-        };
+        }
         this.linkTypeMap = {
             Solid: '--',
             Dashed: '..',
-        };
+        }
     }
 
     getIndent(numSpaces: number): string {
-        return ' '.repeat(numSpaces);
+        return ' '.repeat(numSpaces)
     }
 
     addLine(line: string): void {
-        this.stringBuilder.push(line);
+        this.stringBuilder.push(line)
     }
 
     addTitle(title: string): ContentBuilder {
-        this.addLine(`---\ntitle: ${title}\n---\n`);
-        return this;
+        this.addLine(`---\ntitle: ${title}\n---\n`)
+        return this
     }
 
     addClasses(classes: any[]): ContentBuilder {
         if (!this.hasDiagram) {
-            this.addLine('classDiagram\n');
-            this.hasDiagram = true;
+            this.addLine('classDiagram\n')
+            this.hasDiagram = true
         }
 
         classes.forEach(({ name, attributes, methods }) => {
-            this.addLine(`class ${name} {\n`);
+            this.addLine(`class ${name} {\n`)
             const properties = Object.entries(attributes).map(
                 ([key, type]) => `+${type} ${key}`
-            );
-            const classMethods = methods.map((method: string) => `+${method}`);
+            )
+            const classMethods = methods.map((method: string) => `+${method}`)
 
             if (properties.length) {
                 this.addLine(
                     `${this.getIndent(this.numSpaces)}${properties.join(
                         `\n${this.getIndent(this.numSpaces)}`
                     )}\n`
-                );
+                )
             }
             if (classMethods.length) {
                 this.addLine(
                     `${this.getIndent(this.numSpaces)}${classMethods.join(
                         `\n${this.getIndent(this.numSpaces)}`
                     )}\n`
-                );
+                )
             }
-            this.addLine('}\n');
-        });
+            this.addLine('}\n')
+        })
 
-        return this;
+        return this
     }
 
     addRelationships(relationships: any[]): ContentBuilder {
@@ -78,20 +78,24 @@ class ContentBuilder {
                 multiplicity: { from: fromMultiplicity, to: toMultiplicity },
                 link,
             }) => {
-                const relationSymbol = this.relationTypeMap[relationType] || '>';
-                const linkSymbol = this.linkTypeMap[link] || '--';
-                const arrowDirection = `${from} "${fromMultiplicity}" ${linkSymbol}${relationSymbol} "${toMultiplicity}" ${to}`;
+                const relationSymbol = this.relationTypeMap[relationType] || '>'
+                const linkSymbol = this.linkTypeMap[link] || '--'
+                const arrowDirection = `${from} "${fromMultiplicity}" ${linkSymbol}${relationSymbol} "${toMultiplicity}" ${to}`
 
-                this.addLine(`${arrowDirection} : ${label}\n`);
+                const relationshipLine = label
+                    ? `${arrowDirection} : ${label}\n`
+                    : `${arrowDirection}\n`
+
+                this.addLine(relationshipLine)
             }
-        );
+        )
 
-        return this;
+        return this
     }
 
     build(): string {
-        return this.stringBuilder.join('');
+        return this.stringBuilder.join('')
     }
 }
 
-export default ContentBuilder;
+export default ContentBuilder

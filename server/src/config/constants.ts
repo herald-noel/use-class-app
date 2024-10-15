@@ -44,8 +44,8 @@ Relationship Types:
 - Realization: A relationship between an interface and a class that implements it.
 
 Link Types:
-- Solid Line: Represents a strong relationship (e.g., inheritance, composition).
-- Dashed Line: Represents a weaker or conceptual relationship (e.g., dependency, realization).
+- Solid: Represents a strong relationship (e.g., inheritance, composition).
+- Dashed: Represents a weaker or conceptual relationship (e.g., dependency, realization).
 
 Output:
 - The final output must only be in JSON format.
@@ -58,60 +58,60 @@ Considerations:
 - Focus on designing each class and relationship to align with OOP principles.
 `;
 
-export const CLASS_JSON_FORMAT = `
+export const CLASS_JSON_FORMAT = ` 
 {
-  "title": "<Title of the Diagram>",
-  "classes": [
+  "title":"<Enter the title of the diagram>",
+  "classes":[
     {
-      "name": "<Class Name>",
-      "attributes": {
-        "attribute_1": "<attribute_type>",
-        "attribute_2": "<attribute_type>",
-        "attribute_3": "<attribute_type>"
+      "name":"<Enter the name of the class>",
+      "attributes":{
+        "attribute_1":"<Enter the type of attribute_1>",
+        "attribute_2":"<Enter the type of attribute_2>",
+        "attribute_3":"<Enter the type of attribute_3>"
       },
-      "methods": ["<method_name()>", "<method_name()>"]
+      "methods":["<Enter method_1()>","<Enter method_2()>"]
     },
     {
-      "name": "<Class Name>",
-      "attributes": {
-        "attribute_1": "<attribute_type>",
-        "attribute_2": "<attribute_type>",
-        "attribute_3": "<attribute_type>"
+      "name":"<Enter the name of the class>",
+      "attributes":{
+        "attribute_1":"<Enter the type of attribute_1>",
+        "attribute_2":"<Enter the type of attribute_2>",
+        "attribute_3":"<Enter the type of attribute_3>"
       },
-      "methods": ["<method_name()>", "<method_name()>"]
+      "methods":["<Enter method_1()>","<Enter method_2()>"]
     },
     {
-      "name": "<Class Name>",
-      "attributes": {
-        "attribute_1": "<attribute_type>",
-        "attribute_2": "<attribute_type>",
-        "attribute_3": "<attribute_type>"
+      "name":"<Enter the name of the class>",
+      "attributes":{
+        "attribute_1":"<Enter the type of attribute_1>",
+        "attribute_2":"<Enter the type of attribute_2>",
+        "attribute_3":"<Enter the type of attribute_3>"
       },
-      "methods": ["<method_name()>", "<method_name()>"]
+      "methods":["<Enter method_1()>","<Enter method_2()>"]
     }
   ],
-  "relationships": [
+  "relationships":[
     {
-      "from": "<Class Name>",
-      "to": "<Class Name>",
-      "type": "<relationship_type>",
-      "link": "<link_type>",
-      "multiplicity": {
-        "from": "<multiplicity_from>",
-        "to": "<multiplicity_to>"
+      "from":"<Enter the name of the originating class>",
+      "to":"<Enter the name of the destination class>",
+      "type":"<Specify the type of relationship (e.g, Inheritance, Composition)>",
+      "link":"<Specify the link type (Solid, Dashed)>",
+      "multiplicity":{
+        "from":"<Enter the multiplicity of the originating class>",
+        "to":"<Enter the multiplicity of the destination class>"
       },
-      "label": "<relationship_label>"
+      "label":"<Enter the label for the relationship (optional)>"
     },
     {
-      "from": "<Class Name>",
-      "to": "<Class Name>",
-      "type": "<relationship_type>",
-      "link": "<link_type>",
-      "multiplicity": {
-        "from": "<multiplicity_from>",
-        "to": "<multiplicity_to>"
+      "from":"<Enter the name of the originating class>",
+      "to":"<Enter the name of the destination class>",
+      "type":"<Specify the type of relationship (e.g, Inheritance, Composition)>",
+      "link":"<Specify the link type (Solid, Dashed)>",
+      "multiplicity":{
+        "from":"<Enter the multiplicity of the originating class>",
+        "to":"<Enter the multiplicity of the destination class>"
       },
-      "label": "<relationship_label>"
+      "label":"<Enter the label for the relationship (optional)>"
     }
   ]
-}`;
+};`;
