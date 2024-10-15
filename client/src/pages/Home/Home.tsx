@@ -31,7 +31,6 @@ import {
 import useLogout from '@/hooks/useLogout'
 import { Link } from 'react-router-dom'
 import { PageUrl } from '@/data/pages.constants'
-// import { ChatPopover } from '@/components/chat-popover'
 import { DropdownMenuDiagram } from '@/components/dropdown-settings'
 import { DIAGRAMS } from '@/data/diagrams.constants'
 import Joyride, { STATUS, Step } from 'react-joyride'
@@ -145,7 +144,7 @@ const Home = observer(() => {
 
     const handleConvert = async () => {
         if (parseUML(ConvertViewModel.plantUMLSource).valid) {
-            await ConvertViewModel.covertToMermaidCD()
+            await ConvertViewModel.convertToMermaidCD()
         } else {
             ConvertViewModel.setParseErrors(
                 parseUML(ConvertViewModel.plantUMLSource).errors
@@ -471,11 +470,6 @@ const Home = observer(() => {
                         </ResizablePanelGroup>
                     </ResizablePanel>
                 </ResizablePanelGroup>
-                {/* <div className="absolute bottom-6 right-6">
-                    <div>
-                        <ChatPopover />
-                    </div>
-                </div> */}
             </div>
         </>
     )
