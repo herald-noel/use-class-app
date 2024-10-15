@@ -19,14 +19,4 @@ export class ChatService {
       // this.convert(plantUML);
     }
   }
-
-  async modifyMermaid(mermaid: string, userRequest: string) {
-    try {
-      const userPrompt = new Prompt(mermaid, userRequest, CLASS_JSON_FORMAT);
-      const response = await chatUtil(userPrompt.prompt);
-    } catch (error) {
-      console.error("Error in ChatService convert method:", error);
-      this.convert(mermaid);
-    }
-  }
 }

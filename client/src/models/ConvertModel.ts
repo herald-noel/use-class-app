@@ -42,7 +42,6 @@ class ConvertModel {
             setParsedMermaidSource: action,
             setIsLoading: action,
             covertToMermaidCD: action,
-            modifyMermaidCD: action,
             convertMermaidCodetoJSON: action,
             saveMermaidCode: action,
             setSavedDiagrams: action,
@@ -94,30 +93,6 @@ class ConvertModel {
             const response = await axiosInstance.post(
                 '/api/v1/chat/convert',
                 this.plantUMLSource
-            )
-            const mermaidSourceCode = generateUMLFromJSON(response.data)
-            this.setMermaidSource(mermaidSourceCode)
-        } catch (error) {
-            console.error(error)
-        } finally {
-            this.setIsLoading(false)
-        }
-    }
-
-    modifyMermaidCD = async (): Promise<void> => {
-        this.setIsLoading(true)
-        try {
-            const response = await axiosInstance.post(
-                '/api/v1/chat/modify-mermaid',
-                {
-                    mermaid: this.parsedMermaidSource,
-                    userRequest: this.userRequest,
-                },
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                }
             )
             const mermaidSourceCode = generateUMLFromJSON(response.data)
             this.setMermaidSource(mermaidSourceCode)

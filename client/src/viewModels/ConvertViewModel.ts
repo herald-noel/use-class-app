@@ -53,10 +53,6 @@ class ConvertViewModel {
         ConvertModel.setUserRequest(value)
     }
 
-    modifyMermaidCD = async (): Promise<void> => {
-        await ConvertModel.modifyMermaidCD()
-    }
-
     convertMermaidCodetoJSON = async (): Promise<void> => {
         await ConvertModel.convertMermaidCodetoJSON()
     }
