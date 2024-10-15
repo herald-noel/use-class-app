@@ -19,8 +19,16 @@ module.exports.chatUtil = async (prompt: string) => {
       },
     ],
     model: "llama-3.2-11b-vision-preview",
-    response_format: { "type": "json_object" },
+    response_format: { type: "json_object" },
   });
 };
 
+module.exports.isRetryableError = (error: any) => {
+  return (
+    error.status === 400 && error.error?.error?.type === "invalid_request_error"
+  );
+};
 
+module.exports.delay = (ms: number) => {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+};
