@@ -1,4 +1,5 @@
 import Groq from "groq-sdk";
+import { CLASS_JSON_FORMAT } from "../config/constants";
 
 // TODO: set model dynamic depending on the catch error.
 // TODO: refine response OOP
@@ -9,6 +10,10 @@ module.exports.chatUtil = async (prompt: string) => {
   return groq.chat.completions.create({
     messages: [
       {
+        role: "system",
+        content: `You are an expert in converting use case diagrams from PlantUML to JSON format. The format is: ${CLASS_JSON_FORMAT}`,
+      },
+      {
         role: "user",
         content: prompt,
       },
@@ -17,3 +22,5 @@ module.exports.chatUtil = async (prompt: string) => {
     response_format: { "type": "json_object" },
   });
 };
+
+

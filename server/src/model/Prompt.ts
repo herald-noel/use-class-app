@@ -1,12 +1,10 @@
 export class Prompt {
   private _userPrompt: string;
-  private _formattedJSON: string;
   private _instruction: string;
 
-  constructor(userPrompt: string, instruction: string, formattedJSON: string) {
+  constructor(userPrompt: string, instruction: string) {
     this._userPrompt = userPrompt;
     this._instruction = instruction;
-    this._formattedJSON = formattedJSON;
   }
 
   get userPrompt(): string {
@@ -25,15 +23,7 @@ export class Prompt {
     this._instruction = value;
   }
 
-  get formattedJSON(): string {
-    return this._formattedJSON;
-  }
-
-  set formattedJSON(value: string) {
-    this._formattedJSON = value;
-  }
-
   get prompt(): string {
-    return this.userPrompt + "\n\n" + this.instruction + "\n" + this.formattedJSON;
+    return this.userPrompt + "\n\n" + this.instruction;
   }
 }
