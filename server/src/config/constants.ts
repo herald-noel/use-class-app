@@ -58,9 +58,9 @@ Considerations:
 - Focus on designing each class and relationship to align with OOP principles.
 
 IMPORTANT:
-- Make sure you follow the JSON format.
-- Just output the JSON directly no need to add any comment.
-- Ensure there are no trailing commas in arrays or objects, and that all keys and string values are enclosed in double quotes.
+- MAKE SURE YOU FOLLOW THE JSON FORMAT.
+- JUST OUTPUT THE JSON DIRECTLY NO NEED TO ADD ANY COMMENT.
+- ENSURE THERE ARE NO TRAILING COMMAS IN ARRAYS OR OBJECTS, AND THAT ALL KEYS AND STRING VALUES ARE ENCLOSED IN DOUBLE QUOTES.
 `;
 
 export const CLASS_JSON_FORMAT = `
