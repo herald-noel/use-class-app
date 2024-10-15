@@ -1,4 +1,4 @@
-const { chatUtil, cleanAndParseJSON } = require("../util/util");
+const { chatUtil } = require("../util/util");
 
 import { Prompt } from "../model/Prompt";
 import { CLASS_INSTRUCTION, CLASS_JSON_FORMAT } from "../config/constants";
@@ -12,27 +12,21 @@ export class ChatService {
         CLASS_JSON_FORMAT
       );
       const response = await chatUtil(userPrompt.prompt);
-      const cleanJSON = cleanAndParseJSON(response)
-      return JSON.parse(cleanJSON);
+      console.log(response.choices[0]?.message?.content || "");
+      return JSON.parse(response.choices[0]?.message?.content || "");
     } catch (error) {
       console.error("Error in ChatService convert method:", error);
-      this.convert(plantUML)
+      // this.convert(plantUML);
     }
   }
 
   async modifyMermaid(mermaid: string, userRequest: string) {
     try {
-      const userPrompt = new Prompt(
-        mermaid,
-        userRequest,
-        CLASS_JSON_FORMAT
-      );
+      const userPrompt = new Prompt(mermaid, userRequest, CLASS_JSON_FORMAT);
       const response = await chatUtil(userPrompt.prompt);
-      const cleanJSON = cleanAndParseJSON(response)
-      return JSON.parse(cleanJSON);
     } catch (error) {
       console.error("Error in ChatService convert method:", error);
-      this.convert(mermaid)
+      this.convert(mermaid);
     }
   }
 }

@@ -1,97 +1,97 @@
 class ContentBuilder {
-    stringBuilder: any[]
-    hasDiagram: boolean
-    numSpaces: number
-    relationTypeMap: {
-        Inheritance: string
-        Composition: string
-        Aggregation: string
-        Association: string
-        Realization: string
-    }
-    linkTypeMap: { Solid: string; Dashed: string }
+    stringBuilder: string[];
+    hasDiagram: boolean;
+    numSpaces: number;
+    relationTypeMap: Record<string, string>;
+    linkTypeMap: Record<string, string>;
 
     constructor() {
-        this.stringBuilder = []
-        this.hasDiagram = false
-        this.numSpaces = 4
+        this.stringBuilder = [];
+        this.hasDiagram = false;
+        this.numSpaces = 4;
         this.relationTypeMap = {
             Inheritance: '<|',
             Composition: '*',
             Aggregation: 'o',
             Association: '>',
             Realization: '|>',
-        }
+        };
         this.linkTypeMap = {
             Solid: '--',
             Dashed: '..',
-        }
+        };
     }
 
-    getIndent(numSpaces) {
-        return ' '.repeat(numSpaces)
+    getIndent(numSpaces: number): string {
+        return ' '.repeat(numSpaces);
     }
 
-    addLine(line) {
-        this.stringBuilder.push(line)
+    addLine(line: string): void {
+        this.stringBuilder.push(line);
     }
 
-    addTitle(title) {
-        this.addLine(`---\ntitle: ${title}\n---\n`)
-        return this
+    addTitle(title: string): ContentBuilder {
+        this.addLine(`---\ntitle: ${title}\n---\n`);
+        return this;
     }
 
-    addClass(className, properties, methods) {
+    addClasses(classes: any[]): ContentBuilder {
         if (!this.hasDiagram) {
-            this.addLine('classDiagram\n')
-            this.hasDiagram = true
+            this.addLine('classDiagram\n');
+            this.hasDiagram = true;
         }
-        this.addLine(`class ${className} {\n`)
 
-        // Handle potential undefined or empty properties and methods
-        if (properties && properties.length) {
-            this.addLine(
-                `${this.getIndent(this.numSpaces)}${properties.join(
-                    `\n${this.getIndent(this.numSpaces)}`
-                )}\n`
-            )
-        }
-        if (methods && methods.length) {
-            this.addLine(
-                `${this.getIndent(this.numSpaces)}${methods.join(
-                    `\n${this.getIndent(this.numSpaces)}`
-                )}\n`
-            )
-        }
-        this.addLine('}\n')
-        return this
+        classes.forEach(({ name, attributes, methods }) => {
+            this.addLine(`class ${name} {\n`);
+            const properties = Object.entries(attributes).map(
+                ([key, type]) => `+${type} ${key}`
+            );
+            const classMethods = methods.map((method: string) => `+${method}`);
+
+            if (properties.length) {
+                this.addLine(
+                    `${this.getIndent(this.numSpaces)}${properties.join(
+                        `\n${this.getIndent(this.numSpaces)}`
+                    )}\n`
+                );
+            }
+            if (classMethods.length) {
+                this.addLine(
+                    `${this.getIndent(this.numSpaces)}${classMethods.join(
+                        `\n${this.getIndent(this.numSpaces)}`
+                    )}\n`
+                );
+            }
+            this.addLine('}\n');
+        });
+
+        return this;
     }
 
-    addRelationship(
-        from,
-        to,
-        relationType,
-        label,
-        fromMultiplicity,
-        toMultiplicity,
-        linkType 
-    ) {
-        if (!this.hasDiagram) {
-            this.addLine('classDiagram\n')
-            this.hasDiagram = true
-        }
+    addRelationships(relationships: any[]): ContentBuilder {
+        relationships.forEach(
+            ({
+                from,
+                to,
+                type: relationType,
+                label,
+                multiplicity: { from: fromMultiplicity, to: toMultiplicity },
+                link,
+            }) => {
+                const relationSymbol = this.relationTypeMap[relationType] || '>';
+                const linkSymbol = this.linkTypeMap[link] || '--';
+                const arrowDirection = `${from} "${fromMultiplicity}" ${linkSymbol}${relationSymbol} "${toMultiplicity}" ${to}`;
 
-        const relationSymbol = this.relationTypeMap[relationType] || '>'
-        const linkSymbol = this.linkTypeMap[linkType] || '--'
-        const arrowDirection = `${from} "${fromMultiplicity}" ${linkSymbol}${relationSymbol} "${toMultiplicity}" ${to}`
+                this.addLine(`${arrowDirection} : ${label}\n`);
+            }
+        );
 
-        this.addLine(`${arrowDirection} : ${label}\n`)
-        return this
+        return this;
     }
 
-    build() {
-        return this.stringBuilder.join('')
+    build(): string {
+        return this.stringBuilder.join('');
     }
 }
 
-export default ContentBuilder
+export default ContentBuilder;
