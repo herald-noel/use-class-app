@@ -6,7 +6,7 @@ import { CLASS_INSTRUCTION, CLASS_JSON_FORMAT } from "../config/constants";
 
 export class ChatService {
   private maxRetries = 10;
-  private retryDelay = 1000;
+  private retryDelay = 0;
 
   async convert(plantUML: string) {
     let retries = 0;
