@@ -1,12 +1,16 @@
 import mermaid from 'mermaid'
 import html2canvas from 'html2canvas'
 import { Button } from '@/components/ui/button'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import ErrorMessage from './error-message'
-import { Download } from 'lucide-react'
+import { Download, PlusIcon, MinusIcon } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 const ClassDiagram = ({ source, isDownload }) => {
+    const [dimensions, setDimensions] = useState({
+        minWidth: 500,
+        minHeight: 500,
+    })
     const containerRef = useRef(null)
 
     useEffect(() => {
@@ -46,21 +50,62 @@ const ClassDiagram = ({ source, isDownload }) => {
         }
     }
 
+    const handleIncreaseSize = () => {
+        setDimensions((prev) => ({
+            minWidth: Math.min(prev.minWidth + 100, 1000),
+            minHeight: Math.min(prev.minHeight + 100, 1000),
+        }))
+    }
+
+    const handleDecreaseSize = () => {
+        setDimensions((prev) => ({
+            minWidth: Math.max(prev.minWidth - 100, 10),
+            minHeight: Math.max(prev.minHeight - 100, 10),
+        }))
+    }
+
     return (
         <>
             <ErrorMessage />
-            <Button
-                size="sm"
-                className={cn('absolute right-3 top-3', {
-                    hidden: !isDownload,
-                })}
-                variant="outline"
-                onClick={handleExport}
-            >
-                <Download />
-            </Button>
+            <div className="flex-col fixed right-3 top-3 mt-16 mr-2">
+                <Button
+                    size="xs"
+                    className={cn('absolute right-3 top-3', {
+                        hidden: !isDownload,
+                    })}
+                    variant="outline"
+                    onClick={handleExport}
+                >
+                    <Download />
+                </Button>
+                <Button
+                    size="xs"
+                    className={cn('absolute right-3 top-14', {
+                        hidden: !isDownload,
+                    })}
+                    variant="outline"
+                    onClick={handleIncreaseSize}
+                >
+                    <PlusIcon />
+                </Button>
+                <Button
+                    size="xs"
+                    className={cn('absolute right-3 top-24', {
+                        hidden: !isDownload,
+                    })}
+                    variant="outline"
+                    onClick={handleDecreaseSize}
+                >
+                    <MinusIcon />
+                </Button>
+            </div>
+
             <div
-                className="flex justify-center items-center min-w-[500px] min-h-[500px]"
+                className="flex justify-center items-center pr-10"
+                style={{
+                    minWidth: `${dimensions.minWidth}px`,
+                    minHeight: `${dimensions.minHeight}px`,
+                }}
                 ref={containerRef}
             />
         </>
