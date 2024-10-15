@@ -11,7 +11,7 @@ module.exports.chatUtil = async (prompt: string) => {
     messages: [
       {
         role: "system",
-        content: `You are an expert in converting use case diagrams from PlantUML to JSON format. The format is: ${CLASS_JSON_FORMAT}`,
+        content: `You are an expert in converting use case diagrams from PlantUML to JSON object. The format is: ${CLASS_JSON_FORMAT}`,
       },
       {
         role: "user",
