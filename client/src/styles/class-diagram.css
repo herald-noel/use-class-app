@@ -1,0 +1,11 @@
+.classTitleText {
+    fill: #eee !important;
+}
+
+.blackClassTitleText {
+    fill: black !important;
+}
+
+div > span.edgeLabel {
+    color: white !important;
+}

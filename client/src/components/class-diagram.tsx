@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react'
 import ErrorMessage from './error-message'
 import { Download, PlusIcon, MinusIcon } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import '@/styles/class-diagram.css'
 
 const ClassDiagram = ({ source, isDownload }) => {
     const [dimensions, setDimensions] = useState({
@@ -14,13 +15,19 @@ const ClassDiagram = ({ source, isDownload }) => {
     const containerRef = useRef(null)
 
     useEffect(() => {
-        mermaid.initialize({ startOnLoad: false, theme: 'dark' })
+        mermaid.initialize({ startOnLoad: false, theme: 'neutral' })
     }, [])
 
     useEffect(() => {
         if (containerRef.current) {
             containerRef.current.removeAttribute('data-processed')
             containerRef.current.innerHTML = source.trim()
+            const titleElement = containerRef.current.querySelector(
+                '.classTitleText'
+            ) as HTMLElement
+            if (titleElement) {
+                titleElement.style.fill = 'white'
+            }
             mermaid.init(undefined, containerRef.current)
         }
     }, [source])
@@ -29,19 +36,27 @@ const ClassDiagram = ({ source, isDownload }) => {
         if (containerRef.current) {
             const originalWidth = containerRef.current.style.width
             const originalHeight = containerRef.current.style.height
-            const originalBackgroundColor =
-                containerRef.current.style.backgroundColor
 
             containerRef.current.style.width = 'auto'
             containerRef.current.style.height = 'auto'
-            containerRef.current.style.backgroundColor = 'black'
+
+            const titleElement = document.querySelector(
+                '.classTitleText'
+            ) as HTMLElement
+
+            if (titleElement) {
+                titleElement.classList.add('blackClassTitleText')
+            }
 
             const canvas = await html2canvas(containerRef.current)
             const dataUrl = canvas.toDataURL('image/png')
 
             containerRef.current.style.width = originalWidth
             containerRef.current.style.height = originalHeight
-            containerRef.current.style.backgroundColor = originalBackgroundColor
+
+            if (titleElement) {
+                titleElement.classList.remove('blackClassTitleText')
+            }
 
             const link = document.createElement('a')
             link.href = dataUrl
@@ -101,7 +116,7 @@ const ClassDiagram = ({ source, isDownload }) => {
             </div>
 
             <div
-                className="flex justify-center items-center pr-10"
+                className="flex justify-center items-center pr-10 text-black"
                 style={{
                     minWidth: `${dimensions.minWidth}px`,
                     minHeight: `${dimensions.minHeight}px`,
