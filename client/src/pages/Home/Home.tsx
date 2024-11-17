@@ -36,6 +36,7 @@ import { DIAGRAMS } from '@/data/diagrams.constants'
 import Joyride, { STATUS, Step } from 'react-joyride'
 import PlantUMLPreview from '@/components/plantuml-preview'
 import { cn } from '@/lib/utils'
+import ErrorMessage from '@/components/error-message'
 
 enum TOGGLE_DIAGRAM {
     PlantUML = 0,
@@ -398,6 +399,7 @@ const Home = observer(() => {
                                             />
                                         </div>
                                     )}
+                                    <ErrorMessage />
                                 </div>
                             </ResizablePanel>
                             <ResizableHandle

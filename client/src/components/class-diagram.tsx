@@ -2,7 +2,6 @@ import mermaid from 'mermaid'
 import html2canvas from 'html2canvas'
 import { Button } from '@/components/ui/button'
 import { useEffect, useRef, useState } from 'react'
-import ErrorMessage from './error-message'
 import { Download, PlusIcon, MinusIcon } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -80,7 +79,6 @@ const ClassDiagram = ({ source, isDownload }) => {
 
     return (
         <>
-            <ErrorMessage />
             <div className="flex-col fixed right-3 top-3 mt-16 mr-4">
                 <Button
                     size="xs"
