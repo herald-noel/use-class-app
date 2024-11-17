@@ -370,7 +370,7 @@ const Home = observer(() => {
                         <ResizablePanelGroup direction="vertical">
                             <ResizablePanel
                                 defaultSize={60}
-                                className="!overflow-auto relative"
+                                className="!overflow-auto relative bg-white"
                             >
                                 <div className="flex justify-center items-center space-x-4 p-3">
                                     {currentDiagram !==
@@ -386,7 +386,7 @@ const Home = observer(() => {
                                     )}
                                     {currentDiagram !==
                                         TOGGLE_DIAGRAM.PlantUML && (
-                                        <div className="w-1/2 bg-white">
+                                        <div className="w-1/2">
                                             <ClassDiagram
                                                 source={
                                                     ConvertViewModel.mermaidSource
