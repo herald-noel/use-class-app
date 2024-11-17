@@ -5,7 +5,6 @@ import { useEffect, useRef, useState } from 'react'
 import ErrorMessage from './error-message'
 import { Download, PlusIcon, MinusIcon } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import '@/styles/class-diagram.css'
 
 const ClassDiagram = ({ source, isDownload }) => {
     const [dimensions, setDimensions] = useState({

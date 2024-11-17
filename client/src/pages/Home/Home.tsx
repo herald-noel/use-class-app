@@ -386,7 +386,7 @@ const Home = observer(() => {
                                     )}
                                     {currentDiagram !==
                                         TOGGLE_DIAGRAM.PlantUML && (
-                                        <div className="w-1/2">
+                                        <div className="w-1/2 bg-white">
                                             <ClassDiagram
                                                 source={
                                                     ConvertViewModel.mermaidSource
