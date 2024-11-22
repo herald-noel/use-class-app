@@ -37,6 +37,7 @@ import Joyride, { STATUS, Step } from 'react-joyride'
 import PlantUMLPreview from '@/components/plantuml-preview'
 import { cn } from '@/lib/utils'
 import ErrorMessage from '@/components/error-message'
+import ChatPlantuml from '@/components/chat-plantuml'
 
 enum TOGGLE_DIAGRAM {
     PlantUML = 0,
@@ -364,7 +365,9 @@ const Home = observer(() => {
                                 />
                             </ResizablePanel>
                             <ResizableHandle withHandle />
-                            <ResizablePanel defaultSize={50}></ResizablePanel>
+                            <ResizablePanel defaultSize={50}>
+                                {<ChatPlantuml />}
+                            </ResizablePanel>
                         </ResizablePanelGroup>
                     </ResizablePanel>
 
