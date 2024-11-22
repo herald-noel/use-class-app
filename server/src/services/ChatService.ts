@@ -36,7 +36,11 @@ export class ChatService {
           userPrompt.prompt,
           this.currentApi
         );
-        return processJsonResponse(response);
+        const json = response.choices[0].message.content;
+        const jsonString = JSON.stringify(json);
+        const cleanJson = jsonrepair(jsonString);
+
+        return JSON.parse(cleanJson);
       } catch (error) {
         console.error(
           `Error in ChatService convert method (attempt ${retries + 1}):`,
@@ -62,16 +66,36 @@ export class ChatService {
   async plantUML(userRequest: string) {
     const userPrompt = new Prompt(userRequest, PLANTUML_INSTRUCTION, "");
 
-    const response = await convertUserRequestToPlantUml(
+    const plantUML = await convertUserRequestToPlantUml(
       userPrompt.prompt,
       this.currentApi
     );
-    const json = response.choices[0].message.content;
-    console.log(json)
-    return json
-    // const jsonString = JSON.stringify(json);
-    // const cleanJson = jsonrepair(jsonString);
 
-    // return JSON.parse(cleanJson);
+    const plantUMLResponse = plantUML.choices[0].message.content;
+
+    const plantUMLPrompt = new Prompt(
+      plantUMLResponse,
+      CLASS_INSTRUCTION,
+      CLASS_JSON_FORMAT
+    );
+
+    const mermaid = await convertPlantUmlToMermaid(
+      plantUMLPrompt.prompt,
+      this.currentApi
+    );
+
+
+    const mermaidResponse = mermaid.choices[0].message.content;
+    const mermaidString = JSON.stringify(mermaidResponse);
+    const cleanJsonMermaid = jsonrepair(mermaidString);
+
+    const parsedMermaid = JSON.parse(cleanJsonMermaid)
+
+    const data = {
+      plantUML: plantUMLResponse,
+      mermaid: parsedMermaid
+    }
+
+    return data;
   }
 }
