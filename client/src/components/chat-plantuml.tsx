@@ -4,8 +4,10 @@ import { Textarea } from '@/components/ui/textarea'
 import { Card, CardHeader, CardDescription } from '@/components/ui/card'
 import { ArrowUp } from 'lucide-react'
 
+const MOBILE_BREAKPOINT = 400
 const SuggestionCard = ({ width }) => {
-    const cardWidth = Math.max(160, Math.min(300, width / 3.5))
+    const isMobile = width < MOBILE_BREAKPOINT
+    const cardWidth = isMobile ? width - 32 : Math.min(300, width / 3.5) // Account for padding on mobile
 
     return (
         <Card
@@ -56,14 +58,9 @@ const ChatInterface = () => {
         return () => resizeObserver.disconnect()
     }, [])
 
+    const isMobile = containerWidth < MOBILE_BREAKPOINT
     return (
-        <>
-            <div className="flex flex-wrap justify-center gap-2 mb-6">
-                {[1, 2, 3].map((i) => (
-                    <SuggestionCard key={i} width={containerWidth} />
-                ))}
-            </div>
-
+        <div className="mt-5">
             <h1 className="text-2xl text-center my-6">What can I help with?</h1>
 
             <div
@@ -88,7 +85,17 @@ const ChatInterface = () => {
                     </Button>
                 </div>
             </div>
-        </>
+
+            <div
+                className={`mt-5 grid gap-4 px-4 mb-6 transition-all duration-200 ${
+                    isMobile ? 'grid-cols-1' : 'grid-cols-3'
+                }`}
+            >
+                {[1, 2, 3].map((i) => (
+                    <SuggestionCard key={i} width={containerWidth} />
+                ))}
+            </div>
+        </div>
     )
 }
 

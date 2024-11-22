@@ -297,6 +297,10 @@ const Home = observer(() => {
                     >
                         <ResizablePanelGroup direction="vertical">
                             <ResizablePanel defaultSize={50}>
+                                {<ChatPlantuml />}
+                            </ResizablePanel>
+                            <ResizableHandle withHandle />
+                            <ResizablePanel defaultSize={50}>
                                 <div className="bg-secondary flex items-center justify-between editor-container">
                                     <div className="flex items-center space-x-2 px-8 py-2">
                                         <img
@@ -363,10 +367,6 @@ const Home = observer(() => {
                                     }
                                     onMount={onMount}
                                 />
-                            </ResizablePanel>
-                            <ResizableHandle withHandle />
-                            <ResizablePanel defaultSize={50}>
-                                {<ChatPlantuml />}
                             </ResizablePanel>
                         </ResizablePanelGroup>
                     </ResizablePanel>
