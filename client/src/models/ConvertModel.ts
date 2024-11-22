@@ -159,9 +159,24 @@ class ConvertModel {
         this.mermaidSource = defaultMermaidSource
     }
 
-    convertPlantUMLUsingPrompt = (userPrompt: string) => {
-        // TODO: add logic here
-        alert(userPrompt)
+    convertPlantUMLUsingPrompt = async (userPrompt: string) => {
+        this.setIsLoading(true)
+        try {
+            const response = await axiosInstance.post(
+                '/api/v1/chat/plantuml',
+                userPrompt
+            )
+            this.setPlantUMLSource(response.data.plantUML)
+
+            const mermaidSourceCode = generateUMLFromJSON(
+                JSON.parse(response.data.mermaid)
+            )
+            this.setMermaidSource(mermaidSourceCode)
+        } catch (error) {
+            console.error(error)
+        } finally {
+            this.setIsLoading(false)
+        }
     }
 }
 
