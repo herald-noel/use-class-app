@@ -3,34 +3,45 @@ import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { Card, CardHeader, CardDescription } from '@/components/ui/card'
 import { ArrowUp } from 'lucide-react'
+import ConvertViewModel from '@/viewModels/ConvertViewModel'
+import { observer } from 'mobx-react'
 
 const MOBILE_BREAKPOINT = 400
-const SuggestionCard = ({ width }) => {
+
+const suggestions = [
+    {
+        description: 'Create a class diagram Email system',
+    },
+    {
+        description: 'Create a class diagram E-commerce system',
+    },
+    {
+        description: 'Create a class diagram library management system',
+    },
+]
+
+const SuggestionCard = ({ width, description, onClick }) => {
     const isMobile = width < MOBILE_BREAKPOINT
-    const cardWidth = isMobile ? width - 32 : Math.min(300, width / 3.5) // Account for padding on mobile
+    const cardWidth = isMobile ? width - 32 : Math.min(300, width / 3.5)
 
     return (
         <Card
             className="border-secondary transition-all duration-200 hover:bg-secondary/50 cursor-pointer"
             style={{ width: cardWidth }}
+            onClick={() => onClick(description)}
         >
             <CardHeader>
-                <CardDescription>
-                    <span className="font-bold text-gray-300">
-                        Deploy your new
-                    </span>
-                    <br />
-                    project in one-click.
-                </CardDescription>
+                <CardDescription>{description}</CardDescription>
             </CardHeader>
         </Card>
     )
 }
 
-const ChatInterface = () => {
+const ChatPlantuml = observer(() => {
     const [containerWidth, setContainerWidth] = useState(0)
     const [inputWidth, setInputWidth] = useState('500px')
     const containerRef = useRef(null)
+    const textareaRef = useRef<HTMLTextAreaElement>(null)
 
     useEffect(() => {
         const updateWidths = () => {
@@ -59,6 +70,22 @@ const ChatInterface = () => {
     }, [])
 
     const isMobile = containerWidth < MOBILE_BREAKPOINT
+    const [userPrompt, setUserPrompt] = useState('')
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setUserPrompt(e.target.value)
+    }
+
+    const handleSubmit = () => {
+        ConvertViewModel.convertPlantUMLUsingPrompt(userPrompt)
+        setUserPrompt('')
+        textareaRef.current?.blur()
+    }
+
+    const handleSuggestionClick = (text: string) => {
+        setUserPrompt(text)
+    }
+
     return (
         <div className="mt-5">
             <h1 className="text-2xl text-center my-6">What can I help with?</h1>
@@ -75,11 +102,16 @@ const ChatInterface = () => {
                     <Textarea
                         placeholder="Message UseClass"
                         className="bg-secondary resize-none h-[45px] ml-3 my-[3px] focus-visible:ring-0 focus-visible:ring-offset-0 border-none"
+                        value={userPrompt}
+                        onChange={handleInputChange}
+                        ref={textareaRef}
                     />
                     <Button
                         variant="outline"
                         size="icon"
                         className="rounded-full mx-2 hover:bg-primary hover:text-primary-foreground"
+                        onClick={handleSubmit}
+                        disabled={userPrompt === '' ? true : false}
                     >
                         <ArrowUp className="h-4 w-4" />
                     </Button>
@@ -91,12 +123,17 @@ const ChatInterface = () => {
                     isMobile ? 'grid-cols-1' : 'grid-cols-3'
                 }`}
             >
-                {[1, 2, 3].map((i) => (
-                    <SuggestionCard key={i} width={containerWidth} />
+                {suggestions.map((suggestion, index) => (
+                    <SuggestionCard
+                        key={index}
+                        width={containerWidth}
+                        description={suggestion.description}
+                        onClick={handleSuggestionClick}
+                    />
                 ))}
             </div>
         </div>
     )
-}
+})
 
-export default ChatInterface
+export default ChatPlantuml
