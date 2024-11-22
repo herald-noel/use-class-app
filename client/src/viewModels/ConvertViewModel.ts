@@ -70,7 +70,7 @@ class ConvertViewModel {
         title = this.title,
         plantUMLSource = this.plantUMLSource,
         mermaidSource = this.mermaidSource
-    ) : Promise<boolean> => {
+    ): Promise<boolean> => {
         return await ConvertModel.updateSavedDiagram(
             id,
             title,
@@ -97,6 +97,10 @@ class ConvertViewModel {
 
     newDiagram = (): void => {
         ConvertModel.newDiagram()
+    }
+
+    convertPlantUMLUsingPrompt = (userPrompt: string) => {
+        ConvertModel.convertPlantUMLUsingPrompt(userPrompt)
     }
 }
 
