@@ -1,101 +1,61 @@
-const {
-  convertUserRequestToPlantUml,
-  convertPlantUmlToMermaid,
-  isRetryableError,
-  delay,
-  isTooManyRequests,
-  switchApiKey,
-  processJsonResponse,
-} = require("../util/util");
-import { jsonrepair } from "jsonrepair";
-
+import { CLASS_INSTRUCTION, CLASS_JSON_FORMAT, PLANTUML_INSTRUCTION } from "../config/constants";
+import { ApiConfig } from "../model/Interface/ApiConfig";
+import { ConversionService } from "../model/Interface/ConversionService";
+import { ConversionStrategy } from "../model/Interface/ConversionStrategy";
+import { RetryConfig } from "../model/Interface/RetryConfig";
+import { PlantUMLToMermaidStrategy } from "../model/PlantUMLToMermaidStrategy";
 import { Prompt } from "../model/Prompt";
-import {
-  CLASS_INSTRUCTION,
-  CLASS_JSON_FORMAT,
-  PLANTUML_INSTRUCTION,
-} from "../config/constants";
+import { RetryHandler } from "../model/RetryHandler";
+import { UserRequestToPlantUMLStrategy } from "../model/UserRequestToPlantUMLStrategy";
 
-export class ChatService {
-  private maxRetries = 10;
-  private retryDelay = 0;
-  private currentApi = "GROQ_API_KEY_1";
+export class ChatService extends RetryHandler implements ConversionService {
+  private plantUMLToMermaidStrategy: ConversionStrategy;
+  private userRequestToPlantUMLStrategy: ConversionStrategy;
 
-  async convert(plantUML: string) {
-    let retries = 0;
-
-    while (retries < this.maxRetries) {
-      try {
-        const userPrompt = new Prompt(
-          plantUML,
-          CLASS_INSTRUCTION,
-          CLASS_JSON_FORMAT
-        );
-
-        const response = await convertPlantUmlToMermaid(
-          userPrompt.prompt,
-          this.currentApi
-        );
-        const json = response.choices[0].message.content;
-        const jsonString = JSON.stringify(json);
-        const cleanJson = jsonrepair(jsonString);
-
-        return JSON.parse(cleanJson);
-      } catch (error) {
-        console.error(
-          `Error in ChatService convert method (attempt ${retries + 1}):`,
-          error
-        );
-
-        if (isTooManyRequests(error)) {
-          retries++;
-          this.currentApi = switchApiKey(this.currentApi);
-          continue;
-        }
-
-        if (isRetryableError(error) && retries < this.maxRetries - 1) {
-          retries++;
-          await delay(this.retryDelay * retries);
-          continue;
-        }
-      }
-    }
-    throw new Error("Max retries reached");
+  constructor(config: RetryConfig & ApiConfig) {
+    super(config);
+    this.plantUMLToMermaidStrategy = new PlantUMLToMermaidStrategy();
+    this.userRequestToPlantUMLStrategy = new UserRequestToPlantUMLStrategy();
   }
 
-  async plantUML(userRequest: string) {
-    const userPrompt = new Prompt(userRequest, PLANTUML_INSTRUCTION, "");
+  async convert(plantUML: string): Promise<any> {
+    return this.withRetry(async () => {
+      const userPrompt = new Prompt(
+        plantUML,
+        CLASS_INSTRUCTION,
+        CLASS_JSON_FORMAT 
+      );
+      return await this.plantUMLToMermaidStrategy.execute(
+        userPrompt.prompt,
+        this.config.currentApi
+      );
+    });
+  }
 
-    const plantUML = await convertUserRequestToPlantUml(
-      userPrompt.prompt,
-      this.currentApi
-    );
+  async plantUML(userRequest: string): Promise<any> {
+    return this.withRetry(async () => {
+      // Generate PlantUML
+      const userPrompt = new Prompt(userRequest, PLANTUML_INSTRUCTION, "");
+      const plantUMLResponse = await this.userRequestToPlantUMLStrategy.execute(
+        userPrompt.prompt,
+        this.config.currentApi
+      );
 
-    const plantUMLResponse = plantUML.choices[0].message.content;
+      // Convert to Mermaid
+      const plantUMLPrompt = new Prompt(
+        plantUMLResponse,
+        CLASS_INSTRUCTION,
+        CLASS_JSON_FORMAT
+      );
+      const mermaidResponse = await this.plantUMLToMermaidStrategy.execute(
+        plantUMLPrompt.prompt,
+        this.config.currentApi
+      );
 
-    const plantUMLPrompt = new Prompt(
-      plantUMLResponse,
-      CLASS_INSTRUCTION,
-      CLASS_JSON_FORMAT
-    );
-
-    const mermaid = await convertPlantUmlToMermaid(
-      plantUMLPrompt.prompt,
-      this.currentApi
-    );
-
-
-    const mermaidResponse = mermaid.choices[0].message.content;
-    const mermaidString = JSON.stringify(mermaidResponse);
-    const cleanJsonMermaid = jsonrepair(mermaidString);
-
-    const parsedMermaid = JSON.parse(cleanJsonMermaid)
-
-    const data = {
-      plantUML: plantUMLResponse,
-      mermaid: parsedMermaid
-    }
-
-    return data;
+      return {
+        plantUML: plantUMLResponse,
+        mermaid: mermaidResponse
+      };
+    });
   }
 }

@@ -1,10 +1,11 @@
 import { Request, Response } from "express";
 import { ChatService } from "../services/ChatService";
+import { chatConfig } from "../config/chatConfig";
 class ChatController {
   private chatService: ChatService;
 
   constructor() {
-    this.chatService = new ChatService();
+    this.chatService = new ChatService(chatConfig);
   }
 
   public async convert(req: Request, res: Response): Promise<void> {
