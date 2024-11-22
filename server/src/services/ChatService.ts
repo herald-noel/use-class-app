@@ -1,14 +1,20 @@
 const {
-  chatUtil,
+  convertUserRequestToPlantUml,
+  convertPlantUmlToMermaid,
   isRetryableError,
   delay,
   isTooManyRequests,
   switchApiKey,
+  processJsonResponse,
 } = require("../util/util");
 import { jsonrepair } from "jsonrepair";
 
 import { Prompt } from "../model/Prompt";
-import { CLASS_INSTRUCTION, CLASS_JSON_FORMAT } from "../config/constants";
+import {
+  CLASS_INSTRUCTION,
+  CLASS_JSON_FORMAT,
+  PLANTUML_INSTRUCTION,
+} from "../config/constants";
 
 export class ChatService {
   private maxRetries = 10;
@@ -20,23 +26,18 @@ export class ChatService {
 
     while (retries < this.maxRetries) {
       try {
-
         const userPrompt = new Prompt(
           plantUML,
           CLASS_INSTRUCTION,
           CLASS_JSON_FORMAT
         );
 
-        const response = await chatUtil(userPrompt.prompt, this.currentApi);
-
-        // JSON PRE-PROCESSING
-        const json = response.choices[0]?.message?.content;
-        const jsonString = JSON.stringify(json);
-        const cleanJson = jsonrepair(jsonString);
-
-        return JSON.parse(cleanJson);
+        const response = await convertPlantUmlToMermaid(
+          userPrompt.prompt,
+          this.currentApi
+        );
+        return processJsonResponse(response);
       } catch (error) {
-
         console.error(
           `Error in ChatService convert method (attempt ${retries + 1}):`,
           error
@@ -56,5 +57,21 @@ export class ChatService {
       }
     }
     throw new Error("Max retries reached");
+  }
+
+  async plantUML(userRequest: string) {
+    const userPrompt = new Prompt(userRequest, PLANTUML_INSTRUCTION, "");
+
+    const response = await convertUserRequestToPlantUml(
+      userPrompt.prompt,
+      this.currentApi
+    );
+    const json = response.choices[0].message.content;
+    console.log(json)
+    return json
+    // const jsonString = JSON.stringify(json);
+    // const cleanJson = jsonrepair(jsonString);
+
+    // return JSON.parse(cleanJson);
   }
 }

@@ -8,4 +8,8 @@ router.post("/convert", (req: Request, res: Response) =>
   chatController.convert(req, res)
 );
 
+router.post("/plantuml", (req: Request, res: Response) =>
+  chatController.plantUML(req, res)
+);
+
 export default router;

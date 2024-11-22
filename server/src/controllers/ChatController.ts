@@ -16,6 +16,17 @@ class ChatController {
       res.status(500).json({ error: "Internal Server Error" });
     }
   }
+
+  public async plantUML(req: Request, res: Response): Promise<void> {
+    try {
+      const chat = await this.chatService.plantUML(req.body);
+      res.json(chat);
+    } catch (error) {
+      console.error("Error in plantUML function:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  }
+
 }
 
 export default ChatController;
