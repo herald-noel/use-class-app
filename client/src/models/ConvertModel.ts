@@ -48,6 +48,7 @@ class ConvertModel {
             deleteSavedDiagram: action,
             setParseErrors: action,
             newDiagram: action,
+            convertPlantUMLUsingPrompt: action,
         })
     }
 
@@ -95,7 +96,9 @@ class ConvertModel {
                 this.plantUMLSource
             )
 
-            const mermaidSourceCode = generateUMLFromJSON(JSON.parse(response.data))
+            const mermaidSourceCode = generateUMLFromJSON(
+                JSON.parse(response.data)
+            )
             this.setMermaidSource(mermaidSourceCode)
         } catch (error) {
             console.error(error)
@@ -154,6 +157,26 @@ class ConvertModel {
         this.title = ''
         this.plantUMLSource = HOME_DATA.defaultPlantUMLSource
         this.mermaidSource = defaultMermaidSource
+    }
+
+    convertPlantUMLUsingPrompt = async (userPrompt: string) => {
+        this.setIsLoading(true)
+        try {
+            const response = await axiosInstance.post(
+                '/api/v1/chat/plantuml',
+                userPrompt
+            )
+            this.setPlantUMLSource(response.data.plantUML)
+
+            const mermaidSourceCode = generateUMLFromJSON(
+                JSON.parse(response.data.mermaid)
+            )
+            this.setMermaidSource(mermaidSourceCode)
+        } catch (error) {
+            console.error(error)
+        } finally {
+            this.setIsLoading(false)
+        }
     }
 }
 

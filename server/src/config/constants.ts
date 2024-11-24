@@ -115,3 +115,81 @@ export const CLASS_JSON_FORMAT = `
     }
   ]
 }`;
+
+export const PLANTUML_INSTRUCTION = `
+a. Base Structure:
+
+@startuml
+left to right direction
+actor ActorName
+rectangle "System Name" {
+    usecase "Use Case 1" as UC1
+    usecase "Use Case 2" as UC2
+    ActorName --> UC1
+    ActorName --> UC2
+}
+@enduml
+
+b. Required Elements:
+
+Always begin with @startuml and end with @enduml
+Include left to right direction for horizontal layout
+Define actor(s) before the rectangle system boundary
+Place all use cases within a rectangle representing the system
+Use arrow syntax --> to show relationships
+
+c. Naming Conventions:
+
+1. Actor names:
+
+- Write directly without quotes: actor Customer
+- No aliases allowed on actors
+- Use PascalCase for clarity: SystemAdmin
+
+
+2. Use cases:
+
+- Must be in quotes: usecase "Login to System"
+- Require unique identifiers: as UC1
+- Use descriptive but concise names
+- Follow format: usecase "Action Description" as UCx
+
+d. System Boundary:
+
+1. Rectangle syntax:
+
+- Must include system name in quotes
+- Format: rectangle "System Name" {}
+- All use cases go inside the curly braces
+
+e. Relationships
+
+- Basic connection: ActorName --> UCx
+- Direction is always from actor to use case
+- Use consistent arrow types throughout diagram
+
+f. Prohibited Elements
+
+- No actor aliases
+- No quotes around actor names
+- No HTML-style brackets around names
+- No additional styling or color definitions
+- No extension or inclusion relationships unless specifically requested
+
+g. Example Response Format
+When asked to create a PlantUML diagram, provide only the code without:
+
+- Explanations
+- Markdown formatting
+- Additional context
+- Code block markers
+
+h. Input Validation
+Ensure all provided PlantUML code:
+
+- Follows exact spacing and indentation shown in base structure
+- Uses consistent naming conventions
+- Includes all required elements
+- Avoids all prohibited elements
+- Maintains proper relationship syntax
+`;

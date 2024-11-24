@@ -1,7 +1,8 @@
 import Groq from "groq-sdk";
+import { jsonrepair } from "jsonrepair";
 import { CLASS_JSON_FORMAT } from "../config/constants";
 
-module.exports.chatUtil = async (prompt: string, currentApiKey: string) => {
+module.exports.convertPlantUmlToMermaid = async (prompt: string, currentApiKey: string) => {
   const groq = new Groq({ apiKey: process.env[currentApiKey] });
   return groq.chat.completions.create({
     messages: [
@@ -16,6 +17,23 @@ module.exports.chatUtil = async (prompt: string, currentApiKey: string) => {
     ],
     model: "llama-3.2-11b-vision-preview",
     response_format: { type: "json_object" },
+  });
+};
+
+module.exports.convertUserRequestToPlantUml = async (prompt: string, currentApiKey: string) => {
+  const groq = new Groq({ apiKey: process.env[currentApiKey] });
+  return groq.chat.completions.create({
+    messages: [
+      {
+        role: "system",
+        content: `You are an expert in translating user request to a plantUML use-case diagram.`,
+      },
+      {
+        role: "user",
+        content: prompt,
+      },
+    ],
+    model: "llama-3.2-11b-vision-preview",
   });
 };
 
@@ -38,3 +56,15 @@ module.exports.switchApiKey = (currentApiKey: string) => {
     ? "GROQ_API_KEY_2"
     : "GROQ_API_KEY_1";
 };
+
+module.exports.processJsonResponse = (response: any) => {
+  if (!response?.choices?.[0]?.message?.content) {
+      throw new Error('Invalid response structure');
+  }
+
+  const json = response.choices[0].message.content;
+  const jsonString = JSON.stringify(json);
+  const cleanJson = jsonrepair(jsonString);
+  
+  return JSON.parse(cleanJson);
+}
