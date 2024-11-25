@@ -296,11 +296,11 @@ const Home = observer(() => {
                         className={cn({ hidden: !isPlantUMLDrawerOpen })}
                     >
                         <ResizablePanelGroup direction="vertical">
-                            <ResizablePanel defaultSize={50}>
+                            <ResizablePanel defaultSize={60}>
                                 {<ChatPlantuml />}
                             </ResizablePanel>
                             <ResizableHandle withHandle />
-                            <ResizablePanel defaultSize={50}>
+                            <ResizablePanel defaultSize={40}>
                                 <div className="bg-secondary flex items-center justify-between editor-container">
                                     <div className="flex items-center space-x-2 px-8 py-2">
                                         <img
