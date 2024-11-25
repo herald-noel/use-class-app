@@ -1,4 +1,8 @@
-import { CLASS_INSTRUCTION, CLASS_JSON_FORMAT, PLANTUML_INSTRUCTION } from "../config/constants";
+import {
+  CLASS_INSTRUCTION,
+  CLASS_JSON_FORMAT,
+  PLANTUML_INSTRUCTION,
+} from "../config/constants";
 import { ApiConfig } from "../model/Interface/ApiConfig";
 import { ConversionService } from "../model/Interface/ConversionService";
 import { ConversionStrategy } from "../model/Interface/ConversionStrategy";
@@ -7,6 +11,7 @@ import { PlantUMLToMermaidStrategy } from "../model/PlantUMLToMermaidStrategy";
 import { Prompt } from "../model/Prompt";
 import { RetryHandler } from "../model/RetryHandler";
 import { UserRequestToPlantUMLStrategy } from "../model/UserRequestToPlantUMLStrategy";
+const { removePlantUmlDelimeter } = require("../util/util");
 
 export class ChatService extends RetryHandler implements ConversionService {
   private plantUMLToMermaidStrategy: ConversionStrategy;
@@ -23,7 +28,7 @@ export class ChatService extends RetryHandler implements ConversionService {
       const userPrompt = new Prompt(
         plantUML,
         CLASS_INSTRUCTION,
-        CLASS_JSON_FORMAT 
+        CLASS_JSON_FORMAT
       );
       return await this.plantUMLToMermaidStrategy.execute(
         userPrompt.prompt,
@@ -41,6 +46,8 @@ export class ChatService extends RetryHandler implements ConversionService {
         this.config.currentApi
       );
 
+      const cleanPlantUml = removePlantUmlDelimeter(plantUMLResponse);
+
       // Convert to Mermaid
       const plantUMLPrompt = new Prompt(
         plantUMLResponse,
@@ -53,8 +60,8 @@ export class ChatService extends RetryHandler implements ConversionService {
       );
 
       return {
-        plantUML: plantUMLResponse,
-        mermaid: mermaidResponse
+        plantUML: cleanPlantUml,
+        mermaid: mermaidResponse,
       };
     });
   }

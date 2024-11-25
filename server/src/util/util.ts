@@ -2,7 +2,10 @@ import Groq from "groq-sdk";
 import { jsonrepair } from "jsonrepair";
 import { CLASS_JSON_FORMAT } from "../config/constants";
 
-module.exports.convertPlantUmlToMermaid = async (prompt: string, currentApiKey: string) => {
+module.exports.convertPlantUmlToMermaid = async (
+  prompt: string,
+  currentApiKey: string
+) => {
   const groq = new Groq({ apiKey: process.env[currentApiKey] });
   return groq.chat.completions.create({
     messages: [
@@ -20,7 +23,10 @@ module.exports.convertPlantUmlToMermaid = async (prompt: string, currentApiKey: 
   });
 };
 
-module.exports.convertUserRequestToPlantUml = async (prompt: string, currentApiKey: string) => {
+module.exports.convertUserRequestToPlantUml = async (
+  prompt: string,
+  currentApiKey: string
+) => {
   const groq = new Groq({ apiKey: process.env[currentApiKey] });
   return groq.chat.completions.create({
     messages: [
@@ -59,12 +65,23 @@ module.exports.switchApiKey = (currentApiKey: string) => {
 
 module.exports.processJsonResponse = (response: any) => {
   if (!response?.choices?.[0]?.message?.content) {
-      throw new Error('Invalid response structure');
+    throw new Error("Invalid response structure");
   }
 
   const json = response.choices[0].message.content;
   const jsonString = JSON.stringify(json);
   const cleanJson = jsonrepair(jsonString);
-  
+
   return JSON.parse(cleanJson);
-}
+};
+
+module.exports.removePlantUmlDelimeter = (text: string) => {
+  if (typeof text !== "string") {
+    throw new TypeError("Input must be a string");
+  }
+
+  text = text.replace(/^```plantuml\n?/, "");
+  text = text.replace(/^```\n?/, "");
+  text = text.replace(/```$/, "");
+  return text.trim();
+};
