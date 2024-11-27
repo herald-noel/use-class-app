@@ -1,8 +1,7 @@
 import { useRef, useEffect, useState } from 'react'
-import { Button } from '@/components/ui/button'
-import { Textarea } from '@/components/ui/textarea'
+
 import { Card, CardHeader, CardDescription } from '@/components/ui/card'
-import { ArrowUp } from 'lucide-react'
+
 import ConvertViewModel from '@/viewModels/ConvertViewModel'
 import { observer } from 'mobx-react'
 

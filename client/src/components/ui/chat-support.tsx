@@ -1,9 +1,4 @@
 import { useRef, useEffect, useState } from 'react'
-import {
-    ChatBubble,
-    ChatBubbleAvatar,
-    ChatBubbleMessage,
-} from '@/components/ui/chat/chat-bubble'
 import { ChatInput } from '@/components/ui/chat/chat-input'
 import {
     ExpandableChat,
@@ -11,12 +6,10 @@ import {
     ExpandableChatBody,
     ExpandableChatFooter,
 } from '@/components/ui/chat/expandable-chat'
-import { ChatMessageList } from '@/components/ui/chat/chat-message-list'
 import { Button } from './button'
 import { Send } from 'lucide-react'
 import { Card, CardHeader, CardDescription } from '@/components/ui/card'
 import ConvertViewModel from '@/viewModels/ConvertViewModel'
-import { observer } from 'mobx-react'
 import { ScrollArea } from '@/components/ui/scroll-area'
 
 const MOBILE_BREAKPOINT = 400
@@ -35,7 +28,6 @@ const suggestions = [
 
 const SuggestionCard = ({ width, description, onClick }) => {
     const isMobile = width < MOBILE_BREAKPOINT
-    const cardWidth = isMobile ? width - 32 : Math.min(300, width / 3.5)
 
     return (
         <Card
@@ -99,9 +91,9 @@ const ChatSupport: React.FC<ChatSupportProps> = ({ isMermaidOpen }) => {
             <ExpandableChatHeader className="flex-col text-center justify-center">
                 <h1 className="text-xl font-semibold">Chat with our AI ✨</h1>
                 <p>Ask any question for our AI to answer</p>
-                <div className="flex gap-2 items-center pt-2">
+                {/* <div className="flex gap-2 items-center pt-2">
                     <Button variant="secondary">See FAQ</Button>
-                </div>
+                </div> */}
             </ExpandableChatHeader>
             <ExpandableChatBody>
                 <ScrollArea className="h-full w-full">

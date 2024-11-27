@@ -56,6 +56,7 @@ Considerations:
 - Pay close attention to nouns (e.g., User, Email) for class identification.
 - Use verbs (e.g., Compose, Send) to determine class methods.
 - Focus on designing each class and relationship to align with OOP principles.
+- Format the classes the same we define classes in JAVA.
 `;
 
 export const CLASS_JSON_FORMAT = `

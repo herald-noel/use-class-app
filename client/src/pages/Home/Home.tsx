@@ -38,7 +38,6 @@ import Joyride, { STATUS, Step } from 'react-joyride'
 import PlantUMLPreview from '@/components/plantuml-preview'
 import { cn } from '@/lib/utils'
 import ErrorMessage from '@/components/error-message'
-import ChatPlantuml from '@/components/chat-plantuml'
 import ChatSupport from '../../components/ui/chat-support'
 
 enum TOGGLE_DIAGRAM {
