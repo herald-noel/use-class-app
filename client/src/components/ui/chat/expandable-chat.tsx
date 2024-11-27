@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import { X, MessageCircle } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
@@ -50,6 +50,26 @@ const ExpandableChat: React.FC<ExpandableChatProps> = ({
     const chatRef = useRef<HTMLDivElement>(null)
 
     const toggleChat = () => setIsOpen(!isOpen)
+
+    const handleClickOutside = (event: MouseEvent) => {
+        if (
+            chatRef.current &&
+            !chatRef.current.contains(event.target as Node)
+        ) {
+            setIsOpen(false)
+        }
+    }
+
+    useEffect(() => {
+        if (isOpen) {
+            document.addEventListener('mousedown', handleClickOutside)
+        } else {
+            document.removeEventListener('mousedown', handleClickOutside)
+        }
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside)
+        }
+    }, [isOpen])
 
     const getPosition = () => {
         if (position === 'bottom-right') {
