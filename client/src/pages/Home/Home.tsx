@@ -20,6 +20,7 @@ import {
     CircleUser,
     Loader2,
     PanelsTopLeft,
+    BotMessageSquare,
 } from 'lucide-react'
 import SaveButton from '@/components/save-button'
 import {
@@ -37,7 +38,7 @@ import Joyride, { STATUS, Step } from 'react-joyride'
 import PlantUMLPreview from '@/components/plantuml-preview'
 import { cn } from '@/lib/utils'
 import ErrorMessage from '@/components/error-message'
-import ChatPlantuml from '@/components/chat-plantuml'
+import ChatSupport from '../../components/ui/chat-support'
 
 enum TOGGLE_DIAGRAM {
     PlantUML = 0,
@@ -295,80 +296,68 @@ const Home = observer(() => {
                         defaultSize={30}
                         className={cn({ hidden: !isPlantUMLDrawerOpen })}
                     >
-                        <ResizablePanelGroup direction="vertical">
-                            <ResizablePanel defaultSize={60}>
-                                {<ChatPlantuml />}
-                            </ResizablePanel>
-                            <ResizableHandle withHandle />
-                            <ResizablePanel defaultSize={40}>
-                                <div className="bg-secondary flex items-center justify-between editor-container">
-                                    <div className="flex items-center space-x-2 px-8 py-2">
-                                        <img
-                                            src="plantuml.svg"
-                                            className="w-7 h-7 pb-1"
-                                        />
-                                        <h4 className="text-sm text-foreground font-medium">
-                                            PlantUML Code
-                                        </h4>
-                                    </div>
-                                    <div className=" flex space-x-1 p-1">
-                                        <Button
-                                            size="xs"
-                                            variant="leetcode"
-                                            onClick={
-                                                ConvertViewModel.newDiagram
-                                            }
-                                        >
-                                            New
-                                        </Button>
-                                        <div className="op-button">
-                                            <DropdownMenuDiagram
-                                                type={DIAGRAMS.plantUML}
-                                            />
-                                        </div>
-
-                                        <Button
-                                            size="xs"
-                                            variant="leetcode"
-                                            className="toggle-diagram-button"
-                                        >
-                                            <PanelsTopLeft
-                                                onClick={handleToggleDiagram}
-                                            />
-                                        </Button>
-                                        <div className="flex">
-                                            <Button
-                                                size="xs"
-                                                variant="leetcode"
-                                                onClick={togglePlantUMLDrawer}
-                                            >
-                                                <ChevronLeft className="h-5 w-5" />
-                                            </Button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <Editor
-                                    height="100%"
-                                    className="editor-container"
-                                    theme="vs-dark"
-                                    defaultLanguage="java"
-                                    // defaultValue={HOME_DATA.defaultPlantUMLSource}
-                                    value={ConvertViewModel.plantUMLSource}
-                                    options={{
-                                        minimap: { enabled: false },
-                                        language: 'java',
-                                        quickSuggestions: false,
-                                        parameterHints: { enabled: false },
-                                    }}
-                                    onChange={(value) =>
-                                        ConvertViewModel.setPlantUMLSource(
-                                            value
-                                        )
-                                    }
-                                    onMount={onMount}
+                        <div className="bg-secondary flex items-center justify-between editor-container">
+                            <div className="flex items-center space-x-2 px-8 py-2">
+                                <img
+                                    src="plantuml.svg"
+                                    className="w-7 h-7 pb-1"
                                 />
-                            </ResizablePanel>
-                        </ResizablePanelGroup>
+                                <h4 className="text-sm text-foreground font-medium">
+                                    PlantUML Code
+                                </h4>
+                            </div>
+                            <div className=" flex space-x-1 p-1">
+                                <Button
+                                    size="xs"
+                                    variant="leetcode"
+                                    onClick={ConvertViewModel.newDiagram}
+                                >
+                                    New
+                                </Button>
+                                <div className="op-button">
+                                    <DropdownMenuDiagram
+                                        type={DIAGRAMS.plantUML}
+                                    />
+                                </div>
+
+                                <Button
+                                    size="xs"
+                                    variant="leetcode"
+                                    className="toggle-diagram-button"
+                                >
+                                    <PanelsTopLeft
+                                        onClick={handleToggleDiagram}
+                                    />
+                                </Button>
+                                <div className="flex">
+                                    <Button
+                                        size="xs"
+                                        variant="leetcode"
+                                        onClick={togglePlantUMLDrawer}
+                                    >
+                                        <ChevronLeft className="h-5 w-5" />
+                                    </Button>
+                                </div>
+                            </div>
+                        </div>
+                        <Editor
+                            height="100%"
+                            className="editor-container"
+                            theme="vs-dark"
+                            defaultLanguage="java"
+                            // defaultValue={HOME_DATA.defaultPlantUMLSource}
+                            value={ConvertViewModel.plantUMLSource}
+                            options={{
+                                minimap: { enabled: false },
+                                language: 'java',
+                                quickSuggestions: false,
+                                parameterHints: { enabled: false },
+                            }}
+                            onChange={(value) =>
+                                ConvertViewModel.setPlantUMLSource(value)
+                            }
+                            onMount={onMount}
+                        />
                     </ResizablePanel>
 
                     <ResizableHandle
@@ -415,6 +404,7 @@ const Home = observer(() => {
                                     <ErrorMessage />
                                 </div>
                             </ResizablePanel>
+
                             <ResizableHandle
                                 withHandle
                                 className={cn({ hidden: !isMermaidDrawerOpen })}
@@ -485,6 +475,10 @@ const Home = observer(() => {
                         </ResizablePanelGroup>
                     </ResizablePanel>
                 </ResizablePanelGroup>
+            </div>
+
+            <div className="fixed bottom-4 right-4 cursor-pointer transition-all duration-200 ease-in-out">
+                <ChatSupport isMermaidOpen={isMermaidDrawerOpen} />
             </div>
         </>
     )
