@@ -16,13 +16,13 @@ const MOBILE_BREAKPOINT = 400
 
 const suggestions = [
     {
-        description: 'Create a class diagram Email system',
+        description: 'Create a simple class diagram Email system',
     },
     {
-        description: 'Create a class diagram E-commerce system',
+        description: 'Create a simple class diagram E-commerce system',
     },
     {
-        description: 'Create a class diagram library management system',
+        description: 'Create a simple class diagram Chat system',
     },
 ]
 

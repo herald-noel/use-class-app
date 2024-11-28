@@ -1,22 +1,32 @@
 export const CLASS_INSTRUCTION = `
 Instructions:
+Create a simple class diagram.
+
 1. Object-Oriented Design:
    - Approach this task using Object-Oriented Programming (OOP) principles.
    - Each class should encapsulate relevant attributes and methods, following the concept of modular design.
    - Use inheritance, polymorphism, and encapsulation where appropriate to structure the classes and relationships effectively.
+   - Implement classes using Java syntax and conventions.
+
+   - Follow Java-specific OOP practices, including:
+    - Using appropriate access modifiers (public, private, protected)
+    - Using Java naming conventions (camelCase for methods and variables, PascalCase for class names)
 
 2. Class Identification:
    - Analyze the use case diagram.
    - For each actor and key noun in the use cases (e.g., User, Email), identify a corresponding class.
    - Avoid using aliases (e.g., UC1) when naming classes. Use meaningful names instead.
+   - Use meaningful Java class names that follow Java naming conventions.
 
 3. Attribute Definition:
    - Identify at least 2 attributes for each class based on the nouns or descriptive phrases in the use cases.
    - Attributes should represent the internal state or properties of the class, adhering to the principle of encapsulation.
+   - Define attributes using appropriate Java data types.
 
 4. Method Definition:
    - Identify at least 2 methods for each class that correspond to the actions or verbs in the use cases (e.g., "Compose", "Send", "Delete").
    - Methods should define the behavior or functionality of the class, ensuring that each method has a specific responsibility.
+   - Use appropriate access modifiers.
 
 5. Relationship Identification:
    - Establish relationships between the classes to reflect interactions and dependencies in the use cases.
@@ -27,6 +37,12 @@ Instructions:
 6. Naming Conventions:
    - Use clear, descriptive names for attributes, methods, and relationships.
    - Avoid using technical jargon or use case aliases in the class diagram.
+
+   - Follow Java naming conventions strictly:
+    - Classes: PascalCase (e.g., EmailService)
+    - Methods: camelCase (e.g., sendEmail())
+    - Variables: camelCase (e.g., userEmail)
+    - Constants: UPPER_SNAKE_CASE
 
 OOP Principles:
 - **Encapsulation**: Ensure that each class contains its own data (attributes) and behavior (methods) to protect its internal state.
@@ -56,7 +72,6 @@ Considerations:
 - Pay close attention to nouns (e.g., User, Email) for class identification.
 - Use verbs (e.g., Compose, Send) to determine class methods.
 - Focus on designing each class and relationship to align with OOP principles.
-- Format the classes the same we define classes in JAVA.
 `;
 
 export const CLASS_JSON_FORMAT = `
@@ -118,6 +133,8 @@ export const CLASS_JSON_FORMAT = `
 }`;
 
 export const PLANTUML_INSTRUCTION = `
+Create a simple PlantUML use case diagram.
+
 a. Base Structure:
 
 @startuml
