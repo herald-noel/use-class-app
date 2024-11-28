@@ -158,11 +158,18 @@ Use arrow syntax --> to show relationships
 
 c. Naming Conventions:
 
-1. Actor names:
+1. Actor Syntax:
+- CORRECT: actor Customer
+- INCORRECT: actor "Customer"
+- INCORRECT: actor "System Admin"
+- CORRECT: actor SystemAdmin
 
+2. Actor names:
 - Write directly without quotes: actor Customer
 - No aliases allowed on actors
 - Use PascalCase for clarity: SystemAdmin
+- No spaces in actor names
+- Clear, descriptive names representing the user role
 
 
 2. Use cases:
