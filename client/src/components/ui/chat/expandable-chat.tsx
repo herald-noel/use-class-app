@@ -10,7 +10,7 @@ export type ChatSize = 'sm' | 'md' | 'lg' | 'xl' | 'full'
 
 const chatConfig = {
     dimensions: {
-        sm: 'sm:max-w-xs sm:max-h-[400px]',
+        sm: 'sm:max-w-md sm:max-h-[400px]',
         md: 'sm:max-w-md sm:max-h-[600px]',
         lg: 'sm:max-w-lg sm:max-h-[700px]',
         xl: 'sm:max-w-xl sm:max-h-[800px]',
@@ -123,7 +123,7 @@ const ExpandableChatHeader: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
 }) => (
     <div
         className={cn(
-            'flex items-center justify-between p-4 border-b',
+            'flex items-center justify-between p-4 border-b border-[#dc2626]',
             className
         )}
         {...props}
@@ -142,7 +142,7 @@ ExpandableChatBody.displayName = 'ExpandableChatBody'
 const ExpandableChatFooter: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
     className,
     ...props
-}) => <div className={cn('border-t p-4', className)} {...props} />
+}) => <div className={cn('border-t border-[#dc2626] p-4', className)} {...props} />
 
 ExpandableChatFooter.displayName = 'ExpandableChatFooter'
 

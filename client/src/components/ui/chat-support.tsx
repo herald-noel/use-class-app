@@ -89,11 +89,8 @@ const ChatSupport: React.FC<ChatSupportProps> = ({ isMermaidOpen }) => {
     return (
         <ExpandableChat isMermaidOpen={isMermaidOpen} size="sm">
             <ExpandableChatHeader className="flex-col text-center justify-center">
-                <h1 className="text-xl font-semibold">Chat with our AI ✨</h1>
-                <p>Ask any question for our AI to answer</p>
-                {/* <div className="flex gap-2 items-center pt-2">
-                    <Button variant="secondary">See FAQ</Button>
-                </div> */}
+                <h1 className="text-xl font-semibold">Generate new class diagram ✨</h1>
+                <p>Type your idea you want to create.</p>
             </ExpandableChatHeader>
             <ExpandableChatBody>
                 <ScrollArea className="h-full w-full">
@@ -119,7 +116,7 @@ const ChatSupport: React.FC<ChatSupportProps> = ({ isMermaidOpen }) => {
                 <ScrollArea className="w-full">
                     <div className="flex gap-2 w-full">
                         <ChatInput
-                            placeholder="Generate use case diagram in plantuml here."
+                            placeholder="Enter here."
                             value={userPrompt}
                             onChange={handleInputChange}
                             ref={textareaRef}
