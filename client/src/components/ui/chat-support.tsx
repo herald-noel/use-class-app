@@ -89,7 +89,9 @@ const ChatSupport: React.FC<ChatSupportProps> = ({ isMermaidOpen }) => {
     return (
         <ExpandableChat isMermaidOpen={isMermaidOpen} size="sm">
             <ExpandableChatHeader className="flex-col text-center justify-center">
-                <h1 className="text-xl font-semibold">Generate new class diagram ✨</h1>
+                <h1 className="text-xl font-semibold">
+                    Generate new class diagram ✨
+                </h1>
                 <p>Type your idea you want to create.</p>
             </ExpandableChatHeader>
             <ExpandableChatBody>
@@ -120,13 +122,16 @@ const ChatSupport: React.FC<ChatSupportProps> = ({ isMermaidOpen }) => {
                             value={userPrompt}
                             onChange={handleInputChange}
                             ref={textareaRef}
+                            disabled={ConvertViewModel.isLoading}
                         />
                         <Button
                             type="submit"
                             size="icon"
                             className="mt-4"
                             onClick={handleSubmit}
-                            disabled={userPrompt === ''}
+                            disabled={
+                                userPrompt === '' || ConvertViewModel.isLoading
+                            }
                         >
                             <Send className="size-4" />
                         </Button>
