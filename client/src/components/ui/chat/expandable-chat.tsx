@@ -80,6 +80,7 @@ const ExpandableChat: React.FC<ExpandableChatProps> = ({
 
     return (
         <div
+            ref={chatRef}
             className={cn(
                 `fixed ${getPosition()} z-50 transition-all duration-300 ease-in-out`,
                 className
@@ -87,7 +88,6 @@ const ExpandableChat: React.FC<ExpandableChatProps> = ({
             {...props}
         >
             <div
-                ref={chatRef}
                 className={cn(
                     'flex flex-col bg-background border sm:rounded-lg shadow-md overflow-hidden transition-all duration-250 ease-out sm:absolute sm:w-[90vw] sm:h-[80vh] fixed inset-0 w-full h-full sm:inset-auto',
                     chatConfig.chatPositions[position],
@@ -97,14 +97,6 @@ const ExpandableChat: React.FC<ExpandableChatProps> = ({
                 )}
             >
                 {children}
-                <Button
-                    variant="ghost"
-                    size="icon"
-                    className="absolute top-2 right-2 sm:hidden"
-                    onClick={toggleChat}
-                >
-                    <X className="h-4 w-4" />
-                </Button>
             </div>
             <ExpandableChatToggle
                 icon={icon}
@@ -142,7 +134,12 @@ ExpandableChatBody.displayName = 'ExpandableChatBody'
 const ExpandableChatFooter: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
     className,
     ...props
-}) => <div className={cn('border-t border-[#dc2626] p-4', className)} {...props} />
+}) => (
+    <div
+        className={cn('border-t border-[#dc2626] p-4', className)}
+        {...props}
+    />
+)
 
 ExpandableChatFooter.displayName = 'ExpandableChatFooter'
 
@@ -163,12 +160,10 @@ const ExpandableChatToggle: React.FC<ExpandableChatToggleProps> = ({
     <Button
         variant="default"
         onClick={toggleChat}
-        className={cn(
-            'w-14 h-14 rounded-full shadow-md flex items-center justify-center hover:shadow-lg hover:shadow-black/30 transition-all duration-300',
-            className
-        )}
+        className={cn(className)}
         {...props}
     >
+        <span className="mr-3">Generate Diagram via Chat</span>
         {isOpen ? (
             <X className="h-6 w-6" />
         ) : (

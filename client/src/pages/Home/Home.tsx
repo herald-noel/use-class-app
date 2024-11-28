@@ -20,7 +20,6 @@ import {
     CircleUser,
     Loader2,
     PanelsTopLeft,
-    BotMessageSquare,
 } from 'lucide-react'
 import SaveButton from '@/components/save-button'
 import {
@@ -477,9 +476,7 @@ const Home = observer(() => {
                 </ResizablePanelGroup>
             </div>
 
-            <div className="fixed bottom-4 right-4 cursor-pointer transition-all duration-200 ease-in-out">
-                <ChatSupport isMermaidOpen={isMermaidDrawerOpen} />
-            </div>
+            <ChatSupport isMermaidOpen={isMermaidDrawerOpen} />
         </>
     )
 })
