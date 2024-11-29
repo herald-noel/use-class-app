@@ -5,6 +5,7 @@ import ConvertViewModel from '@/viewModels/ConvertViewModel'
 import { Button } from './ui/button'
 import { Download, PlusIcon, MinusIcon, Maximize } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { useFullscreen } from '../hooks/useFullscreen'
 
 const PlantUMLPreview = ({ isDownload }) => {
     const [imageSource, setImageSource] = useState('')
@@ -12,6 +13,7 @@ const PlantUMLPreview = ({ isDownload }) => {
     const [loading, setLoading] = useState(true)
     const imageRef = useRef<HTMLImageElement>(null)
     const [zoomLevel, setZoomLevel] = useState(1)
+    const toggleFullscreen = useFullscreen(imageRef)
 
     useEffect(() => {
         const encodedSource = plantumlEncoder.encode(
@@ -50,22 +52,6 @@ const PlantUMLPreview = ({ isDownload }) => {
 
     const handleDecreaseZoom = () => {
         setZoomLevel((prev) => Math.max(prev - 0.1, 0.5))
-    }
-
-    const toggleFullScreen = () => {
-        if (imageRef.current) {
-            if (!document.fullscreenElement) {
-                imageRef.current.style.backgroundColor = 'white' // Set background color
-                imageRef.current.requestFullscreen().catch((err) => {
-                    console.error(
-                        `Error attempting to enable full-screen mode: ${err.message} (${err.name})`
-                    )
-                })
-            } else {
-                imageRef.current.style.backgroundColor = '' // Reset background color
-                document.exitFullscreen()
-            }
-        }
     }
 
     return (
@@ -111,7 +97,7 @@ const PlantUMLPreview = ({ isDownload }) => {
                         hidden: !isDownload,
                     })}
                     variant="outline"
-                    onClick={toggleFullScreen}
+                    onClick={toggleFullscreen}
                 >
                     <Maximize />
                 </Button>
@@ -122,26 +108,17 @@ const PlantUMLPreview = ({ isDownload }) => {
                 </div>
             )}
 
-            <div
-                className="overflow-auto"
+            <img
+                ref={imageRef}
+                className="min-h-[350px] min-w-[300px] object-contain"
+                src={imageSource}
+                alt="PlantUML Diagram"
+                onLoad={handleImageLoad}
                 style={{
-                    width: '100%',
-                    height: '100%',
+                    display: loading ? 'none' : 'block',
+                    transform: `scale(${zoomLevel})`,
                 }}
-            >
-                <img
-                    ref={imageRef}
-                    className="object-contain"
-                    src={imageSource}
-                    alt="PlantUML Diagram"
-                    onLoad={handleImageLoad}
-                    style={{
-                        display: loading ? 'none' : 'block',
-                        transform: `scale(${zoomLevel})`,
-                        transformOrigin: 'top left',
-                    }}
-                />
-            </div>
+            />
         </div>
     )
 }

@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button'
 import { useEffect, useRef, useState } from 'react'
 import { Download, PlusIcon, MinusIcon, Minimize, Maximize } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { useFullscreen } from '../hooks/useFullscreen'
 
 const ClassDiagram = ({ source, isDownload }) => {
     const [dimensions, setDimensions] = useState({
@@ -11,6 +12,7 @@ const ClassDiagram = ({ source, isDownload }) => {
         minHeight: 500,
     })
     const containerRef = useRef(null)
+    const toggleFullscreen = useFullscreen(containerRef)
 
     useEffect(() => {
         mermaid.initialize({ startOnLoad: false, theme: 'neutral' })
@@ -77,21 +79,6 @@ const ClassDiagram = ({ source, isDownload }) => {
         }))
     }
 
-    const toggleFullScreen = () => {
-        if (containerRef.current) {
-            if (!document.fullscreenElement) {
-                containerRef.current.style.backgroundColor = 'white'
-                containerRef.current.requestFullscreen().catch((err) => {
-                    console.error(
-                        `Error attempting to enable full-screen mode: ${err.message} (${err.name})`
-                    )
-                })
-            } else {
-                document.exitFullscreen()
-            }
-        }
-    }
-
     return (
         <>
             <div className="flex-col fixed right-3 top-3 mt-16 mr-4">
@@ -131,7 +118,7 @@ const ClassDiagram = ({ source, isDownload }) => {
                         hidden: !isDownload,
                     })}
                     variant="outline"
-                    onClick={toggleFullScreen}
+                    onClick={toggleFullscreen}
                 >
                     <Maximize />
                 </Button>
