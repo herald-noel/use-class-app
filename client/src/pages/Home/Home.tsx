@@ -293,7 +293,7 @@ const Home = observer(() => {
                                     src="plantuml.svg"
                                     className="size-10 pb-1"
                                 />
-                                <div className="flex-col justify-center items-center text-center">
+                                <div className="flex-col justify-center items-center text-center space-y-1">
                                     <div>
                                         <h4 className="text-xs text-foreground font-medium">
                                             Use Case
