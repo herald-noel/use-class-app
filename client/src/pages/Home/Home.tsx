@@ -299,11 +299,16 @@ const Home = observer(() => {
                             <div className="flex items-center space-x-2 px-8 py-2">
                                 <img
                                     src="plantuml.svg"
-                                    className="w-7 h-7 pb-1"
+                                    className="size-10 pb-1"
                                 />
-                                <h4 className="text-sm text-foreground font-medium">
-                                    PlantUML Code
-                                </h4>
+                                <div className="flex-col">
+                                    <h4 className="text-sm text-foreground font-medium">
+                                        Use Case Diagram
+                                    </h4>
+                                    <p className="text-xs text-foreground font-thin opacity-60">
+                                        PlantUML Code
+                                    </p>
+                                </div>
                             </div>
                             <div className=" flex space-x-1 p-1">
                                 <Button
@@ -416,14 +421,19 @@ const Home = observer(() => {
                                 className={cn({ hidden: !isMermaidDrawerOpen })}
                             >
                                 <div className="bg-secondary flex items-center justify-between">
-                                    <div className="flex items-center space-x-2 px-8 py-2">
+                                    <div className='flex items-center space-x-2 y-2 p-2 px-8'>
                                         <img
                                             src="mermaid.svg"
-                                            className="w-4 h-6 pb-1 pt-1"
+                                            className="size-7"
                                         />
-                                        <h4 className="text-sm text-foreground font-medium">
-                                            Mermaid Code
-                                        </h4>
+                                        <div className="flex-col">
+                                            <h4 className="text-sm text-foreground font-medium">
+                                                Class Diagram
+                                            </h4>
+                                            <p className="text-xs text-foreground font-thin opacity-60">
+                                                Mermaid Code
+                                            </p>
+                                        </div>
                                     </div>
                                     <div className="p-1 op-mermaid-button flex">
                                         <DropdownMenuDiagram
@@ -456,17 +466,27 @@ const Home = observer(() => {
                                 />
                             </ResizablePanel>
                             {!isMermaidDrawerOpen && (
-                                <div className="flex p-2 justify-end">
+                                <div className="flex justify-between items-center bg-secondary rounded-lg">
+                                    <div className='flex items-center space-x-2 y-2 p-2 px-8'>
+                                        <img
+                                            src="mermaid.svg"
+                                            className="size-7"
+                                        />
+                                        <div className="flex-col">
+                                            <h4 className="text-sm text-foreground font-medium">
+                                                Class Diagram
+                                            </h4>
+                                            <p className="text-xs text-foreground font-thin opacity-60">
+                                                Mermaid Code
+                                            </p>
+                                        </div>
+                                    </div>
                                     <Button
                                         size="sm"
                                         variant="leetcode"
                                         onClick={toggleMermaidDrawer}
                                         className="space-x-1"
                                     >
-                                        <img
-                                            src="mermaid.svg"
-                                            className="w-5 h-5"
-                                        />
                                         <ChevronUp className="h-5 w-5" />
                                     </Button>
                                 </div>
