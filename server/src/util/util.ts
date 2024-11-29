@@ -18,7 +18,7 @@ module.exports.convertPlantUmlToMermaid = async (
         content: prompt,
       },
     ],
-    model: "llama-3.2-11b-vision-preview",
+    model: "llama3-8b-8192",
     response_format: { type: "json_object" },
   });
 };
