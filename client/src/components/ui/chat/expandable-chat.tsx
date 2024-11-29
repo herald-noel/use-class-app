@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useRef, useState, useEffect } from 'react'
-import { X, MessageCircle } from 'lucide-react'
+import { X, MessageSquareText } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 
@@ -89,7 +89,7 @@ const ExpandableChat: React.FC<ExpandableChatProps> = ({
         >
             <div
                 className={cn(
-                    'flex flex-col bg-background border sm:rounded-lg shadow-md overflow-hidden transition-all duration-250 ease-out sm:absolute sm:w-[90vw] sm:h-[80vh] fixed inset-0 w-full h-full sm:inset-auto',
+                    'flex flex-col bg-background sm:rounded-lg shadow-md overflow-hidden transition-all duration-250 ease-out sm:absolute sm:w-[90vw] sm:h-[80vh] fixed inset-0 w-full h-full sm:inset-auto',
                     chatConfig.chatPositions[position],
                     chatConfig.dimensions[size],
                     isOpen ? chatConfig.states.open : chatConfig.states.closed,
@@ -102,6 +102,7 @@ const ExpandableChat: React.FC<ExpandableChatProps> = ({
                 icon={icon}
                 isOpen={isOpen}
                 toggleChat={toggleChat}
+                className='bg-primary flex justify-center items-center'
             />
         </div>
     )
@@ -115,7 +116,7 @@ const ExpandableChatHeader: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
 }) => (
     <div
         className={cn(
-            'flex items-center justify-between p-4 border-b border-[#dc2626]',
+            'flex items-center justify-between p-4 border-b border-primary',
             className
         )}
         {...props}
@@ -136,7 +137,7 @@ const ExpandableChatFooter: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
     ...props
 }) => (
     <div
-        className={cn('border-t border-[#dc2626] p-4', className)}
+        className={cn('border-t border-primary p-4', className)}
         {...props}
     />
 )
@@ -163,12 +164,12 @@ const ExpandableChatToggle: React.FC<ExpandableChatToggleProps> = ({
         className={cn(className)}
         {...props}
     >
-        <span className="mr-3">Generate Diagram via Chat</span>
         {isOpen ? (
             <X className="h-6 w-6" />
         ) : (
-            icon || <MessageCircle className="h-6 w-6" />
+            icon || <MessageSquareText className="size-6" />
         )}
+        <span className="ml-3">Generate Diagram</span>
     </Button>
 )
 

@@ -90,7 +90,7 @@ const ChatSupport: React.FC<ChatSupportProps> = ({ isMermaidOpen }) => {
         <ExpandableChat isMermaidOpen={isMermaidOpen} size="sm">
             <ExpandableChatHeader className="flex-col text-center justify-center">
                 <h1 className="text-xl font-semibold">
-                    Generate new class diagram ✨
+                    Generate new diagram ✨
                 </h1>
                 <p>Type your idea you want to create.</p>
             </ExpandableChatHeader>
