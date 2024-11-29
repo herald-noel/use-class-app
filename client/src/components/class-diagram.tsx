@@ -2,7 +2,7 @@ import mermaid from 'mermaid'
 import html2canvas from 'html2canvas'
 import { Button } from '@/components/ui/button'
 import { useEffect, useRef, useState } from 'react'
-import { Download, PlusIcon, MinusIcon } from 'lucide-react'
+import { Download, PlusIcon, MinusIcon, Minimize, Maximize } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 const ClassDiagram = ({ source, isDownload }) => {
@@ -77,6 +77,21 @@ const ClassDiagram = ({ source, isDownload }) => {
         }))
     }
 
+    const toggleFullScreen = () => {
+        if (containerRef.current) {
+            if (!document.fullscreenElement) {
+                containerRef.current.style.backgroundColor = 'white'
+                containerRef.current.requestFullscreen().catch((err) => {
+                    console.error(
+                        `Error attempting to enable full-screen mode: ${err.message} (${err.name})`
+                    )
+                })
+            } else {
+                document.exitFullscreen()
+            }
+        }
+    }
+
     return (
         <>
             <div className="flex-col fixed right-3 top-3 mt-16 mr-4">
@@ -92,7 +107,7 @@ const ClassDiagram = ({ source, isDownload }) => {
                 </Button>
                 <Button
                     size="xs"
-                    className={cn('absolute right-3 top-14', {
+                    className={cn('absolute right-3 top-[50px]', {
                         hidden: !isDownload,
                     })}
                     variant="outline"
@@ -102,13 +117,23 @@ const ClassDiagram = ({ source, isDownload }) => {
                 </Button>
                 <Button
                     size="xs"
-                    className={cn('absolute right-3 top-24', {
+                    className={cn('absolute right-3 top-[88px]', {
                         hidden: !isDownload,
                     })}
                     variant="outline"
                     onClick={handleDecreaseSize}
                 >
                     <MinusIcon />
+                </Button>
+                <Button
+                    size="xs"
+                    className={cn('absolute right-3 top-[126px]', {
+                        hidden: !isDownload,
+                    })}
+                    variant="outline"
+                    onClick={toggleFullScreen}
+                >
+                    <Maximize />
                 </Button>
             </div>
 

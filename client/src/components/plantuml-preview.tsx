@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 
 import ConvertViewModel from '@/viewModels/ConvertViewModel'
 import { Button } from './ui/button'
-import { Download, PlusIcon, MinusIcon } from 'lucide-react'
+import { Download, PlusIcon, MinusIcon, Maximize } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 const PlantUMLPreview = ({ isDownload }) => {
@@ -52,10 +52,26 @@ const PlantUMLPreview = ({ isDownload }) => {
         setZoomLevel((prev) => Math.max(prev - 0.1, 0.5))
     }
 
+    const toggleFullScreen = () => {
+        if (imageRef.current) {
+            if (!document.fullscreenElement) {
+                imageRef.current.style.backgroundColor = 'white' // Set background color
+                imageRef.current.requestFullscreen().catch((err) => {
+                    console.error(
+                        `Error attempting to enable full-screen mode: ${err.message} (${err.name})`
+                    )
+                })
+            } else {
+                imageRef.current.style.backgroundColor = '' // Reset background color
+                document.exitFullscreen()
+            }
+        }
+    }
+
     return (
         <div
             className={
-                'flex justify-center w-full min-h-[650px] min-w-[300px] overflow-y-auto'
+                'flex justify-center w-full min-h-[650px] min-w-[300px] overflow-hidden'
             }
         >
             <div className="fixed right-3 top-3 flex flex-col mt-16 mr-4">
@@ -71,7 +87,7 @@ const PlantUMLPreview = ({ isDownload }) => {
                 </Button>
                 <Button
                     size="xs"
-                    className={cn('absolute right-3 top-14', {
+                    className={cn('absolute right-3  top-[50px]', {
                         hidden: !isDownload,
                     })}
                     variant="outline"
@@ -81,13 +97,23 @@ const PlantUMLPreview = ({ isDownload }) => {
                 </Button>
                 <Button
                     size="xs"
-                    className={cn('absolute right-3 top-24', {
+                    className={cn('absolute right-3 top-[88px]', {
                         hidden: !isDownload,
                     })}
                     variant="outline"
                     onClick={handleDecreaseZoom}
                 >
                     <MinusIcon />
+                </Button>
+                <Button
+                    size="xs"
+                    className={cn('absolute right-3 top-[126px]', {
+                        hidden: !isDownload,
+                    })}
+                    variant="outline"
+                    onClick={toggleFullScreen}
+                >
+                    <Maximize />
                 </Button>
             </div>
             {loading && (
@@ -96,17 +122,26 @@ const PlantUMLPreview = ({ isDownload }) => {
                 </div>
             )}
 
-            <img
-                ref={imageRef}
-                className="min-h-[350px] min-w-[300px] object-contain"
-                src={imageSource}
-                alt="PlantUML Diagram"
-                onLoad={handleImageLoad}
+            <div
+                className="overflow-auto"
                 style={{
-                    display: loading ? 'none' : 'block',
-                    transform: `scale(${zoomLevel})`,
+                    width: '100%',
+                    height: '100%',
                 }}
-            />
+            >
+                <img
+                    ref={imageRef}
+                    className="object-contain"
+                    src={imageSource}
+                    alt="PlantUML Diagram"
+                    onLoad={handleImageLoad}
+                    style={{
+                        display: loading ? 'none' : 'block',
+                        transform: `scale(${zoomLevel})`,
+                        transformOrigin: 'top left',
+                    }}
+                />
+            </div>
         </div>
     )
 }
