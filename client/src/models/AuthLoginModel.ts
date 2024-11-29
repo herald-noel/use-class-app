@@ -45,7 +45,6 @@ class AuthLoginModel {
 
     login = async (credentials: credentials): Promise<UserCredential> => {
         try {
-            await setPersistence(auth, browserLocalPersistence)
             const response = await signInWithEmailAndPassword(
                 auth,
                 credentials.email,
