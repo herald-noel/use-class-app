@@ -279,16 +279,39 @@ const Home = observer(() => {
                     className="border-none"
                 >
                     {!isPlantUMLDrawerOpen && (
-                        <div className="flex p-2 ">
+                        <div className="flex-col justify-center items-center p-3 bg-secondary rounded-lg">
                             <Button
                                 size="sm"
                                 variant="leetcode"
                                 onClick={togglePlantUMLDrawer}
                                 className="space-x-1"
                             >
-                                <img src="plantuml.svg" className="w-5 h-5" />
                                 <ChevronRight className="h-5 w-5" />
                             </Button>
+                            <div className='flex-col space-y-2'>
+                                <img
+                                    src="plantuml.svg"
+                                    className="size-10 pb-1"
+                                />
+                                <div className="flex-col justify-center items-center text-center">
+                                    <div>
+                                        <h4 className="text-xs text-foreground font-medium">
+                                            Use Case
+                                        </h4>
+                                        <h4 className="text-xs text-foreground font-medium">
+                                            Diagram
+                                        </h4>
+                                    </div>
+                                    <div>
+                                        <p className="text-xs text-foreground font-thin opacity-60">
+                                            PlantUML
+                                        </p>
+                                        <p className="text-xs text-foreground font-thin opacity-60">
+                                            Code
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     )}
                     <ResizablePanel
@@ -421,7 +444,7 @@ const Home = observer(() => {
                                 className={cn({ hidden: !isMermaidDrawerOpen })}
                             >
                                 <div className="bg-secondary flex items-center justify-between">
-                                    <div className='flex items-center space-x-2 y-2 p-2 px-8'>
+                                    <div className="flex items-center space-x-2 y-2 p-2 px-8">
                                         <img
                                             src="mermaid.svg"
                                             className="size-7"
@@ -467,7 +490,7 @@ const Home = observer(() => {
                             </ResizablePanel>
                             {!isMermaidDrawerOpen && (
                                 <div className="flex justify-between items-center bg-secondary rounded-lg">
-                                    <div className='flex items-center space-x-2 y-2 p-2 px-8'>
+                                    <div className="flex items-center space-x-2 p-2 px-8">
                                         <img
                                             src="mermaid.svg"
                                             className="size-7"
