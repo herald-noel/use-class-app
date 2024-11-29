@@ -2,8 +2,9 @@ import mermaid from 'mermaid'
 import html2canvas from 'html2canvas'
 import { Button } from '@/components/ui/button'
 import { useEffect, useRef, useState } from 'react'
-import { Download, PlusIcon, MinusIcon } from 'lucide-react'
+import { Download, PlusIcon, MinusIcon, Minimize, Maximize } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { useFullscreen } from '../hooks/useFullscreen'
 
 const ClassDiagram = ({ source, isDownload }) => {
     const [dimensions, setDimensions] = useState({
@@ -11,6 +12,7 @@ const ClassDiagram = ({ source, isDownload }) => {
         minHeight: 500,
     })
     const containerRef = useRef(null)
+    const toggleFullscreen = useFullscreen(containerRef)
 
     useEffect(() => {
         mermaid.initialize({ startOnLoad: false, theme: 'neutral' })
@@ -92,7 +94,7 @@ const ClassDiagram = ({ source, isDownload }) => {
                 </Button>
                 <Button
                     size="xs"
-                    className={cn('absolute right-3 top-14', {
+                    className={cn('absolute right-3 top-[50px]', {
                         hidden: !isDownload,
                     })}
                     variant="outline"
@@ -102,13 +104,23 @@ const ClassDiagram = ({ source, isDownload }) => {
                 </Button>
                 <Button
                     size="xs"
-                    className={cn('absolute right-3 top-24', {
+                    className={cn('absolute right-3 top-[88px]', {
                         hidden: !isDownload,
                     })}
                     variant="outline"
                     onClick={handleDecreaseSize}
                 >
                     <MinusIcon />
+                </Button>
+                <Button
+                    size="xs"
+                    className={cn('absolute right-3 top-[126px]', {
+                        hidden: !isDownload,
+                    })}
+                    variant="outline"
+                    onClick={toggleFullscreen}
+                >
+                    <Maximize />
                 </Button>
             </div>
 

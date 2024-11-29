@@ -3,8 +3,9 @@ import { useEffect, useRef, useState } from 'react'
 
 import ConvertViewModel from '@/viewModels/ConvertViewModel'
 import { Button } from './ui/button'
-import { Download, PlusIcon, MinusIcon } from 'lucide-react'
+import { Download, PlusIcon, MinusIcon, Maximize } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { useFullscreen } from '../hooks/useFullscreen'
 
 const PlantUMLPreview = ({ isDownload }) => {
     const [imageSource, setImageSource] = useState('')
@@ -12,6 +13,7 @@ const PlantUMLPreview = ({ isDownload }) => {
     const [loading, setLoading] = useState(true)
     const imageRef = useRef<HTMLImageElement>(null)
     const [zoomLevel, setZoomLevel] = useState(1)
+    const toggleFullscreen = useFullscreen(imageRef)
 
     useEffect(() => {
         const encodedSource = plantumlEncoder.encode(
@@ -55,7 +57,7 @@ const PlantUMLPreview = ({ isDownload }) => {
     return (
         <div
             className={
-                'flex justify-center w-full min-h-[650px] min-w-[300px] overflow-y-auto'
+                'flex justify-center w-full min-h-[650px] min-w-[300px] overflow-hidden'
             }
         >
             <div className="fixed right-3 top-3 flex flex-col mt-16 mr-4">
@@ -71,7 +73,7 @@ const PlantUMLPreview = ({ isDownload }) => {
                 </Button>
                 <Button
                     size="xs"
-                    className={cn('absolute right-3 top-14', {
+                    className={cn('absolute right-3  top-[50px]', {
                         hidden: !isDownload,
                     })}
                     variant="outline"
@@ -81,13 +83,23 @@ const PlantUMLPreview = ({ isDownload }) => {
                 </Button>
                 <Button
                     size="xs"
-                    className={cn('absolute right-3 top-24', {
+                    className={cn('absolute right-3 top-[88px]', {
                         hidden: !isDownload,
                     })}
                     variant="outline"
                     onClick={handleDecreaseZoom}
                 >
                     <MinusIcon />
+                </Button>
+                <Button
+                    size="xs"
+                    className={cn('absolute right-3 top-[126px]', {
+                        hidden: !isDownload,
+                    })}
+                    variant="outline"
+                    onClick={toggleFullscreen}
+                >
+                    <Maximize />
                 </Button>
             </div>
             {loading && (
