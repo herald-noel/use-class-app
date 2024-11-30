@@ -169,7 +169,7 @@ const ExpandableChatToggle: React.FC<ExpandableChatToggleProps> = ({
         ) : (
             icon || <MessageSquareText className="size-6" />
         )}
-        <span className="ml-3">Generate Diagram</span>
+        <span className="ml-2">Generate Diagram</span>
     </Button>
 )
 

@@ -16,6 +16,7 @@ import { observer } from 'mobx-react'
 import { useToast } from '@/components/ui/use-toast'
 import { isTitleValid } from '@/utils/validation'
 import { SaveDiagramToast } from '@/utils/saveDiagramToast'
+import { Save } from 'lucide-react'
 
 const SaveButton = observer(() => {
     const { toast } = useToast()
@@ -50,7 +51,7 @@ const SaveButton = observer(() => {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button variant="outline">Save</Button>
+                <Button variant="outline" className='bg-primary'> <Save className='mr-2 size-5'/>Save</Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>

@@ -20,6 +20,7 @@ import {
     CircleUser,
     Loader2,
     PanelsTopLeft,
+    RefreshCw,
 } from 'lucide-react'
 import SaveButton from '@/components/save-button'
 import {
@@ -226,13 +227,15 @@ const Home = observer(() => {
                 </div>
                 <div className="flex gap-2">
                     <Button
-                        className="convert-button"
+                        className="convert-button bg-green-700"
                         variant="outline"
                         disabled={ConvertViewModel.isLoading}
                         onClick={handleConvert}
                     >
-                        {ConvertViewModel.isLoading && (
+                        {ConvertViewModel.isLoading ? (
                             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        ) : (
+                            <RefreshCw className="mr-2 size-5" />
                         )}
                         Convert
                     </Button>
@@ -352,10 +355,9 @@ const Home = observer(() => {
                                     size="xs"
                                     variant="leetcode"
                                     className="toggle-diagram-button"
+                                    onClick={handleToggleDiagram}
                                 >
-                                    <PanelsTopLeft
-                                        onClick={handleToggleDiagram}
-                                    />
+                                    <PanelsTopLeft />
                                 </Button>
                                 <div className="flex">
                                     <Button
