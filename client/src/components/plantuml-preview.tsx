@@ -57,7 +57,7 @@ const PlantUMLPreview = ({ isDownload }) => {
     return (
         <div
             className={
-                'flex justify-center w-full min-h-[650px] min-w-[300px] overflow-hidden'
+                'flex justify-center w-full min-h-[650px] min-w-[300px] overflow-y-auto'
             }
         >
             <div className="fixed right-3 top-3 flex flex-col mt-16 mr-4">
