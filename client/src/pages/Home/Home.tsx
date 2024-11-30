@@ -352,10 +352,9 @@ const Home = observer(() => {
                                     size="xs"
                                     variant="leetcode"
                                     className="toggle-diagram-button"
+                                    onClick={handleToggleDiagram}
                                 >
-                                    <PanelsTopLeft
-                                        onClick={handleToggleDiagram}
-                                    />
+                                    <PanelsTopLeft />
                                 </Button>
                                 <div className="flex">
                                     <Button
