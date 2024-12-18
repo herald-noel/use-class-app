@@ -77,17 +77,18 @@ UseClass is a web application that streamlines the process of converting Use-Cas
    ```
 
 2. Replace `your_copied_api_key_here` with the actual API key you copied
+
 ### Run the server
 
-   - Development mode:
-     ```bash
-     npm run dev
-     ```
-   - Production mode:
-     ```bash
-     npm run build
-     npm start
-     ```
+- Development mode:
+  ```bash
+  npm run dev
+  ```
+- Production mode:
+  ```bash
+  npm run build
+  npm start
+  ```
 
 ## Client Setup
 
@@ -133,8 +134,8 @@ VITE_FIREBASE_APP_ID=your_app_id
 VITE_FIREBASE_MEASUREMENT_ID=your_measurement_id
 VITE_FIREBASE_DATABASE_URL=https://your_project.firebaseio.com
 
-# API Base URL (if applicable)
-VITE_API_BASE_URL=https://your-api-domain.com
+# API Base URL
+VITE_API_BASE_URL=<server_url_here>
 
 # Environment
 VITE_ENV=development
