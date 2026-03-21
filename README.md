@@ -2,6 +2,11 @@
 
 UseClass is a web application that streamlines the process of converting Use-Case Diagrams into Class Diagrams. Simply input your Use-Case Diagram in PlantUML format, and UseClass automatically generates the corresponding Class Diagram using Mermaid, saving time and effort in system design.
 
+<img width="1919" height="909" alt="image" src="https://github.com/user-attachments/assets/c46b960e-1174-4140-90b4-25e449a9272d" />
+
+<img width="1917" height="907" alt="image" src="https://github.com/user-attachments/assets/fff4f0e7-9abd-4786-91bc-3564123ed2ed" />
+
+
 # 📚 Technology Stack
 
 ### Frontend
